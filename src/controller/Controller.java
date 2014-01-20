@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
 
 	public void init() throws ServletException {
         Model model = new Model(getServletConfig());
-
+        System.out.println("Initialization completed.");
         /*
         Action.add(new AddAction(model));
         Action.add(new DeleteAction(model));

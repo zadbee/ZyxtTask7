@@ -1,11 +1,13 @@
 package databeans;
 
+import org.genericdao.PrimaryKey;
+
 //import java.util.Arrays;
 //import java.util.Collections;
 //import java.util.List;
 
 
-
+@PrimaryKey("customer_id")
 public class Position {
 //	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
 //			".jpg", ".gif", ".JPG"

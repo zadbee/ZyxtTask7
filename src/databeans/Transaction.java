@@ -21,7 +21,7 @@ public class Transaction {
 	private Date execute_date = null;
 	private String shares = null;
 	private String transaction_type = null;
-	private Long amount = 0L;
+	private long amount = 0L;
 	
     
 	public int getCustomer_id() {
@@ -72,11 +72,11 @@ public class Transaction {
 		this.transaction_type = transaction_type;
 	}
 
-	public Long getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Long amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 

@@ -22,7 +22,7 @@ public class Customer {
 	private String addr_line2 = null;
 	private String city = null;
 	private String state = null;
-	private Long zip = 0L;
+	private int zip = 0;
 	private double cash = 0.0;
     
 	public int getCustomer_id() {
@@ -97,11 +97,11 @@ public class Customer {
 		this.state = state;
 	}
 
-	public Long getZip() {
+	public int getZip() {
 		return zip;
 	}
 
-	public void setZip(Long zip) {
+	public void setZip(int zip) {
 		this.zip = zip;
 	}
 
