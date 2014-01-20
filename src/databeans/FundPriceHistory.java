@@ -17,7 +17,7 @@ public class FundPriceHistory {
 
 	private int    fund_id          = -1;
 	private Date price_date		   = null; 
-	private Long price     = 0L;
+	private long price     = 0L;
 	public int getFund_id() {
 		return fund_id;
 	}
@@ -30,10 +30,10 @@ public class FundPriceHistory {
 	public void setPrice_date(Date price_date) {
 		this.price_date = price_date;
 	}
-	public Long getPrice() {
+	public long getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	
