@@ -23,13 +23,11 @@ public class Controller extends HttpServlet {
 
 	public void init() throws ServletException {
         Model model = new Model(getServletConfig());
-        System.out.println("Initialization completed.");
-        /*
-        Action.add(new AddAction(model));
-        Action.add(new DeleteAction(model));
-        Action.add(new LoginAction(model));
-        Action.add(new LogoutAction(model));
-        Action.add(new ToDoListAction(model));*/
+        
+        Action.add(new Cus_LoginAction(model));
+        Action.add(new Emp_LoginAction(model));
+        Action.add(new Cus_LogoutAction(model));
+        Action.add(new Emp_LogoutAction(model));
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,19 +48,13 @@ public class Controller extends HttpServlet {
     private String performTheAction(HttpServletRequest request) {
         HttpSession session     = request.getSession(true);
         String      servletPath = request.getServletPath();
-        /*
-        User        user = (User) session.getAttribute("user");*/
-        String      action = getActionName(servletPath);
-        /*
-        if (user == null) {
-        	// If the user hasn't logged in, so login is the only option
-			return Action.perform("login.do",request);
-        }
         
-        if (action.equals("welcome")) {
-        	// User is logged in, but at the root of our web app
-			return Action.perform("todolist.do",request);
-        }*/
+        String      action = getActionName(servletPath);
+        String 		identity = (String) session.getAttribute("identity");
+        
+        // User is not logged in or at the root of the app.
+        if (identity == null || action.equals("welcome"))
+        	return "index.jsp";
         
       	// Let the logged in user run his chosen action
 		return Action.perform(action,request);

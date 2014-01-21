@@ -1,0 +1,32 @@
+package controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import model.CustomerDAO;
+import model.Model;
+
+public class Cus_LogoutAction extends Action {
+	private CustomerDAO customerDAO;
+	
+    public Cus_LogoutAction(Model model) { customerDAO = model.getCustomerDAO(); }
+	@Override
+	public String getName() {
+		return "cus-logout.do";
+	}
+
+	@Override
+	public String perform(HttpServletRequest request) {
+		ArrayList<String> errors = new ArrayList<String>();
+		request.setAttribute("errors",errors);
+		
+        HttpSession session = request.getSession(false);
+        session.setAttribute("customer", null);
+        session.setAttribute("identity", null);
+
+		request.setAttribute("message","You are now logged out!");
+        return "success.jsp";
+    }
+}

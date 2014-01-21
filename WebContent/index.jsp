@@ -64,9 +64,9 @@
                         <h3>The easiest way to buy and sell mutual funds.</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
-                            <li><a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<span class="network-name">Login as customer</span></a>
+                            <li><a href="cus-login.jsp" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<span class="network-name">Login as customer</span></a>
                             </li>
-                            <li><a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<span class="network-name">Login as employee</span></a>
+                            <li><a href="emp-login.jsp" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<span class="network-name">Login as employee</span></a>
                             </li>
                         </ul>
                     </div>
