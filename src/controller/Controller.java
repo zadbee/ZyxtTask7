@@ -28,12 +28,9 @@ public class Controller extends HttpServlet {
         Action.add(new Cus_LogoutAction(model));
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
-<<<<<<< HEAD
         Action.add(new Emp_ChangePwdAction(model));
 
-=======
         Action.add(new HomePageAction());
->>>>>>> 66ec31cfc06cd1c834bbc630f259c2b68d87c859
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
