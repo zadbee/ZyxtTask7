@@ -14,7 +14,6 @@ public class Cus_RegisterAction extends Action {
 	public String getName() {
 		// TODO Auto-generated method stub
 		return "cust_register.do";
-		return null;
 	}
 
 	@Override
