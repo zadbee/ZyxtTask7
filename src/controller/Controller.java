@@ -23,14 +23,17 @@ public class Controller extends HttpServlet {
 
 	public void init() throws ServletException {
         Model model = new Model(getServletConfig());
-        
         Action.add(new Cus_LoginAction(model));
         Action.add(new Cus_ChangePwdAction(model));
         Action.add(new Cus_LogoutAction(model));
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
+<<<<<<< HEAD
         Action.add(new Emp_ChangePwdAction(model));
 
+=======
+        Action.add(new HomePageAction());
+>>>>>>> 66ec31cfc06cd1c834bbc630f259c2b68d87c859
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,7 +84,7 @@ public class Controller extends HttpServlet {
     	}
     	
     	if (nextPage.endsWith(".jsp")) {
-	   		RequestDispatcher d = request.getRequestDispatcher("WEB-INF/" + nextPage);
+	   		RequestDispatcher d = request.getRequestDispatcher(nextPage);
 	   		d.forward(request,response);
 	   		return;
     	}
