@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.EmployeeDAO;
 import model.Model;
 
 import org.genericdao.GenericDAO;
@@ -18,7 +19,7 @@ public class Emp_ChangePwdAction extends Action{
 	private FormBeanFactory<Emp_ChangePwdForm> formBeanFactory = FormBeanFactory
 			.getInstance(Emp_ChangePwdForm.class);
 
-	private GenericDAO<Employee> employeeDAO;
+	private EmployeeDAO employeeDAO;
 
 	public Emp_ChangePwdAction(Model model) {
 		employeeDAO = model.getEmployeeDAO();
@@ -34,20 +35,22 @@ public class Emp_ChangePwdAction extends Action{
 
 		try {
 			Emp_ChangePwdForm form = formBeanFactory.create(request);
-			Employee employee = (Employee) request.getSession().getAttribute("employee");
 
 			//Employee employee = (Employee) request.getSession(false).getAttribute("employee");
-            if(employee == null) {
+            /*if(employee == null) {
                 return "employee-login.do";
-            }
+            }*/
            
-			request.setAttribute("form", form);
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
 				return "change-pwd-emp.jsp";
 			}
+			request.setAttribute("form", form);
+			Employee employee = (Employee) request.getSession().getAttribute("employee");
+			employeeDAO.setPassword(employee.getUsername(),form.getNewPassword());
+
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
@@ -55,11 +58,12 @@ public class Emp_ChangePwdAction extends Action{
 				System.out.println(errors.toString());
 				return "change-pwd-emp.jsp";
 			}
-		
+			
 			// Change the password
-			employee.setPassword(form.getNewPassword());
+
+			/*employee.setPassword(form.getNewPassword());
 			employeeDAO.read(employee.getUsername());
-            employeeDAO.update(employee);
+            employeeDAO.update(employee);*/
 			//employeeDAO.setPassword(employee.getUsername(), form.getNewPassword());
 			
 			request.setAttribute("message","Password changed for "+employee.getUsername());
