@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.CustomerDAO;
-import model.EmployeeDAO;
 import model.Model;
 
 import org.mybeans.form.FormBeanFactory;
@@ -37,6 +36,7 @@ public class Emp_ResetPwdAction extends Action{
 
 		try {
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+
             if(employee == null) {
                 return "employee-login.do";
             }

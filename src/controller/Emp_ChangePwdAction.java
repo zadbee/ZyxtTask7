@@ -5,19 +5,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import model.EmployeeDAO;
 import model.Model;
 
+import org.genericdao.GenericDAO;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Employee;
+import formbeans.Cus_ChangePwdForm;
 import formbeans.Emp_ChangePwdForm;
 
 public class Emp_ChangePwdAction extends Action{
 	private FormBeanFactory<Emp_ChangePwdForm> formBeanFactory = FormBeanFactory
 			.getInstance(Emp_ChangePwdForm.class);
 
-	private EmployeeDAO employeeDAO;
+	private GenericDAO<Employee> employeeDAO;
 
 	public Emp_ChangePwdAction(Model model) {
 		employeeDAO = model.getEmployeeDAO();
@@ -32,11 +33,14 @@ public class Emp_ChangePwdAction extends Action{
 		request.setAttribute("errors", errors);
 
 		try {
-		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+			Emp_ChangePwdForm form = formBeanFactory.create(request);
+			Employee employee = (Employee) request.getSession().getAttribute("employee");
+
+			//Employee employee = (Employee) request.getSession(false).getAttribute("employee");
             if(employee == null) {
                 return "employee-login.do";
             }
-			Emp_ChangePwdForm form = formBeanFactory.create(request);
+           
 			request.setAttribute("form", form);
 			// If no params were passed, return with no errors so that the form
 			// will be
@@ -53,13 +57,16 @@ public class Emp_ChangePwdAction extends Action{
 			}
 		
 			// Change the password
-			employeeDAO.setPassword(employee.getUsername(), form.getNewPassword());
+			employee.setPassword(form.getNewPassword());
+            employeeDAO.update(employee);
+			//employeeDAO.setPassword(employee.getUsername(), form.getNewPassword());
 			
-			request.setAttribute("message","Password changed for "+employee.getUserId());
-	        return "getcustomers.do";
+			request.setAttribute("message","Password changed for "+employee.getUsername());
+	        return "success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
-      	return "change-pwd-emp.jsp";
+      	//Unsure
+      	return "login.jsp";
       }
 	}
 }
