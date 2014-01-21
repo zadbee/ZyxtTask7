@@ -22,6 +22,7 @@ public class Model {
 	public Model(ServletConfig config) throws ServletException {
 		String jdbcDriver = config.getInitParameter("jdbcDriverName");
 		String jdbcURL    = config.getInitParameter("jdbcURL");
+		System.out.println("Debug: " + jdbcDriver + " " + jdbcURL);
 		
 		ConnectionPool pool = new ConnectionPool(jdbcDriver,jdbcURL);
 		

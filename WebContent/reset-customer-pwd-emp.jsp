@@ -11,10 +11,11 @@
 <body>
 
 <div id="container">
-    <jsp:include page="template-section-navigation-emp.jsp" />
+    <jsp:include page="template-top-emp.jsp" />
     <div id="content-container">
        
         <div class="content">
+<%--
 <%
 Customer customer = (Customer)session.getAttribute("cus");
 if(customer !=null) {
@@ -42,6 +43,9 @@ if(customer !=null) {
 <%
 }
 %>
+
+ --%>
+
         <jsp:include page="template-footer.jsp" />
     </div>
 </div>
