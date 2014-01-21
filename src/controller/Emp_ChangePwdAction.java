@@ -58,6 +58,7 @@ public class Emp_ChangePwdAction extends Action{
 		
 			// Change the password
 			employee.setPassword(form.getNewPassword());
+			employeeDAO.read(employee.getUsername());
             employeeDAO.update(employee);
 			//employeeDAO.setPassword(employee.getUsername(), form.getNewPassword());
 			

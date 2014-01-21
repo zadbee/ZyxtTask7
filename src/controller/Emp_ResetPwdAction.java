@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,7 +66,9 @@ public class Emp_ResetPwdAction extends Action{
 				errors.add("No such users!");
 			}
 			// Change the password
-			newPwd = customerDAO.resetPassword(username);
+			Random random = new Random();
+			newPwd = String.valueOf(random.nextInt(1024)+1);
+			customerDAO.setPassword(username, newPwd);
 			if(newPwd == null || newPwd.length() == 0)
 				errors.add("No such user!");
 			else
