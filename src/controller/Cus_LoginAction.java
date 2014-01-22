@@ -52,17 +52,12 @@ public class Cus_LoginAction extends Action {
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        
-	        System.out.println("1");
-	        
 	        if (errors.size() != 0) {   	
 	            return "cus-login.jsp";
 	        }
 	        
-	        // Look up the user
-	        System.out.println("2");
-	        
+	        // Look up the user        
 	        Customer cus = customerDAO.readByName(form.getUsername());
-	        System.out.println("3");
 	        if (cus == null) {
 	            errors.add("User" + form.getUsername() + "not found");
 	            return "cus-login.jsp";

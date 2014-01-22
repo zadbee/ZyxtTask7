@@ -1,3 +1,4 @@
+<%@page import="databeans.Customer"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,27 +45,28 @@
                     <div class="col-md-12">
                         <p class="lead">Personal Profile</p>
                     </div>
-					
+					<%Customer customer = (Customer) session.getAttribute("customer");
+					if(customer == null) {
+					    out.print("There is no customer information found in session!");
+					    return;
+					}
+					%>
 					<div class="col-md-12">
                         <table class="table">
-                            <thead>
+                             <tbody>
                                 <tr>
                                     <th>Name</th>
-                                    <td>John Doe</td>
+                                    <td><%=customer.getFirstname()+" "+customer.getLastname()%></td>
                                 </tr>
-                            </thead>
-                            <tbody>
                                 <tr>
                                     <th>Address</th>
-                                    <td>1111 Forbes Avenue, Pittsburgh, PA</td>
-                                </tr>
-                                <tr>
-                                    <th>Last Trading Day</td>
-                                    <td>01/15/2014</td>
+                                    <td><%=customer.getAddr_line1()+", "+customer.getAddr_line2()+", "+customer.getCity()+", "
+                                    		+customer.getState()+", "+customer.getZip()
+                                    %></td>
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td>1000.00</td>
+									<td><%="$"+" "+customer.getCash()%></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -109,7 +111,8 @@
                 </div>
             </div>
         </div>
-
+        
+    <jsp:include page="template-footer.jsp" />
     </div>
 
     <!-- JavaScript -->
@@ -123,6 +126,7 @@
         $("#wrapper").toggleClass("active");
     });
     </script>
+
 </body>
 
 </html>
