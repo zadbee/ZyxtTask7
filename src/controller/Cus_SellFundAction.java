@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.CustomerDAO;
 import model.FundDAO;
-import model.HistoryDAO;
+import model.FundHistDAO;
 import model.Model;
-import model.PositionDAO;
-import model.TransactionDAO;
+import model.PosDAO;
+import model.TransDAO;
 
 import org.mybeans.form.FormBeanFactory;
 
@@ -19,27 +19,25 @@ import databeans.Customer;
 import databeans.Fund;
 import databeans.Position;
 import databeans.Transaction;
-
 import formbeans.Cus_SellFundForm;
 
 public class Cus_SellFundAction extends Action{
 	private FormBeanFactory<Cus_SellFundForm> formBeanFactory = FormBeanFactory
 			.getInstance(Cus_SellFundForm.class);
 	
-	private TransactionDAO transactionDAO;
-	private PositionDAO positionDAO;
+	private TransDAO transactionDAO;
+	private PosDAO positionDAO;
 	private CustomerDAO customerDAO;
 	private FundDAO fundDAO;
-	private HistoryDAO historyDAO;
+	private FundHistDAO historyDAO;
 	public Cus_SellFundAction(Model model) {
 		transactionDAO = model.getTransDAO();
-		positionDAO = model.getPositionDAO();
+		positionDAO = model.getPosDAO();
 		customerDAO = model.getCustomerDAO();
 		fundDAO = model.getFundDAO();
-		historyDAO = model.getHistoryDAO();
+		historyDAO = model.getFundHistDAO();
 	}
 	public String getName() {
-		
 		return "cus_sellFund.do";
 	}
 	public String perform(HttpServletRequest request) {

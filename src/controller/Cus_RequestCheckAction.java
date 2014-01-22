@@ -13,8 +13,8 @@ import databeans.Customer;
 import databeans.Transaction;
 import formbeans.Cus_RequestCheckForm;
 import formbeans.Emp_DepositCheckForm;
-
 import model.Model;
+import model.TransDAO;
 import model.TransactionDAO;
 import model.CustomerDAO;
 import model.MyDAOException;
@@ -23,7 +23,7 @@ import model.MyDAOException;
 public class Cus_RequestCheckAction extends Action {   
     private FormBeanFactory<Cus_RequestCheckForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RequestCheckForm.class);
     private CustomerDAO customerDAO;
-    private TransactionDAO transactionDAO;
+    private TransDAO transactionDAO;
     
     public Cus_RequestCheckAction(Model model) {
         customerDAO = model.getCustomerDAO();

@@ -4,7 +4,7 @@
 <%@page import="utility.Format" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +26,10 @@
 </head>
 
 <body>
-	<!-- Template -->
-	<jsp:include page="template-top-cus.jsp" />
-	
+	<div id="wrapper">
+	    <!-- Template -->
+		<jsp:include page="template-top-cus.jsp" />
+
         <!-- Page content -->
         <div id="page-content-wrapper">
             <div class="content-header">
@@ -42,12 +43,12 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Buy Fund</li>
+                    <li class="active">Sell Fund</li>
                 </ol>
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">Buy Fund</p>
+                        <p class="lead">Sell Fund</p>
                     </div>
                     <div class="col-md-5">
                         <div class="input-group">
@@ -62,7 +63,7 @@
                     <div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)">
+                            <input type="text" class="form-control" placeholder="Shares (No more than you have)">
                                 </div>
                     </div>
                     <div class="col-md-12">
@@ -73,22 +74,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default">Buy Now</button>
+                            <button type="button" class="btn btn-default" name="button">Sell Now</button>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead">Your Current Balance</p>
-                        <button type="button" class="btn btn-default">
-                            <span>$ 102234.232</span>
-                        </button>
-                    </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <p class="lead"></p>
                     </div>
                     <div class="col-md-12">
@@ -110,23 +99,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%
-								ArrayList<Fund> fundList = new ArrayList<Fund>();
-                            	fundList = request.getAttribute("funds");
-                            	int i=1;
-                            	for(Fund x: fundList){
-                            %>
-                                <tr>
-                                    <td><%i++;%></td>
-                                    <td><%x.getName();%></td>
-                                    <td><%x.getShares();%></td>
-                                    <td><%x.getPrice();%></td>
-                                    <td><%x.getDate(); %></td>
-                                    
-                                </tr>
-                              <%
-                            	}
-                              %>
                             </tbody>
                         </table>
                     </div>
@@ -134,8 +106,7 @@
                 </div>
             </div>
         </div>
-
-    </div>
+   	</div>
 
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>

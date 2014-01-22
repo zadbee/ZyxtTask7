@@ -7,15 +7,13 @@ import org.genericdao.PrimaryKey;
 //import java.util.List;
 
 
-@PrimaryKey("customer_id")
-public class Position {
-//	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
-//			".jpg", ".gif", ".JPG"
-//	} ));
+@PrimaryKey("customer_id" "fund_id")
 
-	private int    customer_id          = -1;
-	private String fund_id = null; 
-	private int shares     = -1;
+public class Position {
+	private int    	customer_id  = -1;
+	private String 	fund_id 	 = null; 
+	private int 	shares     	 = -1;
+	
 	public int getCustomer_id() {
 		return customer_id;
 	}

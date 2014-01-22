@@ -4,7 +4,7 @@
 <%@page import="utility.Format" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +26,10 @@
 </head>
 
 <body>
-    <!-- Template -->
-	<jsp:include page="template-top-cus.jsp" />
-
+	<div id="wrapper">
+		<!-- Template -->
+		<jsp:include page="template-top-cus.jsp" />
+	
         <!-- Page content -->
         <div id="page-content-wrapper">
             <div class="content-header">
@@ -42,17 +43,30 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Sell Fund</li>
+                    <li class="active">Buy Fund</li>
                 </ol>
-                
+<%
+Customer customer = (Customer) session.getAttribute("customer");
+if(customer == null) {
+    out.print("There is no customer information found in session!");
+    return;
+}
+%>
+<%
+Fund fund = (Fund) session.getAttribute("fund");
+if(fund == null){
+    out.print("You need to select a fund first");
+    return;
+}
+%>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">Sell Fund</p>
+                        <p class="lead">Buy Fund</p>
                     </div>
                     <div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" placeholder="Fund Name">
+                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fund">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -62,7 +76,7 @@
                     <div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" placeholder="Shares (No more than you have)">
+                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
                                 </div>
                     </div>
                     <div class="col-md-12">
@@ -73,10 +87,22 @@
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" name="button">Sell Now</button>
+                            <button type="button" class="btn btn-default">Buy Now</button>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                        <p class="lead"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Your Current Balance</p>
+                        <button type="button" class="btn btn-default">
+                            <span><%customer.getCash();%></span>
+                        </button>
+                    </div>
+                    <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
                     <div class="col-md-12">
@@ -89,6 +115,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                
                                     <th>#</th>
                                     <th>Fund Name</th>
                                     <th>Shares</th>
@@ -98,23 +125,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%
-								ArrayList<Fund> fundList = new ArrayList<Fund>();
-                            	fundList = request.getAttribute("funds");
-                            	int i=1;
-                            	for(Fund x: fundList){
-                            %>
                                 <tr>
-                                    <td><%i++;%></td>
-                                    <td><%x.getName();%></td>
-                                    <td><%x.getShares();%></td>
-                                    <td><%x.getPrice();%></td>
-                                    <td><%x.getDate(); %></td>
-                                    
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
                                 </tr>
-                              <%
-                            	}
-                              %>
                             </tbody>
                         </table>
                     </div>
@@ -122,7 +139,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- JavaScript -->

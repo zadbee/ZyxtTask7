@@ -11,5 +11,6 @@ public class TransDAO extends GenericDAO<Transaction> {
 	public TransDAO(ConnectionPool pool, String tableName) throws DAOException {
 		super(Transaction.class, tableName, pool);
 	}
-
+	
+	
 }

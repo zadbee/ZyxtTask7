@@ -2,12 +2,13 @@ package controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.CustomerDAO;
 import model.Model;
 
 public class Cus_RegisterAction extends Action {
 	
 	public Cus_RegisterAction(Model model) {
-		customerDAO = model.getCustomerDAO();
+		CustomerDAO customerDAO = model.getCustomerDAO();
 	}
 	
 	@Override

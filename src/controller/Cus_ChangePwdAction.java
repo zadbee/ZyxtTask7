@@ -61,7 +61,6 @@ public class Cus_ChangePwdAction extends Action {
 				return "change-pwd-cus.jsp";
 			}
 			
-			customerDAO.setPassword(customer.getCustomer_id(), form.getNewPassword());
 			
 			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
 			return "success.jsp";

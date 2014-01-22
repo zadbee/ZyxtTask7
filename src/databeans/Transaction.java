@@ -13,15 +13,16 @@ import org.genericdao.PrimaryKey;
 public class Transaction {
 //	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
 //			".jpg", ".gif", ".JPG"
-//	} ));
+//	}
 
-	private int    transaction_id          = -1;
-	private int customer_id		   = -1; 
-	private int fund_id     = -1;
-	private Date execute_date = null;
-	private String shares = null;
+	private int transaction_id    = -1;
+	private int customer_id		  = -1; 
+	private int fund_id     	  = -1;
+	private Date execute_date 	  = null;
+	private String shares 		  = null;
 	private String transaction_type = null;
 	private long amount = 0L;
+	private String status;
 	
     
 	public int getCustomer_id() {
@@ -78,6 +79,14 @@ public class Transaction {
 
 	public void setAmount(long amount) {
 		this.amount = amount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

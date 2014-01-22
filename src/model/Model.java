@@ -7,12 +7,12 @@ import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 
 public class Model {
-	private CustomerDAO 	customerDAO;
-	private FundDAO 		fundDAO;
-	private EmployeeDAO		employeeDAO;
-	private FundHistDAO		fundHistDAO;
-	private TransDAO		transDAO;
-	private PosDAO			posDAO;
+	private CustomerDAO 		customerDAO;
+	private FundDAO 			fundDAO;
+	private EmployeeDAO			employeeDAO;
+	private FundHistDAO			fundHistDAO;
+	private TransDAO			transDAO;
+	private PosDAO				posDAO;
 	
 	
 
@@ -28,7 +28,7 @@ public class Model {
 			fundDAO = new FundDAO(pool, "Fund");
 			employeeDAO = new EmployeeDAO(pool,"Employee");
 			fundHistDAO = new FundHistDAO(pool, "FundHisoty");
-			transDAO = new TransDAO(pool,"Transcation");
+			transDAO = new TransDAO(pool,"Transaction");
 			posDAO = new PosDAO(pool,"Position");
 			
 		} catch (DAOException e) {
@@ -43,4 +43,5 @@ public class Model {
 	public FundHistDAO getFundHistDAO() { return fundHistDAO; }
 	public TransDAO getTransDAO() { return transDAO; }
 	public PosDAO getPosDAO() { return posDAO; }
+
 }

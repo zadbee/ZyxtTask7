@@ -29,7 +29,9 @@ public class Controller extends HttpServlet {
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
         Action.add(new Emp_ChangePwdAction(model));
-
+        Action.add(new Cus_BuyFundAction(model));
+        Action.add(new Cus_SellFundAction(model));
+        
         Action.add(new HomePageAction());
     }
 
@@ -53,12 +55,12 @@ public class Controller extends HttpServlet {
         String      servletPath = request.getServletPath();
         
         String      action = getActionName(servletPath);
-        String 		identity = (String) session.getAttribute("identity");
+        //String 		identity = (String) session.getAttribute("identity");
         
         // User is not logged in or at the root of the app.
-        if (identity == null || action.equals("welcome"))
+        if (action.equals("welcome")){
         	return "index.jsp";
-        
+        }
       	// Let the logged in user run his chosen action
 		return Action.perform(action,request);
     }
