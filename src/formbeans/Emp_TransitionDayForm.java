@@ -9,7 +9,7 @@ import utility.AmountCheck;
 import utility.PricePair;
 
 public class Emp_TransitionDayForm {
-	private ArrayList<PricePair> prices = null;
+	public ArrayList<PricePair> prices = null;
 	private ArrayList<String> sprices = null;
 	
 	private String button = null;

@@ -13,10 +13,14 @@ import formbeans.*;
 
 public class Emp_TransitionDayAction extends Action {
 	FundDAO fundDAO;
+	FundHistDAO histDAO;
+	TransDAO transDAO;
 	Emp_TransitionDayForm transForm;
 	
 	public Emp_TransitionDayAction(Model model) {
 		fundDAO = model.getFundDAO();
+		histDAO = model.getFundHistDAO();
+		transDAO = model.getTransDAO();
 	}
 	
 	@Override
@@ -59,8 +63,10 @@ public class Emp_TransitionDayAction extends Action {
 			return "emp-transitionday.jsp";
 		
 		// Update all prices.
+		histDAO.updateAll(transForm.prices);
 		
 		// Handle all pending transactions. 
+		transDAO.clearPending();
 		
 		return null;
 	}
