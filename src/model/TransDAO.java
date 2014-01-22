@@ -12,5 +12,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 		super(Transaction.class, tableName, pool);
 	}
 	
-	
+	public void clearPending() {
+		
+	}
 }
