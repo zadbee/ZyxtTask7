@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import databeans.FundPriceHistory;
 import utility.AmountCheck;
-import utility.PricePair;
 
 public class Emp_TransitionDayForm {
-	public ArrayList<PricePair> prices = null;
+	public ArrayList<FundPriceHistory> prices = null;
 	private ArrayList<String> sprices = null;
 	
 	private String button = null;
@@ -19,10 +19,10 @@ public class Emp_TransitionDayForm {
 	@SuppressWarnings("unchecked")
 	public Emp_TransitionDayForm(HttpServletRequest request) {
 		button = request.getParameter("transbutton");
-		prices = (ArrayList<PricePair>) request.getAttribute("prices");
+		prices = (ArrayList<FundPriceHistory>) request.getAttribute("prices");
 		sprices = new ArrayList<String>();
-		for (PricePair p : prices)
-			sprices.add(request.getParameter("price_" + p.getId())); 
+		for (FundPriceHistory p : prices)
+			sprices.add(request.getParameter("price_" + p.getFund_id())); 
 	}
 	
 	public List<String> getValidationErrors() {

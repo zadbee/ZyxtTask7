@@ -28,7 +28,7 @@ public class Emp_LogoutAction extends Action {
         session.setAttribute("employee", null);
         session.setAttribute("identity", null);
 
-		request.setAttribute("message","You are now logged out!");
-        return "success.jsp";
+		//request.setAttribute("message","You are now logged out!");
+        return "homepage.do";
     }
 }

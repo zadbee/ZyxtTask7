@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://startbootstrap.com">Carnegie Financial Services</a>
+                <a class="navbar-brand" href="#">Hello, ${customer.firstname} ${customer.lastname}! </a>
             </div>
             
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,7 +42,7 @@
                     <li><a href="#contact">Contact</a>
                     </li>
                     </li>
-                    <li><a href="logout-cus.do">Logout</a>
+                    <li><a href="cus-logout.do">Logout</a>
                     </li>
                 </ul>
             </div>
