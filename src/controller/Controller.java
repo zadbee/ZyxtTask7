@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.RollbackException;
+
 import controller.*;
 import databeans.*;
 import model.*;
@@ -33,6 +35,27 @@ public class Controller extends HttpServlet {
         Action.add(new Cus_SellFundAction(model));
         
         Action.add(new HomePageAction());
+        try {
+			if (model.getCustomerDAO().readByName("123") == null) {
+				Customer user = new Customer();
+				user.setAddr_line1("Pitts");
+				user.setAddr_line2("Pitts");
+				user.setCash(100.00);
+				user.setCity("Pittsburgh");
+				user.setFirstname("John");
+				user.setLastname("Smith");
+				user.setPassword("aaa");
+				user.setUsername("123");
+				user.setState("PA");
+				user.setZip(15213);
+				model.getCustomerDAO().createAutoIncrement(user);
+				System.out.println("User created.");
+			}
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Insertion failed");
+			e.printStackTrace();
+		}
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

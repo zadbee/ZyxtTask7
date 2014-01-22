@@ -9,9 +9,6 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("fund_id")
 public class Fund {
-//	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
-//			".jpg", ".gif", ".JPG"
-//	} ));
 
 	private int    fund_id     = 0;
 	private String name		   = null; 

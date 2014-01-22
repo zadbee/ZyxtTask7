@@ -25,13 +25,7 @@ public class Cus_LoginForm extends FormBean {
         ArrayList<String> errors = new ArrayList<String>();
 
         if (username == null || username.length() == 0) errors.add("Username is required");
-        System.out.println(username);
         if (password == null || password.length() == 0) errors.add("Password is required");
-<<<<<<< HEAD
-        
-=======
-        System.out.println(password);
->>>>>>> d4b9b308b0f84ccd6505bd100858e425327efca6
         if (errors.size() > 0) return errors;
 
         if (username.matches(".*[<>\"].*")) errors.add("E-mail address may not contain angle brackets or quotes");
