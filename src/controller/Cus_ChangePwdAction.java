@@ -29,10 +29,11 @@ public class Cus_ChangePwdAction extends Action {
 		
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
 		try {
-		    
+
 			Cus_ChangePwdForm form = formBeanFactory.create(request);
+			System.out.println("1");
+
 
 			/*Customer customer = (Customer) request.getSession(false).getAttribute("customer");
             
@@ -40,9 +41,11 @@ public class Cus_ChangePwdAction extends Action {
                 return "login-cus.jsp";
             }*/
             if (!form.isPresent()) {
-				return "change-pwd-cus.jsp";
+				return "cus-change-pwd.jsp";
 			}
 			request.setAttribute("form", form);
+			System.out.println("a");
+
 			Customer customer = (Customer) request.getSession().getAttribute("customer");
 			customerDAO.setPassword(customer.getCustomer_id(),form.getNewPassword());
 
@@ -58,7 +61,7 @@ public class Cus_ChangePwdAction extends Action {
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				System.out.println(errors.toString());
-				return "change-pwd-cus.jsp";
+				return "cus-change-pwd.jsp";
 			}
 			
 			
@@ -67,7 +70,7 @@ public class Cus_ChangePwdAction extends Action {
 	       // return "viewportfolio.do";
 	  } catch (Exception e) {
       	errors.add(e.toString());
-      	return "viewPortafolio.jsp";
+      	return "error-list.jsp";
       }
 	}
 }

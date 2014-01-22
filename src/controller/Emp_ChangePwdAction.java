@@ -45,7 +45,7 @@ public class Emp_ChangePwdAction extends Action{
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				return "change-pwd-emp.jsp";
+				return "emp-change-pwd.jsp";
 			}
 			request.setAttribute("form", form);
 			Employee employee = (Employee) request.getSession().getAttribute("employee");
@@ -56,7 +56,7 @@ public class Emp_ChangePwdAction extends Action{
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				System.out.println(errors.toString());
-				return "change-pwd-emp.jsp";
+				return "emp-change-pwd.jsp";
 			}
 			
 			// Change the password
