@@ -33,4 +33,21 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	public void setPassword(String username, String password) throws RollbackException {
+        try {
+        	Transaction.begin();
+			Customer dbCustomer = read(username);
+			
+			if (dbCustomer == null) {
+				throw new RollbackException("Username "+username+" no longer exists");
+			}
+			
+			dbCustomer.setPassword(password);
+			
+			update(dbCustomer);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 }
