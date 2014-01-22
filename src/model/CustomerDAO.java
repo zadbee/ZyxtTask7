@@ -1,12 +1,10 @@
-//I am trying to test git
-
-
 package model;
 
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
@@ -16,6 +14,14 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	public CustomerDAO(ConnectionPool pool, String tableName) throws DAOException {
 		super(Customer.class, tableName, pool);
 	}
+	public Customer readByName(String name) throws RollbackException {
+		Customer[] tmp = match(MatchArg.equals("username", name));
+		if (tmp.length == 0)
+			return null;
+		else
+			return tmp[0];
+	}
+	
 	public void setPassword(int userid, String password) throws RollbackException {
         try {
         	Transaction.begin();

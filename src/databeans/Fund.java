@@ -9,13 +9,10 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("fund_id")
 public class Fund {
-//	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
-//			".jpg", ".gif", ".JPG"
-//	} ));
 
 	private int    fund_id     = 0;
 	private String name		   = null; 
-	private String symbol     = null;
+	private String symbol      = null;
 	// Easier for querying the price.
 	private int price = 0;
 	
@@ -39,5 +36,5 @@ public class Fund {
 	}
 	
 	public int getPrice() { return price; }
-	public void setPrice(int _price) { price = _price; }
+	public void setPrice(int price) { this.price = price; }
 }

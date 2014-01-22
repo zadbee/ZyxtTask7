@@ -13,17 +13,17 @@ public class Customer {
 //			".jpg", ".gif", ".JPG"
 //	} ));
 
-	private int    customer_id          = -1;
+	private int    customer_id     = -1;
 	private String username		   = null; 
-	private String password     = null;
-	private String firstname = null;
-	private String lastname = null;
-	private String addr_line1 = null;
-	private String addr_line2 = null;
-	private String city = null;
-	private String state = null;
-	private int zip = 0;
-	private double cash = 0.0;
+	private String password        = null;
+	private String firstname 	   = null;
+	private String lastname 	   = null;
+	private String addr_line1      = null;
+	private String addr_line2  	   = null;
+	private String city 		   = null;
+	private String state 		   = null;
+	private int zip 			   = 0;
+	private double cash 		   = 0.0;
     
 	public int getCustomer_id() {
 		return customer_id;

@@ -42,30 +42,41 @@ public class Cus_LoginAction extends Action {
         try {
 	    	Cus_LoginForm form = formBeanFactory.create(request);
 	        // request.setAttribute("form",form);
-
+	    	 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
 	            return "cus-login.jsp";
 	        }
+	        
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        
-	        if (errors.size() != 0) {
+	        System.out.println("1");
+	        
+	        if (errors.size() != 0) {   	
 	            return "cus-login.jsp";
 	        }
+	        
 	        // Look up the user
-	        Customer cus = customerDAO.read(form.getUsername());
+	        System.out.println("2");
+	        
+	        Customer cus = customerDAO.readByName(form.getUsername());
+	        System.out.println("3");
 	        if (cus == null) {
 	            errors.add("User" + form.getUsername() + "not found");
 	            return "cus-login.jsp";
 	        }
+	        
+	       
+	        
 	        // Check the password
 	        if (!cus.getPassword().equals(form.getPassword())) {
 	            errors.add("Incorrect password");
 	            return "cus-login.jsp";
 	        }
-	
+	        
+	        
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer", cus);
@@ -73,10 +84,10 @@ public class Cus_LoginAction extends Action {
 	        return "cus-view-account.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "cus-login.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "cus-login.jsp";
 		}
 	}
 }
