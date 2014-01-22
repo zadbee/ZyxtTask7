@@ -7,11 +7,11 @@ import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 
 public class Model {
-	private CustomerDAO 					customerDAO;
-	private FundDAO 						fundDAO;
-	private EmployeeDAO			employeeDAO;
+	private CustomerDAO 	customerDAO;
+	private FundDAO 		fundDAO;
+	private EmployeeDAO		employeeDAO;
 	private FundHistDAO		fundHistDAO;
-	private TransDAO			transDAO;
+	private TransDAO		transDAO;
 	private PosDAO			posDAO;
 	
 	

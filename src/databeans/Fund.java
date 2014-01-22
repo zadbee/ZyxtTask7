@@ -13,14 +13,16 @@ public class Fund {
 //			".jpg", ".gif", ".JPG"
 //	} ));
 
-	private String    fund_id          = null;
+	private int    fund_id     = 0;
 	private String name		   = null; 
 	private String symbol     = null;
+	// Easier for querying the price.
+	private int price = 0;
 	
-	public String getFund_id() {
+	public int getFund_id() {
 		return fund_id;
 	}
-	public void setFund_id(String fund_id) {
+	public void setFund_id(int fund_id) {
 		this.fund_id = fund_id;
 	}
 	public String getName() {
@@ -36,6 +38,6 @@ public class Fund {
 		this.symbol = symbol;
 	}
 	
-    
-	
+	public int getPrice() { return price; }
+	public void setPrice(int _price) { price = _price; }
 }
