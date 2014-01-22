@@ -48,12 +48,10 @@ public class Cus_LoginAction extends Action {
 	        if (!form.isPresent()) {
 	            return "cus-login.jsp";
 	        }
-			System.out.print("1");
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        
 	        if (errors.size() != 0) {
-	        	System.out.print("2");
 	            return "cus-login.jsp";
 	        }
 	        // Look up the user
@@ -62,7 +60,6 @@ public class Cus_LoginAction extends Action {
 	            errors.add("User" + form.getUsername() + "not found");
 	            return "cus-login.jsp";
 	        }
-	        System.out.print("3");
 	        // Check the password
 	        if (!cus.getPassword().equals(form.getPassword())) {
 	            errors.add("Incorrect password");
@@ -73,7 +70,6 @@ public class Cus_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer", cus);
 	        session.setAttribute("identity", "customer");
-	        System.out.print("4");
 	        return "cus-view-account.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
