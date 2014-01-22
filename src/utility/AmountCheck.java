@@ -1,4 +1,4 @@
-package formbeans;
+package utility;
 
 public class AmountCheck {
 	private static final int MAX = 1000000000;

@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import utility.AmountCheck;
+import utility.PricePair;
+
 public class Emp_TransitionDayForm {
 	private ArrayList<PricePair> prices = null;
 	private ArrayList<String> sprices = null;
@@ -19,7 +22,7 @@ public class Emp_TransitionDayForm {
 		prices = (ArrayList<PricePair>) request.getAttribute("prices");
 		sprices = new ArrayList<String>();
 		for (PricePair p : prices)
-			sprices.add(request.getParameter("price_" + p.id)); 
+			sprices.add(request.getParameter("price_" + p.getId())); 
 	}
 	
 	public List<String> getValidationErrors() {

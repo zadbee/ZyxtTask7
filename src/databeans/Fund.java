@@ -16,8 +16,6 @@ public class Fund {
 	private int    fund_id     = 0;
 	private String name		   = null; 
 	private String symbol     = null;
-	// Easier for querying the price.
-	private int price = 0;
 	
 	public int getFund_id() {
 		return fund_id;
@@ -37,7 +35,4 @@ public class Fund {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	
-	public int getPrice() { return price; }
-	public void setPrice(int _price) { price = _price; }
 }

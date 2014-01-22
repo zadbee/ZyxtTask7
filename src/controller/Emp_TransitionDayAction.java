@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
 
+import utility.PricePair;
 import model.*;
 import databeans.*;
 import formbeans.*;
@@ -46,7 +47,7 @@ public class Emp_TransitionDayAction extends Action {
 		// Initialize the fund information for displaying first.
 		// Can also fresh the price if some other employee sets the new price.
 		for (Fund f : funds)
-			prices.add(new PricePair(f.getFund_id(), f.getPrice()));
+			prices.add(new PricePair(f.getFund_id()));
 		
 		transForm = new Emp_TransitionDayForm(request);
 		

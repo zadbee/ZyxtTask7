@@ -1,12 +1,11 @@
-package formbeans;
+package utility;
 
 public class PricePair {
 	int id = -1;
-	int oldprice = 0;
 	int price = 0;
-	public PricePair(int _id, int _oldprice) {
+	public PricePair(int _id) {
 		id = _id;
-		oldprice = _oldprice;
 	}
 	public void setPrice(int _price) { price = _price; }
+	public int getId() { return id; }
 }
