@@ -50,14 +50,14 @@ public class Emp_ResetPwdAction extends Action{
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				return "reset-customer-pwd-emp.jsp";
+				return "emp-reset-customer-pwd.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				System.out.println(errors.toString());
-				return "reset-customer-pwd-emp.jsp";
+				return "emp-reset-customer-pwd.jsp";
 			}
 			
 
@@ -73,10 +73,10 @@ public class Emp_ResetPwdAction extends Action{
 				errors.add("No such user!");
 			else
 				errors.add("The password has been reset to " + newPwd);
-	        return "reset-customer-pwd-emp.jsp";
+	        return "emp-reset-customer-pwd.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
-      	return "reset-customer-pwd-emp.jsp";
+      	return "emp-reset-customer-pwd.jsp";
       }
 	}
 }
