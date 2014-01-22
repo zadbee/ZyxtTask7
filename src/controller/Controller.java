@@ -29,7 +29,9 @@ public class Controller extends HttpServlet {
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
         Action.add(new Emp_ChangePwdAction(model));
-
+        Action.add(new Cus_BuyFundAction(model));
+        Action.add(new Cus_SellFundAction(model));
+        
         Action.add(new HomePageAction());
     }
 

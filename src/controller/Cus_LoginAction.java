@@ -73,7 +73,7 @@ public class Cus_LoginAction extends Action {
 	        session.setAttribute("customer", cus);
 	        session.setAttribute("identity", "customer");
 
-	        return "manage.do";
+	        return "buy-fund-cus.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

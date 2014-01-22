@@ -43,4 +43,5 @@ public class Model {
 	public FundHistDAO getFundHistDAO() { return fundHistDAO; }
 	public TransDAO getTransDAO() { return transDAO; }
 	public PosDAO getPosDAO() { return posDAO; }
+
 }
