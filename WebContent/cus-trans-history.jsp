@@ -110,13 +110,13 @@ if(customer == null) {
                                     <td>N/A</td>
                                     <%} %>
                                     
-                                    <%if(trans[i].getShares()!=-1){%>
+                                    <%if(trans[i].getShares()!=0){%>
                                     <td><%=trans[i].getShares()%></td>
                                     <%}else{%>
                                     <td>N/A</td>
                                     <%} %>
                                     
-                                    <%if(trans[i].getAmount()!=-1){%>
+                                    <%if(trans[i].getAmount()!=0){%>
                                     <td><%=trans[i].getAmount()%></td>
                                     <%}else{%>
                                     <td>N/A</td>

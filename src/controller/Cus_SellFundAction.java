@@ -15,6 +15,7 @@ import model.TransDAO;
 
 import org.mybeans.form.FormBeanFactory;
 
+import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Fund;
 import databeans.Position;
@@ -45,89 +46,50 @@ public class Cus_SellFundAction extends Action{
 		request.setAttribute("errors", errors);
 
 		try {
-		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");
-            
+		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");            
             if(customer == null) {
-                return "login-cus.jsp";
+                return "cus-login.jsp";
             }
             
-            customer = customerDAO.read(customer.getCustomer_id());
-            request.getSession(false).setAttribute("customer", customer);
-		    
-			Cus_SellFundForm form = formBeanFactory.create(request);
-			request.setAttribute("form", form);
-			
-			int customer_id = customer.getCustomer_id();
-			String fundName = form.getFundName();
-			int fundId = Integer.parseInt(form.getFundId());
-			String shares = form.getShares();
-			double dShares;
-			if(shares != null){
-			    try {
-			        dShares = Double.parseDouble(shares);
-			    } catch (NumberFormatException e) {
-			        errors.add("Number is invalid!");
-			        Fund fund = fundDAO.read(fundId);
-			        double totalShares = positionDAO.lookup(customer_id, fund.getFund_id()).getShares();;
-			        fund.setShares(totalShares);
-	                request.setAttribute("fund", fund);                 
-	                return "sell-fund-cus.jsp"; 
-			    }
-			}
-			else
-				 dShares = 0;
-			
-			Fund fund = fundDAO.lookup(fundId);
-			double totalShares = positionDAO.lookup(customer_id, fund.getFund_id()).getShares();;
-		
-			
-			if (shares == null||shares.length() == 0) {			
-				fund.setShares(totalShares);
-				request.setAttribute("fund", fund);					
-                return "sell-fund-cus.jsp";
-			}
-			
-			if(dShares > totalShares)
-				errors.add("You can't sell more than you have!");
-
-			// Any validation errors?
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() != 0) {
-				fund.setShares(totalShares);
-				request.setAttribute("fund", fund);	
-				return "sell-fund-cus.jsp";
-			}
-			
-			
-			Transaction t = new Transaction();
-			t.setCustomer_id(customer_id);
-			
-			int fund_id = fund.getFund_id();
-			
-			
-			t.setFund_id(fund_id);
-			
-			t.setDate(null);
-			
-			
-			t.setTransaction_type("SELL");
-			
-			
-			t.setShares(dShares);
-			t.setStatus("PENDING");
-
-			if(!transactionDAO.createWithUpdate_Sell(t, customer_id, fund_id, dShares)){
-			    errors.add("You don't have enough shares!");
-			    totalShares = positionDAO.lookup(customer_id, fund.getFund_id()).getShares();
-			    fund.setShares(totalShares);
-                request.setAttribute("fund", fund); 
-                return "sell-fund-cus.jsp";
+            Cus_SellFundForm form = formBeanFactory.create(request);
+            
+            errors.addAll(form.getValidationErrors());
+            if (errors.size() > 0)
+            	return "cus-sell-fund.jsp";
+            
+            int fundId = Integer.parseInt(form.getFundId());
+            long shares = AmountCheck.checkShareString(form.getShares());
+            
+            Customer updatedCus = customerDAO.readByName(customer.getUsername());
+            if (updatedCus == null)
+            	return "cus-login.jsp";
+            
+            Position pos = positionDAO.getShares(customer.getCustomer_id(), fundId);            
+            if (pos == null || shares > pos.getShares()) {
+            	errors.add("You do not have enough share of fund " + fundId);
+            	return "cus-sell-fund.jsp";
             }
-			
-	        return "viewportfolio.do";
+            
+            // Position table is updated.
+            pos.setShares(pos.getShares() - shares);
+            positionDAO.update(pos);     
+            
+            // Transaction table is updated.
+            Transaction trans = new Transaction();
+            trans.setCustomer_id(updatedCus.getCustomer_id());
+            trans.setExecute_date(new Date());
+            trans.setFund_id(fundId);
+            trans.setShares(shares);
+            trans.setStatus("PENDING");
+            trans.setTransaction_type("SELL");
+            transactionDAO.createAutoIncrement(trans);
+
+            request.setAttribute("message", 
+					"You have successfully sold " + (shares / 100.0) + "shares of fund " + fundId + ".");
+	        return "cus-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
-      	return "error.jsp";
+      	return "cus_sellFund.do";
       }
 	}
 

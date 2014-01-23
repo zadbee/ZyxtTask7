@@ -16,9 +16,17 @@ public class PosDAO extends GenericDAO<Position>{
 	
 	public Position[] readByCustomerID (int id) throws RollbackException {
 		Position[] tmp = match(MatchArg.equals("customer_id", id));
-		if (tmp.length == 0)
+		if (tmp == null || tmp.length == 0)
 			return null;
 		else
 			return tmp;
 	}
+	
+	public Position getShares(int customer_id, int fund_id) throws RollbackException {
+		Position[] tmp = match(MatchArg.and(MatchArg.equals("customer_id", customer_id), MatchArg.equals("fund_id", fund_id)));
+		if (tmp == null || tmp.length == 0)
+			return null;
+		else
+			return tmp[0];
+ 	}
 }

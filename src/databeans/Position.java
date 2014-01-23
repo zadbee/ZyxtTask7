@@ -8,7 +8,7 @@ public class Position {
 	private int 	position_id = -1;
 	private int    	customer_id = -1;
 	private int 	fund_id 	= -1; 
-	private int 	shares     	= -1;
+	private long 	shares     	= -1;
 	
 	public int getCustomer_id() {
 		return customer_id;
@@ -22,10 +22,10 @@ public class Position {
 	public void setFund_id(int fund_id) {
 		this.fund_id = fund_id;
 	}
-	public int getShares() {
+	public long getShares() {
 		return shares;
 	}
-	public void setShares(int shares) {
+	public void setShares(long shares) {
 		this.shares = shares;
 	}
 	public int getPosition_id() {
