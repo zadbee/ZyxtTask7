@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,7 +48,16 @@ public class Emp_TransitionDayAction extends Action {
 			// Initialize the fund information for displaying first.
 			// Can also fresh the price if some other employee sets the new price.
 			prices.addAll(histDAO.getAll());
-			
+			if (prices.size() == 0) {
+				for (Fund f : funds) {
+					FundPriceHistory tmp = new FundPriceHistory();
+					tmp.setFund_id(f.getFund_id());
+					tmp.setPrice_date(new Date());
+					tmp.setPrice(-1);
+					prices.add(tmp);
+				}
+			}
+			System.out.println(prices.size());
 			transForm = new Emp_TransitionDayForm(request);
 			
 			if (!transForm.isPresent())

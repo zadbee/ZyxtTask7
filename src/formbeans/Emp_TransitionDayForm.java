@@ -28,11 +28,16 @@ public class Emp_TransitionDayForm {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		for (int i = 0; i < prices.size(); i++) {
-			int np = AmountCheck.checkString(sprices.get(i));
-			if (np < 0)
-				errors.add(AmountCheck.getErrorByCode(sprices.get(i), np));
-			prices.get(i).setPrice(np);
+		for (int i = 0; i < sprices.size(); i++) {
+			String s = sprices.get(i);
+			if (s == null || s.length() == 0)
+				errors.add("The price of " + prices.get(i).getFund_id() + " is empty.");
+			else {
+				int np = AmountCheck.checkString(s);
+				if (np < 0)
+					errors.add(AmountCheck.getErrorByCode(sprices.get(i), np));
+				prices.get(i).setPrice(np);
+			}
 		}	
 		
 		return errors;

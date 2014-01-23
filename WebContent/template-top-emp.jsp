@@ -70,13 +70,13 @@ if (session.getAttribute("employee") == null) {
                 </li>
                 <li><a href="emp_changePwd.do">Change Password</a>
                 </li>
-                <li><a href="create-employee-acct.do">Create Employee Account</a>
+                <li><a href="emp-registration.do">Create Employee Account</a>
                 </li>
-                <li><a href="create-customer-acct.do">Create Customer Account</a>
+                <li><a href="cus-registration.do">Create Customer Account</a>
                 </li>
-                <li><a href="createfund.do">Create Fund</a>
+                <li><a href="create-fund-emp.do">Create Fund</a>
                 </li>
-                <li><a href="ransitionday.do">Transition Day</a>
+                <li><a href="emp-transitionday.do">Transition Day</a>
                 </li>
                 <li><a href="manage-customers-emp.do">Search Customer</a>
                 </li>
