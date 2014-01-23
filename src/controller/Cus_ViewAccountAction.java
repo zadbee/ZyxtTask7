@@ -43,6 +43,7 @@ public class Cus_ViewAccountAction extends Action {
             }
             customer = customerDAO.readByName(customer.getUsername());
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+            
             System.out.println(pos.length);
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
