@@ -49,9 +49,12 @@ public class Cus_ViewAccountAction extends Action {
             for(Position x:pos){
             	shares.add(x.getShares());
             	funds.add(fundDAO.read(x.getFund_id()).getName());
+            	prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
             }
-
-			request.setAttribute("customer",customer);
+            
+			request.setAttribute("shares",shares);
+			request.setAttribute("funds",funds);
+			request.setAttribute("prices",prices);
 			
 	        return "cus_viewAccount.do";
 	  } catch (Exception e) {
