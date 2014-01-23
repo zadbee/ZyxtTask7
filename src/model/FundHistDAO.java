@@ -31,4 +31,11 @@ public class FundHistDAO extends GenericDAO<FundPriceHistory>{
 			ret.add(f);
 		return ret;
 	}
+	
+	public FundPriceHistory getPrice(int id) throws RollbackException {
+		FundPriceHistory[] tmp = match(MatchArg.and(MatchArg.max("price_date"), MatchArg.equals("fund_id", id)));
+		if (tmp == null || tmp.length == 0)
+			return null;
+		return tmp[0];
+	}
 }

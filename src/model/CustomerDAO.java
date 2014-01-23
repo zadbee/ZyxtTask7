@@ -16,7 +16,7 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	}
 	public Customer readByName(String name) throws RollbackException {
 		Customer[] tmp = match(MatchArg.equals("username", name));
-		if (tmp.length == 0)
+		if (tmp == null || tmp.length == 0)
 			return null;
 		else
 			return tmp[0];
@@ -39,6 +39,7 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	
 	public void setPassword(String username, String password) throws RollbackException {
         try {
         	Transaction.begin();

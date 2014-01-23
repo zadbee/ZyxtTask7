@@ -6,14 +6,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.DAOException;
+import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Employee;
 import databeans.Fund;
 import formbeans.Emp_CreateFundForm;
-
-
 import model.FundDAO;
 import model.Model;
 
@@ -32,8 +32,7 @@ public class Emp_CreateFundAction extends Action {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
-        try {
-            
+        try {         
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
             if(employee == null) {
                 return "employee-login.do";
@@ -55,8 +54,8 @@ public class Emp_CreateFundAction extends Action {
             // Create new fund
             Fund fund = fundDAO.read(form.getFundName(), form.getFundSymbol());
             if (fund!=null) {
-                //errors.add(fund.getName() + "["+fund.getSymbol()+"] already exists!");
-                //return "create-fund-emp.jsp";
+                errors.add(fund.getName() + "["+fund.getSymbol()+"] already exists!");
+                return "create-fund-emp.jsp";
             }
 			// Attach (this copy of) the user bean to the session
 
@@ -75,12 +74,12 @@ public class Emp_CreateFundAction extends Action {
             request.setAttribute("fund", fund);
             errors.add("Fund has been created");
             return "feedback-create-fund.jsp";
-        } catch (MyDAOException e) {
-            errors.add(e.getMessage());
-            return "error.jsp";
         } catch (FormBeanException e) {
             errors.add(e.getMessage());
             return "error.jsp";
-        }
+        } catch (RollbackException e) {
+        	errors.add(e.getMessage());
+            return "error.jsp";
+		}
     }
 }
