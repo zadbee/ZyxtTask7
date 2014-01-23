@@ -4,16 +4,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Deposit Check</title>
-<link rel="stylesheet" type="text/css" href="style/main.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Carnegie Financial Services</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 
 <div id="container">
-    <jsp:include page="template-header-navigation.jsp" />
-    <div id="content-container">
-        <jsp:include page="template-section-navigation-emp.jsp" />
+    <jsp:include page="template-top-emp.jsp" />
+ 
         
         <div class="content">
             <h2> Deposit Check </h2>
