@@ -63,7 +63,7 @@ public class Cus_ChangePwdAction extends Action {
 			
 			
 			request.setAttribute("message","Password changed for "+customer.getFirstname());
-			return "success.jsp";
+			return "cus-success.jsp";
 	       // return "viewportfolio.do";
 	  } catch (Exception e) {
       	errors.add(e.toString());
