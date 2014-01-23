@@ -16,7 +16,7 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	}
 	public Customer readByName(String name) throws RollbackException {
 		Customer[] tmp = match(MatchArg.equals("username", name));
-		if (tmp.length == 0)
+		if (tmp == null || tmp.length == 0)
 			return null;
 		else
 			return tmp[0];
@@ -39,6 +39,7 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+	
 	public void setPassword(String username, String password) throws RollbackException {
         try {
         	Transaction.begin();
@@ -56,4 +57,38 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+		public void setCash(int userid, Long cash) throws RollbackException {
+        try {
+        	Transaction.begin();
+			Customer dbCustomer = read(userid);
+			
+			if (dbCustomer == null) {
+				throw new RollbackException("UserID "+userid+" no longer exists");
+			}
+			
+			dbCustomer.setCash(cash);
+			
+			update(dbCustomer);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
+		/*public void setBalance(int userid, Long balance) throws RollbackException {
+	        try {
+	        	Transaction.begin();
+				Customer dbCustomer = read(userid);
+				
+				if (dbCustomer == null) {
+					throw new RollbackException("UserID "+userid+" no longer exists");
+				}
+				
+				dbCustomer.setBalance(balance);
+				
+				update(dbCustomer);
+				Transaction.commit();
+			} finally {
+				if (Transaction.isActive()) Transaction.rollback();
+			}
+		}*/
 }

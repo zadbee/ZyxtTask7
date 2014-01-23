@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="databeans.Customer" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Hello, ${customer.firstname} ${customer.lastname}! </a>
+                <a class="navbar-brand" href="http://startbootstrap.com">Carnegie Financial Services</a>
             </div>
             
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,7 +45,7 @@
                     <li><a href="#contact">Contact</a>
                     </li>
                     </li>
-                    <li><a href="cus-logout.do">Logout</a>
+                    <li><a href="logout-cus.do">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -52,48 +55,46 @@
     </nav>
 
     <div id="wrapper">
-<%-- <% 
-if (session.getAttribute("customer") == null) {
+<%--<% 
+if (session.getAttribute("employee") == null) {
 %>
-        <li><span class="menu-item"><a href="customer-login.do">Login</a></span></li>
+        <li><span class="menu-item"><a href="employee-login.do">Login</a></span></li>
 <%   
 } else {
-    if(session.getAttribute("fund") != null) {
-%>
-<li><span class="menu-item"><a href="cus_buyFund.do">Buy Fund</a></span></li>
-        <li>&nbsp</li>
-        <li>&nbsp</li>
-<%
-    }
-%>
- --%>
-	
+%> --%>	
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">ZYXT Mutual Fund</a>
+                </li>
+                <li><a href="emp_changePwd.do">Reset Customer Password</a>
+                </li>
+                <li><a href="create-employee-acct.do">View Customer Account</a>
+                </li>
+                <li><a href="create-customer-acct.do">View Customer Transaction History</a>
+                </li>
+                <li><a href="createfund.do">Deposit Check</a>
+               	</li>
+<%--
+<%
+Customer customer = (Customer)session.getAttribute("cus");
+	if (customer != null) {
+%>
+       			<li>Actions for <%=customer.getUsername() %></li>
+        		<li><a href="emp_resetPwd.do">Reset Password</a></li>
+        		<li><a href="viewcustomeraccount.do">View Account</a></li>
+        		<li><a href="empviewhistory.do">Transaction History</a></li>
+        		<li><a href="depositcheck.do">Deposit Check</a></li>        
+<%
+    }
+}
+%>
+ --%>
 
-                <li><a href="viewportfolio.do">View Account</a>
-                </li>
-                <li><a href="cus_changePwd.do">Change Password</a>
-                </li>
-                <li><a href="cus_buyFund.do">Buy Fund</a>
-                </li>
-                <li><a href="cus_sellFund.do">Sell Fund</a>
-                </li>
-                <li><a href="requestcheck.do">Request Check</a>
-                </li>
-                <li><a href="cus_viewhistory.do">Transaction History</a>
-                </li>
-                <li><a href="cus_search-fund.jsp">Research Fund</a>
-                </li>
             </ul>
         </div>
 	</div>
-<%-- <%
-}
-%> --%>	
 <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>

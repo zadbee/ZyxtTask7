@@ -19,10 +19,10 @@ public class Transaction {
 	private int customer_id		  = -1; 
 	private int fund_id     	  = -1;
 	private Date execute_date 	  = null;
-	private String shares 		  = null;
+	private long shares 		  = 0;
 	private String transaction_type = null;
 	private long amount = 0L;
-	private String status;
+	private String status = null;
 	
     
 	public int getCustomer_id() {
@@ -57,11 +57,11 @@ public class Transaction {
 		this.execute_date = execute_date;
 	}
 
-	public String getShares() {
+	public long getShares() {
 		return shares;
 	}
 
-	public void setShares(String shares) {
+	public void setShares(long shares) {
 		this.shares = shares;
 	}
 
