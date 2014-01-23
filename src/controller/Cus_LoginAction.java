@@ -51,7 +51,6 @@ public class Cus_LoginAction extends Action {
 	        
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
-	        
 	        if (errors.size() != 0) {   	
 	            return "cus-login.jsp";
 	        }

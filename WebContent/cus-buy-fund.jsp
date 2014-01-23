@@ -52,44 +52,41 @@ if(customer == null) {
     return;
 }
 %>
-<%
-Fund fund = (Fund) session.getAttribute("fund");
-if(fund == null){
-    out.print("You need to select a fund first");
-    return;
-}
-%>
                 <div class="row">
                     <div class="col-md-12">
                         <p class="lead">Buy Fund</p>
                     </div>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fund">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
-                                </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-2">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Buy Now</button>
-                        </div>
-                    </div>
+                    <jsp:include page="error-list.jsp" />
+                    
+                    <form method="post" action="cus_buyFund.do">
+	                    <div class="col-md-5">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">#</span>
+	                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
+	                        </div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-5">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">$</span>
+	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
+	                                </div>
+	                    </div>          
+	                    <div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-2">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="btn-group">
+	                            <button type="submit" class="btn btn-default" name="button">Buy Now</button>
+	                        </div>
+	                    </div>
+                    </form>
+                    
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
@@ -99,7 +96,7 @@ if(fund == null){
                     <div class="col-md-12">
                         <p class="lead">Your Current Balance</p>
                         <button type="button" class="btn btn-default">
-                            <span><%customer.getCash();%></span>
+                            <span><%= "$" + " " + customer.getCash()%></span>
                         </button>
                     </div>
                     <div class="col-md-12">
@@ -108,30 +105,49 @@ if(fund == null){
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
-                    <div class="col-md-12">
+                                       <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
+                    <% 	ArrayList<Integer> shares = (ArrayList<Integer>)request.getAttribute("shares");
+                    	ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
+                    	ArrayList<String> funds = (ArrayList<String>)request.getAttribute("funds");
+                    	if(funds!=null && funds.size()!=0){
+                    %>
+                    
+                    
                     <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
-                                
                                     <th>#</th>
                                     <th>Fund Name</th>
                                     <th>Shares</th>
-                                    <th>Bought Price</th>
-                                    <th>Bought Date</th>
-                                    
+                                    <th>Current Prices</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <% 
+                            	for(int i=0; i<funds.size();i++){ 
+                            %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
+                                    <td><%=i%></td>
+                                    <td><%=funds.get(i)%></td>
+                                    <td><%=shares.get(i)%></td>
+                                    <td><%=prices.get(i)%></td>
                                 </tr>
+                             <%
+                             	}
+                            }else{
+                            %>
+                            
+                           <div class="col-md-12">
+                            You own no funds, Buy some now!
+                           </div>   
+                             
+                            <%}
+                    	%>
+                            
+                            
                             </tbody>
                         </table>
                     </div>

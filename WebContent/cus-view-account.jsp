@@ -106,9 +106,11 @@
                              	}
                             }else{
                             %>
-                          
-                            You own no funds, Cilck here to buy one.
-                                                  
+                            
+                           <div class="col-md-12">
+                            You own no funds, Buy some now!
+                           </div>   
+                             
                             <%}
                     	%>
                             
@@ -120,8 +122,6 @@
                 </div>
             </div>
         </div>
-        
-    <jsp:include page="template-footer.jsp" />
     </div>
 
     <!-- JavaScript -->
