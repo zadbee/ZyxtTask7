@@ -31,7 +31,6 @@ public class Emp_CreateFundAction extends Action {
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-        System.out.println("Fund creating...");
         
         try {         
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
@@ -42,41 +41,42 @@ public class Emp_CreateFundAction extends Action {
             Emp_CreateFundForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
             
-            System.out.println("Where...");
             if (!form.isPresent()) {
-                return "create-fund-emp.jsp";
+                return "emp-create-fund.jsp";
             }
-            System.out.println("Have form...");
 
             // Any validation errors?
             errors.addAll(form.getValidationErrors());
             if (errors.size() != 0) {
-                return "create-fund-emp.jsp";
+                return "emp-create-fund.jsp";
             }
             
+            System.out.println("Fund creating...");
+            
             // Create new fund
-            Fund fund = fundDAO.read(form.getFundName(), form.getFundSymbol());
+            Fund fund = fundDAO.readByName(form.getFundName());
             if (fund != null) {
                 errors.add(fund.getName() + "["+fund.getSymbol()+"] already exists!");
-                return "create-fund-emp.jsp";
+                return "emp-create-fund.jsp";
             }
             
 			// Attach (this copy of) the user bean to the session
             fund = new Fund();
             fund.setName(form.getFundName());
             fund.setSymbol(form.getFundSymbol());
+            System.out.println("Fund creating...");
             fundDAO.createAutoIncrement(fund);
             System.out.println("Fund created.");
 			
             request.setAttribute("fund", fund);
             errors.add("Fund has been created");
-            return "create-fund-emp.jsp";
+            return "emp-create-fund.jsp";
         } catch (FormBeanException e) {
             errors.add(e.getMessage());
-            return "error.jsp";
+            return "emp-create-fund.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
-            return "error.jsp";
+            return "emp-create-fund.jsp";
 		}
     }
 }
