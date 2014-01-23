@@ -48,26 +48,26 @@ public class Emp_LoginAction extends Action {
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
-	            return "login.jsp";
+	            return "emp-login.jsp";
 	        }
 
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "login.jsp";
+	            return "emp-login.jsp";
 	        }
 
 	        // Look up the user
 	        Employee emp = employeeDAO.read(form.getUsername());
 	        if (emp == null) {
 	            errors.add("User" + form.getUsername() + "not found");
-	            return "login.jsp";
+	            return "emp-login.jsp";
 	        }
 
 	        // Check the password
 	        if (!emp.getPassword().equals(form.getPassword())) {
 	            errors.add("Incorrect password");
-	            return "login.jsp";
+	            return "emp-login.jsp";
 	        }
 	
 	        // Attach (this copy of) the user bean to the session
@@ -75,7 +75,7 @@ public class Emp_LoginAction extends Action {
 	        session.setAttribute("employee", emp);
 	        session.setAttribute("identity", "employee");
 
-	        return "manage.do";
+	        return "create-fund-emp.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
