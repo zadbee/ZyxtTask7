@@ -17,6 +17,8 @@ public class TransDAO extends GenericDAO<Transaction> {
 		super(Transaction.class, tableName, pool);
 	}
 	
+	
+	
 	public void clearPending() throws RollbackException {
 		// Only handle pending BUYs and SELLs
 		Transaction[] pending = match(MatchArg.and(MatchArg.equals("status", "PENDING"), 

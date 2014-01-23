@@ -39,7 +39,11 @@ public class Cus_RequestCheckAction extends Action {
         try {
             Cus_RequestCheckForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
-            Customer customer = (Customer) request.getSession().getAttribute("customer");
+            Customer customer = (Customer) request.getSession().getAttribute("customer");          
+            if(customer == null) {
+                return "login-cus.jsp";
+            }
+
             request.setAttribute("cash", customer.getCash());
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
@@ -47,9 +51,6 @@ public class Cus_RequestCheckAction extends Action {
             errors.addAll(form.getValidationErrors());
             if (errors.size() != 0) {
                 return "cus-request-check.jsp";
-            }
-            if(customer == null) {
-                return "login-cus.jsp";
             }
 
             //customer = customerDAO.lookup(customer.getCustomer_id());
