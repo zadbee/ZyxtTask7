@@ -18,13 +18,12 @@ public class Emp_LoginForm extends FormBean {
 	public String getUsername() 	{ return username; }
 	public String getPassword() 	{ return password; }
 	
-	public void setUserName(String s)	{ username = trimAndConvert(s,"<>\""); }
+	public void setUsername(String s)	{ username = trimAndConvert(s,"<>\""); }
 	public void setPassword(String s) 	{ password = trimAndConvert(s,"<>\""); }
 	
 	// Check whether the form is valid. Returns an arraylist of error strings if the form is not valid. 
 	public ArrayList<String> getValidationErrors() {
         ArrayList<String> errors = new ArrayList<String>();
-
         if (username == null || username.length() == 0) errors.add("Username is required");
         if (password == null || password.length() == 0) errors.add("Password is required");
 

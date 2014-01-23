@@ -56,7 +56,6 @@
 	<div class="intro-header">
 
         <div class="container">
-
             <div class="row">
             	<div class="col-lg-4">
             		&nbsp;
@@ -65,6 +64,7 @@
                     <div class="intro-message">
                         <form class="form-signin" role="form" method="post" action="emp-login.do">
         				<h2 class="form-signin-heading">Employee Login</h2>
+        				<jsp:include page="error-list.jsp" />
         				<input name="username" type="text" class="form-control" placeholder="Employee Username" required autofocus>
         				<input name="password" type="password" class="form-control" placeholder="Password" required>
 						<br/>

@@ -33,10 +33,12 @@ public class Controller extends HttpServlet {
         Action.add(new Emp_ChangePwdAction(model));
         Action.add(new Cus_BuyFundAction(model));
         Action.add(new Cus_SellFundAction(model));
+        Action.add(new Emp_CreateFundAction(model));
+        Action.add(new Emp_TransitionDayAction(model));
         
         Action.add(new HomePageAction());
         try {
-			if (model.getCustomerDAO().readByName("123") == null) {
+			if (model.getCustomerDAO().readByName("jason") == null) {
 				Customer user = new Customer();
 				user.setAddr_line1("Pitts");
 				user.setAddr_line2("Pitts");
@@ -45,11 +47,21 @@ public class Controller extends HttpServlet {
 				user.setFirstname("John");
 				user.setLastname("Smith");
 				user.setPassword("aaa");
-				user.setUsername("123");
+				user.setUsername("jason");
 				user.setState("PA");
 				user.setZip(15213);
 				model.getCustomerDAO().createAutoIncrement(user);
-				System.out.println("User created.");
+				System.out.println("User jason created.");
+			}
+			
+			if (model.getEmployeeDAO().read("jeff") == null) {
+				Employee emp = new Employee();
+				emp.setFirstname("Jeff");
+				emp.setLastname("Eppinger");
+				emp.setUsername("jeff");
+				emp.setPassword("aaa");
+				model.getEmployeeDAO().create(emp);
+				System.out.println("Employee jeff created.");
 			}
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
