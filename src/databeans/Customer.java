@@ -9,9 +9,6 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("customer_id")
 public class Customer {
-//	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
-//			".jpg", ".gif", ".JPG"
-//	} ));
 
 	private int    customer_id     = -1;
 	private String username		   = null; 
@@ -22,8 +19,8 @@ public class Customer {
 	private String addr_line2  	   = null;
 	private String city 		   = null;
 	private String state 		   = null;
-	private int zip 			   = 0;
-	private long cash 		   	= 0;
+	private int    zip 			   = 0;
+	private long   cash 		   = 0;
     
 	public int getCustomer_id() {
 		return customer_id;

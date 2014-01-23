@@ -9,7 +9,6 @@ import model.CustomerDAO;
 import model.Model;
 import model.TransDAO;
 
-import org.genericdao.GenericDAO;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Customer;
@@ -47,7 +46,7 @@ public class Cus_BuyFundAction extends Action {
 			request.setAttribute("form", form);
 
 			int customer_id = customer.getCustomer_id();
-			double available = customer.getCash();
+			long available = customer.getCash();
 			// If no params were passed, return with no errors so that the form
 			// will be presented (we assume for the first time).
 			if (!form.isPresent()) {
@@ -76,20 +75,14 @@ public class Cus_BuyFundAction extends Action {
 			t.setStatus("PENDING");
 			t.setAmount(amount);
 			
+			transactionDAO.create(t);
 			
 			customer.setCash(available-amount);
 			customerDAO.update(customer);
 			request.setAttribute("customer",customer);
 			
-//			if(!transactionDAO.createWithUpdate_Buy(t, customer_id, amount)) {
-//			    errors.add("You don't have enough available cash!");
-//			    available = customer.getCash();
-//			    customer = customerDAO.read(customer.getCustomer_id());
-//			    request.getSession().setAttribute("customer", customer);
-//			    return "buy-fund-cus.jsp";
-//			}
 			
-	        return "buy-fund-cus.jsp";
+	        return "cus_buyFund.do";
 	  } catch (Exception e) {
       	errors.add(e.toString());
       	return "error.jsp";
