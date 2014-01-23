@@ -39,7 +39,7 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Change Password</li>
+                    <li class="active">Success</li>
                 </ol>
                 <p>${message }</p>
 				<jsp:include page="template-footer.jsp" />

@@ -82,7 +82,6 @@ public class Cus_RequestCheckAction extends Action {
 
             transaction.setExecute_date(new Date());
             transaction.setTransaction_type("WITHDRAW");   
-            System.out.println("**************");
 
             transDAO.createAutoIncrement(transaction);
        		//session.setAttribute("user", user);
