@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
 				Customer user = new Customer();
 				user.setAddr_line1("Pitts");
 				user.setAddr_line2("Pitts");
-				user.setCash(100.00);
+				user.setCash(100);
 				user.setCity("Pittsburgh");
 				user.setFirstname("John");
 				user.setLastname("Smith");

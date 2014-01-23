@@ -2,11 +2,6 @@ package databeans;
 
 import org.genericdao.PrimaryKey;
 
-//import java.util.Arrays;
-//import java.util.Collections;
-//import java.util.List;
-
-
 @PrimaryKey("position_id")
 
 public class Position {

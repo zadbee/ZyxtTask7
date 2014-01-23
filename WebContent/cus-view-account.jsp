@@ -66,7 +66,7 @@
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td><%="$"+" "+customer.getCash()%></td>
+									<td><%="$"+ " "+customer.getCash()%></td>
                                 </tr>
                             </tbody>
                         </table>

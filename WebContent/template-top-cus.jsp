@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://startbootstrap.com">Carnegie Financial Services</a>
+                <a class="navbar-brand" href="#">Hello, ${customer.firstname} ${customer.lastname}! </a>
             </div>
             
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,7 +42,7 @@
                     <li><a href="#contact">Contact</a>
                     </li>
                     </li>
-                    <li><a href="logout-cus.do">Logout</a>
+                    <li><a href="cus-logout.do">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -73,10 +73,12 @@ if (session.getAttribute("customer") == null) {
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">ZYXT Mutual Fund</a>
+
+                <li><a href="viewportfolio.do">View Account</a>
                 </li>
                 <li><a href="cus_changePwd.do">Change Password</a>
                 </li>
-                <li><a href="viewportfolio.do">View Account</a>
+                <li><a href="search-fund-cus.jsp">Research Fund</a>
                 </li>
                 <li><a href="cus_buyFund.do">Buy Fund</a>
                 </li>
@@ -86,8 +88,7 @@ if (session.getAttribute("customer") == null) {
                 </li>
                 <li><a href="cusviewhistory.do">Transaction History</a>
                 </li>
-                <li><a href="search-fund-cus.jsp">Research Fund</a>
-                </li>
+
             </ul>
         </div>
 	</div>

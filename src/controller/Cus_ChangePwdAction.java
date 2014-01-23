@@ -44,7 +44,6 @@ public class Cus_ChangePwdAction extends Action {
 				return "cus-change-pwd.jsp";
 			}
 			request.setAttribute("form", form);
-			System.out.println("a");
 
 			Customer customer = (Customer) request.getSession().getAttribute("customer");
 			customerDAO.setPassword(customer.getCustomer_id(),form.getNewPassword());
@@ -65,7 +64,7 @@ public class Cus_ChangePwdAction extends Action {
 			}
 			
 			
-			request.setAttribute("message","Password changed for "+customer.getCustomer_id());
+			request.setAttribute("message","Password changed for "+customer.getFirstname());
 			return "success.jsp";
 	       // return "viewportfolio.do";
 	  } catch (Exception e) {
