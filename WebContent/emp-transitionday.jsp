@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +24,7 @@
 
     <div id="wrapper">
     <!-- Template -->
-		<jsp:include page="template-top-cus.jsp" />
+		<jsp:include page="template-top-emp.jsp" />
 
         <!-- Page content -->
         <div id="page-content-wrapper">
@@ -62,8 +64,26 @@
 	                                <c:forEach var="fund" items="${prices}">
 	                                	<tr>
 	                                		<td>${fund.fund_id}</td>
-	                                		<td>${fund.price}</td>
-	                                		<td>${fund.price_date}</td>
+	                                		<td>
+	                                		<c:choose>
+	                                		<c:when test="${fund.price > 0}">
+	                                			${fund.price / 100.0}
+	                                		</c:when>
+	                               			<c:otherwise>
+	                               				Not initialized
+	                               			</c:otherwise>
+	                               			</c:choose>
+	                                		</td>
+	                                		<td>
+	                                		<c:choose>
+	                                		<c:when test="${fund.price > 0}">
+	                                			${fund.price_date}
+	                                		</c:when>
+	                                		<c:otherwise>
+	                               				Not initialized
+	                               			</c:otherwise>
+	                               			</c:choose>
+	                                		</td>
 	                                		<td><input type="text" name="price_${fund.fund_id}"/></td>
 	                                	</tr>
 	                                </c:forEach>

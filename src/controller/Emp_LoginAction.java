@@ -75,7 +75,7 @@ public class Emp_LoginAction extends Action {
 	        session.setAttribute("employee", emp);
 	        session.setAttribute("identity", "employee");
 
-	        return "create-fund-emp.jsp";
+	        return "create-fund-emp.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

@@ -17,11 +17,21 @@ public class FundDAO extends GenericDAO<Fund> {
 	
 	public Fund readBySymbol (String symbol) throws RollbackException {
 		Fund[] tmp = match(MatchArg.equals("symbol",symbol));
-		if (tmp.length == 0)
+		if (tmp == null || tmp.length == 0)
 			return null;
 		else
 			return tmp[0];
 	}
+			
+			
+	public Fund readByName(String name) throws RollbackException {
+		Fund[] tmp = match(MatchArg.equals("name", name));
+		if (tmp == null || tmp.length == 0)
+			return null;
+		else
+			return tmp[0];
+	}
+
 	
 	public ArrayList<Fund> getAll() throws RollbackException{
 		Fund[] tmp = match();
@@ -31,4 +41,5 @@ public class FundDAO extends GenericDAO<Fund> {
 		}
 		return arrFund;
 	}
+
 }

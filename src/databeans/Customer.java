@@ -106,7 +106,7 @@ public class Customer {
 		return cash;
 	}
 
-	public void setCash(long cash) {
-		this.cash = cash;
+	public void setCash(long d) {
+		this.cash = d;
 	}
 }

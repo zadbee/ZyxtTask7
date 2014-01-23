@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,21 +14,20 @@ import databeans.Customer;
 import databeans.Employee;
 import databeans.Transaction;
 import formbeans.Emp_DepositCheckForm;
-
 import model.Model;
-import model.TransactionDAO;
+import model.TransDAO;
 import model.CustomerDAO;
-import model.MyDAOException;
+
 
 
 public class Emp_DepositCheckAction extends Action {   
     private FormBeanFactory<Emp_DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(Emp_DepositCheckForm.class);
     private CustomerDAO customerDAO;
-    private TransactionDAO transactionDAO;
+    private TransDAO transactionDAO;
     
     public Emp_DepositCheckAction(Model model) {
         customerDAO = model.getCustomerDAO();
-        transactionDAO = model.getTransactionDAO();
+        transactionDAO = model.getTransDAO();
     }
     
     public String getName() { return "depositcheck.do"; }
@@ -39,49 +39,52 @@ public class Emp_DepositCheckAction extends Action {
         try {
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
             if(employee == null) {
-                return "employee-login.do";
+                return "emp-login.do";
             }
             
             Emp_DepositCheckForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
+            Customer customer = (Customer) request.getSession().getAttribute("customer");
 
             
             if (!form.isPresent()) {
-                return "deposit-check-emp.jsp";
+                return "emp-deposit-check.jsp";
             }
             
             // Any validation errors?
             errors.addAll(form.getValidationErrors());
             if (errors.size() != 0) {
-                return "deposit-check-emp.jsp";
+                return "emp-deposit-check.jsp";
             }
             
             // Look up the customer
-            Customer customer = customerDAO.lookup(form.getUserName());
-            double amount = Double.parseDouble(form.getDeposit());
+//            Customer customer = customerDAO.lookup(form.getUserName());
+            Long amount = Long.parseLong(form.getDeposit());
             //customer.setCash(customer.getCash() + amount);
             
             //customerDAO.updateCash(customer);
             Transaction transaction = new Transaction();
             transaction.setAmount(amount);
-            transaction.setCustomer_id(customer.getCustomerID());
-            transaction.setDate(null);
+            transaction.setCustomer_id(customer.getCustomer_id());
+            transaction.setExecute_date(new Date());
             transaction.setTransaction_type("DEPOSIT");
-            transaction.setStatus("PENDING");
-            transaction.setFund_id(0);
-            transaction.setShares(0);
-            transactionDAO.create(transaction);
+//            transaction.setFund_id(0);
+//            transaction.setShares(0);
+//            transactionDAO.create(transaction);
+//            TransDAO.createAutoIncrement(transaction);
             
             // Attach (this copy of) the customer object to the session
-            request.setAttribute("customer",customer);
+            customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-amount);
+			 
+			//double balance = customerDAO.getCash(customer.getCustomer_id());
+            request.setAttribute("cash", customer.getCash());
             
-            return "feedback-create-deposit.jsp";
-        } catch (MyDAOException e) {
+            
+            request.setAttribute("message","Deposit Requested for "+customer.getFirstname() + "Current cash is" + customer.getCash() );
+			return "success.jsp";
+        } catch (Exception e) {
             errors.add(e.getMessage());
             return "error.jsp";
-        } catch (FormBeanException e) {
-            errors.add(e.getMessage());
-            return "error.jsp";
-        }
+        } 
     }
 }
