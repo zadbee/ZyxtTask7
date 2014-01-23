@@ -87,10 +87,10 @@
                     </tr>
                 </table>
             </form>
-				<jsp:include page="template-footer.jsp" />
             </div>
         </div>
-
+        
+        <jsp:include page="template-footer.jsp" />
     </div>
 
 	<!-- JavaScript -->

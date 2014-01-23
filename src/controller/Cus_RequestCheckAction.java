@@ -90,10 +90,9 @@ public class Cus_RequestCheckAction extends Action {
                 return "request-check-cus.jsp";
             }*/
 
-   
+            	
             
-            
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+customer.getCash()+".");
+            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()-withdrawAmount)+".");
 			return "success.jsp";
             
         } catch (Exception e) {
