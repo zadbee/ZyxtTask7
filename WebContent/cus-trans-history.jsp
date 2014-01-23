@@ -63,15 +63,6 @@ if(customer == null) {
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
 
                     <% 	Transaction[] trans = (Transaction[])request.getSession().getAttribute("trans");
                     	String[] funds = (String[])request.getSession().getAttribute("funds");
@@ -88,6 +79,7 @@ if(customer == null) {
                                     <th>Fund Name</th>
                                     <th>Shares</th>
                                     <th>Amount</th>
+                                    <th>Status</th>
   
                                 </tr>
                             </thead>
@@ -99,7 +91,7 @@ if(customer == null) {
 		                            <%if(trans[i].getExecute_date()!=null) {%>
                                     <td><%=trans[i].getExecute_date()%></td>
                                     <%}else{ %>
-                                    <td>PENDING</td>
+                                    <td>N/A</td>
                                     <%} %>
                                     
                                     <td><%=trans[i].getTransaction_type()%></td>
@@ -121,6 +113,8 @@ if(customer == null) {
                                     <%}else{%>
                                     <td>N/A</td>
                                     <%} %>
+                                    
+                                    <td><%=trans[i].getStatus() %></td>                                 
                                 </tr>
                              <%
                              	}
@@ -131,7 +125,7 @@ if(customer == null) {
               		</div>
               		
 	                  <div class="col-md-12">
-	                  	No transaction records found. Make your first transaction today! 
+	                  No transaction records found. Make your first transaction today! 
 	                  </div>   
                              
                             <%}

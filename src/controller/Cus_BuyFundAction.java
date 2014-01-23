@@ -96,6 +96,7 @@ public class Cus_BuyFundAction extends Action {
 			t.setExecute_date(new Date());
 			t.setTransaction_type("BUY");
 			t.setAmount(amount);
+			t.setStatus("PENDING");
 			transactionDAO.createAutoIncrement(t);
 				
 			customer.setCash(available - amount);

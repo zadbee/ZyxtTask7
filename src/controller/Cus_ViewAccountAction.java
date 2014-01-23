@@ -56,20 +56,17 @@ public class Cus_ViewAccountAction extends Action {
             	else
             		prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
             }
-
             
 			request.setAttribute("funds",funds);
 			request.setAttribute("prices",prices);
 			request.setAttribute("pos",pos);
-
-            
+          
 	        return "cus-view-account.jsp";
 	  } catch (NullPointerException e) {	      	
 	      	return "cus-view-account.jsp";
-	      } 
-		catch (Exception e) {
-      	errors.add(e.toString());
-      	return "cus-view-account.jsp";
+	  }catch (Exception e) {
+			errors.add(e.toString());
+			return "cus-view-account.jsp";
       } 
 	}
 }

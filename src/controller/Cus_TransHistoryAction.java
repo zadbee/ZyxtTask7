@@ -53,9 +53,11 @@ public class Cus_TransHistoryAction extends Action{
             request.setAttribute("funds", funds);
             
 	        return "cus-trans-history.jsp";
+	  } catch (NullPointerException e) {	      	
+	      	return "cus-trans-history.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-trans-history.jsp";
-	  }	
+	  } 
 	}
 }
