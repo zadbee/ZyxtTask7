@@ -38,13 +38,16 @@ public class Cus_RequestCheckAction extends Action {
         
         try {
             Cus_RequestCheckForm form = formBeanFactory.create(request);
-
+            request.setAttribute("form",form);
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
 			}
-            request.setAttribute("form",form);
+            errors.addAll(form.getValidationErrors());
+            if (errors.size() != 0) {
+                return "cus-request-check.jsp";
+            }
+            
             Customer customer = (Customer) request.getSession().getAttribute("customer");
-
 
             if(customer == null) {
                 return "login-cus.jsp";
@@ -52,34 +55,35 @@ public class Cus_RequestCheckAction extends Action {
 
             //customer = customerDAO.lookup(customer.getCustomer_id());
             //request.getSession(false).setAttribute("customer", customer);
-            errors.addAll(form.getValidationErrors());
             
-            if (errors.size() != 0) {
-                return "cus-request-check.jsp";
-            }
+            
             long withdrawAmount = Long.parseLong(form.getWithdraw());
-            System.out.println("here============="+withdrawAmount);
 
 
             if (withdrawAmount > customer.getCash()) {
                 errors.add("Withdraw amount cannot be greater than your current balance!");
                 return "cus-request-check.jsp";
             }
+            
+            request.setAttribute("cash", customer.getCash());
 			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
+			
 			 
 			//double balance = customerDAO.getCash(customer.getCustomer_id());
-            request.setAttribute("cash", customer.getCash());
+
             
             
             // Any validation errors?
+
            
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
             transaction.setCustomer_id(customer.getCustomer_id());
+
             transaction.setExecute_date(new Date());
-            //transaction.setStatus("PENDING");
-            transaction.setTransaction_type("WITHDRAW");
-            
+            transaction.setTransaction_type("WITHDRAW");   
+            System.out.println("**************");
+
             transDAO.createAutoIncrement(transaction);
        		//session.setAttribute("user", user);
             /*if(!transactionDAO.createForRequestCheck(transaction)) {
@@ -88,10 +92,9 @@ public class Cus_RequestCheckAction extends Action {
                 request.getSession().setAttribute("customer", customer);
                 return "request-check-cus.jsp";
             }*/
-            
+
    
             
-            request.setAttribute("cash", customer.getCash());
             
             request.setAttribute("message","Check Requested for "+customer.getFirstname());
 			return "success.jsp";
