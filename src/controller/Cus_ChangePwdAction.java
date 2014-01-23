@@ -39,12 +39,17 @@ public class Cus_ChangePwdAction extends Action {
             if(customer == null) {
                 return "login-cus.jsp";
             }*/
+			Customer customer = (Customer) request.getSession().getAttribute("customer");
+			if (customer==null) {
+				return "cus-login.do";
+			}
             if (!form.isPresent()) {
 				return "cus-change-pwd.jsp";
 			}
 			request.setAttribute("form", form);
-
-			Customer customer = (Customer) request.getSession().getAttribute("customer");
+			
+			
+			
 			customerDAO.setPassword(customer.getCustomer_id(),form.getNewPassword());
 
             

@@ -96,7 +96,7 @@ if(customer == null) {
                     <div class="col-md-12">
                         <p class="lead">Your Current Balance</p>
                         <button type="button" class="btn btn-default">
-                            <span><%= "$" + " " + customer.getCash()%></span>
+                            <span><%= "$" + " " + customer.getCash()/100.0 %></span>
                         </button>
                     </div>
                     <div class="col-md-12">
@@ -135,7 +135,7 @@ if(customer == null) {
                                     <%if(allFundPrices.get(i)==-1) {%>
                                     <td><%="Not Initialized" %></td>
                                     <%}else{ %>
-                                    <td><%=allFundPrices.get(i)%></td>
+                                    <td><%=allFundPrices.get(i)/100.0 %></td>
                                     <%} %>
                                 </tr>
                              <%
