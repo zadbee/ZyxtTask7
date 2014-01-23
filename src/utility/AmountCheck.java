@@ -7,7 +7,7 @@ public class AmountCheck {
 	public static int checkString(String s) {
 		float fn = 0;
 		try {
-			fn = Float.valueOf(s) * 1000;
+			fn = Float.valueOf(s) * 100;
 		} catch (NumberFormatException e) {
 			return -1;
 		}
