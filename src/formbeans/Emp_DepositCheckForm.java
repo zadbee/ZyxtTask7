@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utility.AmountCheck;
+
 public class Emp_DepositCheckForm extends FormBean {
 	private String userName;
 	private String deposit;
@@ -26,23 +28,9 @@ public class Emp_DepositCheckForm extends FormBean {
 			errors.add("Deposit amount is required");
 		}
 
-		try {
-            if (Long.parseLong(deposit) < 1.00) {
-                errors.add("Deposit amount must be greater than or equal to $ 1.00"); 
-            }
-            if (Long.parseLong(deposit) >= 10000000) {
-                errors.add("Deposit amount must be less than $10,000,000"); 
-            }
-        }
-        catch (NumberFormatException e) {
-            errors.add("Amount must be a valid number");
-        }
-		
-		// missing validation for cash
-		
-		if (errors.size() > 0) {
-			return errors;
-		}
+		long ec = AmountCheck.checkShareString(deposit);
+		if (ec < 0)
+			errors.add(AmountCheck.getErrorByCode(deposit, ec));
 		
 		return errors;
 	}

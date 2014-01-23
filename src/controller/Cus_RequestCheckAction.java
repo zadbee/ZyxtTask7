@@ -11,6 +11,7 @@ import org.genericdao.MatchArg;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Transaction;
 import formbeans.Cus_RequestCheckForm;
@@ -40,6 +41,8 @@ public class Cus_RequestCheckAction extends Action {
             Cus_RequestCheckForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
             Customer customer = (Customer) request.getSession().getAttribute("customer");
+            if (customer == null)
+            	return "cus-login.jsp";
             request.setAttribute("cash", customer.getCash());
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
@@ -48,23 +51,19 @@ public class Cus_RequestCheckAction extends Action {
             if (errors.size() != 0) {
                 return "cus-request-check.jsp";
             }
-            if(customer == null) {
-                return "login-cus.jsp";
-            }
 
             //customer = customerDAO.lookup(customer.getCustomer_id());
             //request.getSession(false).setAttribute("customer", customer);
             
             
-            long withdrawAmount = Long.parseLong(form.getWithdraw());
-
+            long withdrawAmount = AmountCheck.checkValueString(form.getWithdraw());
 
             if (withdrawAmount > customer.getCash()) {
                 errors.add("Withdraw amount cannot be greater than your current balance!");
                 return "cus-request-check.jsp";
             }
             
-			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
+			customerDAO.setCash(customer.getCustomer_id(), customer.getCash() - withdrawAmount);
 			
 			 
 			//double balance = customerDAO.getCash(customer.getCustomer_id());
@@ -77,7 +76,6 @@ public class Cus_RequestCheckAction extends Action {
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
             transaction.setCustomer_id(customer.getCustomer_id());
-
             transaction.setExecute_date(new Date());
             transaction.setTransaction_type("WITHDRAW");   
 

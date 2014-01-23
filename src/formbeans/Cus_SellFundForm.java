@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import utility.AmountCheck;
+
 public class Cus_SellFundForm extends FormBean{
 	private String fundName;
 	private String shares;
@@ -40,27 +42,17 @@ public class Cus_SellFundForm extends FormBean{
 		List<String> errors = new ArrayList<String>();
 		
 		if (fundId == null || fundId.length() == 0) {
-			errors.add("No such fund !");
+			errors.add("Fund is required.");
 		}
 		
-		try {
-            if (Double.parseDouble(shares) < 1.00) {
-                errors.add("Shares must not be greater than or equal to 1.00"); 
-            }
-            if (Double.parseDouble(shares) >= 1000000) {
-                errors.add("Shares must be less than 10,000,000"); 
-            }
-        }
-        catch (NumberFormatException e) {
-            errors.add("Shares must be a valid number");
-        }
-		
-		if (errors.size() > 0) {
-			return errors;
+		if (shares == null || shares.length() == 0) {
+			errors.add("Amount is required");
 		}
 		
+		long ec = AmountCheck.checkShareString(shares);
+		if (ec < 0)
+			errors.add(AmountCheck.getErrorByCode(shares, ec));
 		
-
 		return errors;
 	}
 
