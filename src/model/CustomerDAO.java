@@ -56,4 +56,38 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+		public void setCash(int userid, Long cash) throws RollbackException {
+        try {
+        	Transaction.begin();
+			Customer dbCustomer = read(userid);
+			
+			if (dbCustomer == null) {
+				throw new RollbackException("UserID "+userid+" no longer exists");
+			}
+			
+			dbCustomer.setCash(cash);
+			
+			update(dbCustomer);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
+		/*public void setBalance(int userid, Long balance) throws RollbackException {
+	        try {
+	        	Transaction.begin();
+				Customer dbCustomer = read(userid);
+				
+				if (dbCustomer == null) {
+					throw new RollbackException("UserID "+userid+" no longer exists");
+				}
+				
+				dbCustomer.setBalance(balance);
+				
+				update(dbCustomer);
+				Transaction.commit();
+			} finally {
+				if (Transaction.isActive()) Transaction.rollback();
+			}
+		}*/
 }

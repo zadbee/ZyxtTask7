@@ -28,6 +28,7 @@ public class Controller extends HttpServlet {
         Action.add(new Cus_LoginAction(model));
         Action.add(new Cus_ChangePwdAction(model));
         Action.add(new Cus_LogoutAction(model));
+        Action.add(new Cus_RequestCheckAction(model));
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
         Action.add(new Emp_ChangePwdAction(model));

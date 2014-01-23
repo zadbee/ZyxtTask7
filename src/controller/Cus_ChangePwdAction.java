@@ -32,7 +32,6 @@ public class Cus_ChangePwdAction extends Action {
 		try {
 
 			Cus_ChangePwdForm form = formBeanFactory.create(request);
-			System.out.println("1");
 
 
 			/*Customer customer = (Customer) request.getSession(false).getAttribute("customer");
@@ -59,7 +58,6 @@ public class Cus_ChangePwdAction extends Action {
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				System.out.println(errors.toString());
 				return "cus-change-pwd.jsp";
 			}
 			
