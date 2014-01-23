@@ -1,11 +1,13 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.MatchArg;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -15,19 +17,17 @@ import formbeans.Cus_RequestCheckForm;
 import formbeans.Emp_DepositCheckForm;
 import model.Model;
 import model.TransDAO;
-import model.TransactionDAO;
 import model.CustomerDAO;
-import model.MyDAOException;
 
 
 public class Cus_RequestCheckAction extends Action {   
     private FormBeanFactory<Cus_RequestCheckForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RequestCheckForm.class);
     private CustomerDAO customerDAO;
-    private TransDAO transactionDAO;
+    private TransDAO transDAO;
     
     public Cus_RequestCheckAction(Model model) {
         customerDAO = model.getCustomerDAO();
-        transactionDAO = model.getTransactionDAO();
+        transDAO = model.getTransDAO();
     }
     
     public String getName() { return "requestcheck.do"; }
@@ -37,73 +37,68 @@ public class Cus_RequestCheckAction extends Action {
         request.setAttribute("errors",errors);
         
         try {
-            
-            Customer customer = (Customer) request.getSession(false).getAttribute("customer");
-            
+            Cus_RequestCheckForm form = formBeanFactory.create(request);
+
+            if (!form.isPresent()) {
+            	return "cus-request-check.jsp";
+			}
+            request.setAttribute("form",form);
+            Customer customer = (Customer) request.getSession().getAttribute("customer");
+
+
             if(customer == null) {
                 return "login-cus.jsp";
             }
-            
-            customer = customerDAO.lookup(customer.getCustomerID());
-            request.getSession(false).setAttribute("customer", customer);
-            
-            Cus_RequestCheckForm form = formBeanFactory.create(request);
-            request.setAttribute("form",form);
-            
-            
-            
-            double balance = customerDAO.getAvailableCash(customer.getCustomerID());
-            request.setAttribute("cash", balance);
-            
-            if (!form.isPresent()) {
-                return "request-check-cus.jsp";
-            }
-            
-            
-            // Any validation errors?
+
+            //customer = customerDAO.lookup(customer.getCustomer_id());
+            //request.getSession(false).setAttribute("customer", customer);
             errors.addAll(form.getValidationErrors());
             
             if (errors.size() != 0) {
-                return "request-check-cus.jsp";
+                return "cus-request-check.jsp";
             }
-            
-            double withdrawAmount = Double.parseDouble(form.getWithdraw());
-            
-            if (withdrawAmount > balance) {
+            long withdrawAmount = Long.parseLong(form.getWithdraw());
+            System.out.println("here============="+withdrawAmount);
+
+
+            if (withdrawAmount > customer.getCash()) {
                 errors.add("Withdraw amount cannot be greater than your current balance!");
-                return "request-check-cus.jsp";
+                return "cus-request-check.jsp";
             }
+			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
+			 
+			//double balance = customerDAO.getCash(customer.getCustomer_id());
+            request.setAttribute("cash", customer.getCash());
             
-            balance = balance - withdrawAmount;
-            customer.setAvailableCash(balance);
             
+            // Any validation errors?
+           
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
-            transaction.setCustomer_id(customer.getCustomerID());
-            transaction.setDate(null);
-            transaction.setStatus("PENDING");
+            transaction.setCustomer_id(customer.getCustomer_id());
+            transaction.setExecute_date(new Date());
+            //transaction.setStatus("PENDING");
             transaction.setTransaction_type("WITHDRAW");
             
-            if(!transactionDAO.createForRequestCheck(transaction)) {
+            transDAO.createAutoIncrement(transaction);
+       		//session.setAttribute("user", user);
+            /*if(!transactionDAO.createForRequestCheck(transaction)) {
                 errors.add("You don't have enough cash");
-                customer = customerDAO.lookup(customer.getCustomerID());
+                customer = customerDAO.read(customer.getCustomer_id());
                 request.getSession().setAttribute("customer", customer);
                 return "request-check-cus.jsp";
-            }
+            }*/
             
-            customerDAO.update(customer);
+   
             
-            request.setAttribute("cash", balance);
+            request.setAttribute("cash", customer.getCash());
             
-            String webapp = request.getContextPath();
-            return webapp + "/requestcheck.do";
+            request.setAttribute("message","Check Requested for "+customer.getFirstname());
+			return "success.jsp";
             
-        } catch (MyDAOException e) {
+        } catch (Exception e) {
             errors.add(e.getMessage());
-            return "error.jsp";
-        } catch (FormBeanException e) {
-            errors.add(e.getMessage());
-            return "error.jsp";
+            return "error-list.jsp";
         }
     }
 }

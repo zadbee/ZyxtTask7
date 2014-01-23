@@ -27,10 +27,10 @@ public class Cus_RequestCheckForm extends FormBean {
 		// no need to consider overflow here
 		
 		try {
-            if (Double.parseDouble(withdraw) < 1.00) {
+            if (Long.parseLong(withdraw) < 1.00) {
                 errors.add("Amount must be greater than or equal to $ 1.00"); 
             }
-            if (Double.parseDouble(withdraw) >= 10000000) {
+            if (Long.parseLong(withdraw) >= 10000000) {
                 errors.add("Amount must be less than $ 10,000,000"); 
             }
         }
