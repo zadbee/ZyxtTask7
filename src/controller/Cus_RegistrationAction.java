@@ -64,7 +64,7 @@ public class Cus_RegistrationAction extends Action {
 	        customer.setCash(form.getCash());
 	        
 	        customerDAO.createAutoIncrement(customer);
-	        return "create-fund-emp.jsp";
+	        return "emp-create-fund.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
