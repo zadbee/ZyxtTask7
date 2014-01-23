@@ -65,20 +65,24 @@
 	                                	<tr>
 	                                		<td>${fund.fund_id}</td>
 	                                		<td>
+	                                		<c:choose>
 	                                		<c:when test="${fund.price > 0}">
-	                                			${fund.price}
+	                                			${fund.price / 100.0}
 	                                		</c:when>
 	                               			<c:otherwise>
 	                               				Not initialized
 	                               			</c:otherwise>
+	                               			</c:choose>
 	                                		</td>
 	                                		<td>
+	                                		<c:choose>
 	                                		<c:when test="${fund.price > 0}">
 	                                			${fund.price_date}
 	                                		</c:when>
 	                                		<c:otherwise>
 	                               				Not initialized
 	                               			</c:otherwise>
+	                               			</c:choose>
 	                                		</td>
 	                                		<td><input type="text" name="price_${fund.fund_id}"/></td>
 	                                	</tr>

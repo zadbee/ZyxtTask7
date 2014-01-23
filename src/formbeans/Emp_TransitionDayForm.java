@@ -14,7 +14,7 @@ public class Emp_TransitionDayForm {
 	
 	private String button = null;
 	
-	public boolean isPresent() { return button == null; }
+	public boolean isPresent() { return button != null; }
 	
 	@SuppressWarnings("unchecked")
 	public Emp_TransitionDayForm(HttpServletRequest request) {
