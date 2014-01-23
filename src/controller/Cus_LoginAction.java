@@ -75,7 +75,7 @@ public class Cus_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer", cus);
 	        session.setAttribute("identity", "customer");
-	        return "cus-view-account.jsp";
+	        return "cus_viewAccount.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "cus-login.jsp";

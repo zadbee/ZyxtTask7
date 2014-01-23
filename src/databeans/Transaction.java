@@ -15,7 +15,7 @@ public class Transaction {
 //			".jpg", ".gif", ".JPG"
 //	}
 
-	private int transaction_id    = 1;
+	private int transaction_id    = -1;
 	private int customer_id		  = -1; 
 	private int fund_id     	  = -1;
 	private Date execute_date 	  = null;

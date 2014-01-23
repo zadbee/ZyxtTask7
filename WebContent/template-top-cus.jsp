@@ -74,7 +74,7 @@ if (session.getAttribute("customer") == null) {
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">ZYXT Mutual Fund</a>
 
-                <li><a href="viewportfolio.do">View Account</a>
+                <li><a href="cus_viewAccount.do">View Account</a>
                 </li>
                 <li><a href="cus_changePwd.do">Change Password</a>
                 </li>

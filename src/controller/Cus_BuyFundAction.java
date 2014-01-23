@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.CustomerDAO;
 import model.FundDAO;
+import model.FundHistDAO;
 import model.Model;
 import model.TransDAO;
 
@@ -14,6 +15,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.Customer;
 import databeans.Fund;
+import databeans.FundPriceHistory;
 import databeans.Transaction;
 import formbeans.Cus_BuyFundForm;
 
@@ -23,10 +25,13 @@ public class Cus_BuyFundAction extends Action {
 	private TransDAO transactionDAO;
 	private CustomerDAO customerDAO;
 	private FundDAO fundDAO;
+	private FundHistDAO fundHistDAO;
+	
 	public Cus_BuyFundAction(Model model) {
 		transactionDAO = model.getTransDAO();
 		customerDAO = model.getCustomerDAO();
 		fundDAO = model.getFundDAO();
+		fundHistDAO = model.getFundHistDAO();
 	}
 	
 	public String getName() {
@@ -50,12 +55,25 @@ public class Cus_BuyFundAction extends Action {
 			
 			int customer_id = customer.getCustomer_id();
 			long available = customer.getCash();
+			
+			ArrayList<Fund> allFunds = fundDAO.getAll();
+			request.getSession().setAttribute("allFunds",allFunds);
+			
+			ArrayList<Long> allFundPrices = new ArrayList<Long>();
+			for(Fund x : allFunds){ 
+				if(fundHistDAO.getPrice(x.getFund_id())!=null)
+					allFundPrices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
+				else
+					allFundPrices.add(-1L);
+			}
+			request.getSession().setAttribute("allFundPrices",allFundPrices);
+			
+			
 			// If no params were passed, return with no errors so that the form
 			// will be presented (we assume for the first time).
 			if (!form.isPresent()) {
 				return "cus-buy-fund.jsp";
 			}
-			
 			
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
@@ -72,7 +90,6 @@ public class Cus_BuyFundAction extends Action {
 			
             String symbol = form.getFundSymbol();
             Fund fund = fundDAO.readBySymbol(symbol);
-            System.out.println("4");
 			Transaction t = new Transaction();
 			
 			t.setCustomer_id(customer_id);
@@ -81,16 +98,12 @@ public class Cus_BuyFundAction extends Action {
 			t.setTransaction_type("BUY");
 			t.setStatus("PENDING");
 			t.setAmount(amount);
-			System.out.println("4");
-			transactionDAO.create(t);
-			
-			System.out.println("6");
-			
+			transactionDAO.createAutoIncrement(t);
+								
 			customer.setCash(available-amount);
 			customerDAO.update(customer);
-			request.setAttribute("customer",customer);
-			
-			
+			request.getSession().setAttribute("customer",customer);
+
 	        return "cus_buyFund.do";
 	  } catch (Exception e) {
       	errors.add(e.toString());

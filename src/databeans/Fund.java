@@ -10,7 +10,7 @@ import org.genericdao.PrimaryKey;
 @PrimaryKey("fund_id")
 public class Fund {
 
-	private int    fund_id     = 0;
+	private int    fund_id     = 1;
 	private String name		   = null; 
 	private String symbol     = null;
 	

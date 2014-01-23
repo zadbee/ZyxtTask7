@@ -105,13 +105,12 @@ if(customer == null) {
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
-                                       <div class="col-md-12">
-                        <p class="lead">Your Fund List</p>
+                    <div class="col-md-12">
+                        <p class="lead">All Fund List</p>
                     </div>
-                    <% 	ArrayList<Integer> shares = (ArrayList<Integer>)request.getAttribute("shares");
-                    	ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
-                    	ArrayList<String> funds = (ArrayList<String>)request.getAttribute("funds");
-                    	if(funds!=null && funds.size()!=0){
+                    <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
+                    	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
+                    	if(allFunds!=null && allFunds.size()!=0){
                     %>
                     
                     
@@ -119,38 +118,41 @@ if(customer == null) {
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Fund ID</th>
                                     <th>Fund Name</th>
-                                    <th>Shares</th>
+                                    <th>Fund Symbol</th>
                                     <th>Current Prices</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <% 
-                            	for(int i=0; i<funds.size();i++){ 
+                            	for(int i=0; i<allFunds.size();i++){ 
                             %>
                                 <tr>
-                                    <td><%=i%></td>
-                                    <td><%=funds.get(i)%></td>
-                                    <td><%=shares.get(i)%></td>
-                                    <td><%=prices.get(i)%></td>
+                                    <td><%=allFunds.get(i).getFund_id()%></td>
+                                    <td><%=allFunds.get(i).getName()%></td>
+                                    <td><%=allFunds.get(i).getSymbol()%></td>
+                                    <%if(allFundPrices.get(i)==-1) {%>
+                                    <td><%="Not Initialized" %></td>
+                                    <%}else{ %>
+                                    <td><%=allFundPrices.get(i)%></td>
+                                    <%} %>
                                 </tr>
                              <%
                              	}
                             }else{
                             %>
-                            
-                           <div class="col-md-12">
-                            You own no funds, Buy some now!
-                           </div>   
+                           </tbody>
+                        </table>
+              		</div>
+              		
+	                  <div class="col-md-12">
+	                   No funds, Ask for help!
+	                  </div>   
                              
                             <%}
                     	%>
-                            
-                            
-                            </tbody>
-                        </table>
-                    </div>
+                   
                     
                 </div>
             </div>
