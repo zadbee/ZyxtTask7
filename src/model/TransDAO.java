@@ -15,12 +15,8 @@ public class TransDAO extends GenericDAO<Transaction> {
 	FundHistDAO histDAO;
 	public TransDAO(ConnectionPool pool, String tableName, CustomerDAO cdao, FundHistDAO hdao) throws DAOException {
 		super(Transaction.class, tableName, pool);
-<<<<<<< HEAD
-		
-=======
 		customerDAO = cdao;
 		histDAO = hdao;
->>>>>>> 6138b46dea7862ad9c9038e7afbbd4dbf8a2d442
 	}
 	
 	public void clearPending() throws RollbackException {
