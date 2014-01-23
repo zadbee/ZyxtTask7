@@ -39,6 +39,8 @@ public class Cus_RequestCheckAction extends Action {
         try {
             Cus_RequestCheckForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
+            Customer customer = (Customer) request.getSession().getAttribute("customer");
+            request.setAttribute("cash", customer.getCash());
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
 			}
@@ -46,9 +48,6 @@ public class Cus_RequestCheckAction extends Action {
             if (errors.size() != 0) {
                 return "cus-request-check.jsp";
             }
-            
-            Customer customer = (Customer) request.getSession().getAttribute("customer");
-
             if(customer == null) {
                 return "login-cus.jsp";
             }
@@ -65,7 +64,6 @@ public class Cus_RequestCheckAction extends Action {
                 return "cus-request-check.jsp";
             }
             
-            request.setAttribute("cash", customer.getCash());
 			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
 			
 			 
@@ -95,7 +93,7 @@ public class Cus_RequestCheckAction extends Action {
    
             
             
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current Balance is "+customer.getCash()+".");
+            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+customer.getCash()+".");
 			return "success.jsp";
             
         } catch (Exception e) {
