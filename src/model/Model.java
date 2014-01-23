@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 
-import model.*;
 
 public class Model {
 	private CustomerDAO 		customerDAO;
