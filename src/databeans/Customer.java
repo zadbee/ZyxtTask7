@@ -23,7 +23,7 @@ public class Customer {
 	private String city 		   = null;
 	private String state 		   = null;
 	private int zip 			   = 0;
-	private long cash 		   	= 0;
+	private double cash 		   	= 0;
     
 	public int getCustomer_id() {
 		return customer_id;
@@ -105,11 +105,11 @@ public class Customer {
 		this.zip = zip;
 	}
 
-	public long getCash() {
+	public double getCash() {
 		return cash;
 	}
 
-	public void setCash(long cash) {
-		this.cash = cash;
+	public void setCash(double d) {
+		this.cash = d;
 	}
 }
