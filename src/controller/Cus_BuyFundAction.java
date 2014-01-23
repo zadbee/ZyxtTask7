@@ -101,10 +101,16 @@ public class Cus_BuyFundAction extends Action {
 			customer.setCash(available - amount);
 			customerDAO.update(customer);
 			request.getSession().setAttribute("customer",customer);
+			
+			request.setAttribute("message","Fund "+ fund.getSymbol()+" is bought for"+customer.getFirstname());
+			return "cus-success.jsp";
 
+<<<<<<< HEAD
+=======
 			request.setAttribute("message", 
 					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getFund_id() + ".");
 	        return "cus-success.jsp";
+>>>>>>> 03bc20767153b77d54229c522149de63ac2f997a
 	  } catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-buy-fund.jsp";

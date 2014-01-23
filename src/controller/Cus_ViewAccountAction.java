@@ -34,17 +34,24 @@ public class Cus_ViewAccountAction extends Action {
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-		 System.out.println("here");
 		try {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");   
-		   
+
             if(customer == null) {
                 return "cus-login.jsp";
             }
+
             customer = customerDAO.readByName(customer.getUsername());
+
+            
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+<<<<<<< HEAD
             
             System.out.println(pos.length);
+=======
+            if(pos != null){
+
+>>>>>>> 49ad02e0957863331a54042396153288562fc361
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
@@ -60,7 +67,7 @@ public class Cus_ViewAccountAction extends Action {
 			request.setAttribute("funds",funds);
 			request.setAttribute("prices",prices);
 			request.setAttribute("pos",pos);
-			
+            }
 	        return "cus-view-account.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
