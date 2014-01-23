@@ -40,7 +40,8 @@ public class Emp_RegistrationAction extends Action {
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
-	            return "emp-registration.do";
+	        	System.out.println("here_--_____-----_--__");
+	            return "emp-registration.jsp";
 	        }
 
 	        // Any validation errors?
@@ -59,7 +60,7 @@ public class Emp_RegistrationAction extends Action {
 	        
 	        employeeDAO.create(employee);
 	        System.out.println("********************* before return");
-	        return "create-fund-emp.jsp";
+	        return "emp-create-fund.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());

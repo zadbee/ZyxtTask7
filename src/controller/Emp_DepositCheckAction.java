@@ -80,7 +80,7 @@ public class Emp_DepositCheckAction extends Action {
             request.setAttribute("cash", customer.getCash());
             
             
-            request.setAttribute("message","Deposit Requested for "+customer.getFirstname());
+            request.setAttribute("message","Deposit Requested for "+customer.getFirstname() + "Current cash is" + customer.getCash() );
 			return "success.jsp";
         } catch (Exception e) {
             errors.add(e.getMessage());

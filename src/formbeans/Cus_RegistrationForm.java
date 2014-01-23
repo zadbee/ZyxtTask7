@@ -20,7 +20,7 @@ public class Cus_RegistrationForm extends FormBean {
 	private int zip;
 	private String username;
 	private String password;
-	private double cash;
+	private long cash;
 	
 	public String getFirstName()    { return firstname;}
 	public String getLastName()     { return lastname; }
@@ -31,7 +31,7 @@ public class Cus_RegistrationForm extends FormBean {
 	public int getZip()				{ return zip;	   }
 	public String getUsername() 	{ return username; }
 	public String getPassword() 	{ return password; }
-	public double getCash()			{ return cash;	   }
+	public long getCash()			{ return cash;	   }
 	
 	public void setUsername(String s)	{ username = trimAndConvert(s,"<>\""); }
 	public void setPassword(String s) 	{ password = trimAndConvert(s,"<>\""); }
@@ -42,7 +42,7 @@ public class Cus_RegistrationForm extends FormBean {
 	public void setCity(String s)	    { city = trimAndConvert(s, "<>\"");}
 	public void setState(String s)		{ state = trimAndConvert(s, "<>\"");}
 	public void setZip(int s)			{ zip = s;}
-	public void setCash(double s)			{ cash = s;}
+	public void setCash(long s)			{ cash = s;}
 	
 	
 	

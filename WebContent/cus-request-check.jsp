@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%@page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,17 +49,17 @@
 				<div class="col-md-12" align="center">
  					<div class="panel panel-info" >
   						<div class="panel-heading">
-  						  <h3 class="panel-title">Available balance:$</h3>
-  						</div>
-                        <td>    
-                        <%
+  						<%
                             DecimalFormat nf = new DecimalFormat("#,##0.00");
                             nf.setMaximumFractionDigits(2);
                            	nf.setMinimumFractionDigits(2);
 	                        Long cash = (Long) request.getAttribute("cash");
 	                        if (cash!=null)
-	                            out.println(nf.format(cash));
-                        %>
+	                     %>
+  						  <h3 class="panel-title">Available balance :<%=nf.format(cash) %> </h3>
+  						</div>
+                        <td>    
+                        
                         </td>
                     </tr>
                     <tr>
