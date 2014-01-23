@@ -1,3 +1,5 @@
+<%@page import="databeans.Customer"%>
+<%@page import= "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,27 +46,28 @@
                     <div class="col-md-12">
                         <p class="lead">Personal Profile</p>
                     </div>
-					
+					<%Customer customer = (Customer) session.getAttribute("customer");
+					if(customer == null) {
+					    out.print("There is no customer information found in session!");
+					    return;
+					}
+					%>
 					<div class="col-md-12">
                         <table class="table">
-                            <thead>
+                             <tbody>
                                 <tr>
                                     <th>Name</th>
-                                    <td>John Doe</td>
+                                    <td><%=customer.getFirstname()+" "+customer.getLastname()%></td>
                                 </tr>
-                            </thead>
-                            <tbody>
                                 <tr>
                                     <th>Address</th>
-                                    <td>1111 Forbes Avenue, Pittsburgh, PA</td>
-                                </tr>
-                                <tr>
-                                    <th>Last Trading Day</td>
-                                    <td>01/15/2014</td>
+                                    <td><%=customer.getAddr_line1()+", "+customer.getAddr_line2()+", "+customer.getCity()+", "
+                                    		+customer.getState()+", "+customer.getZip()
+                                    %></td>
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td>1000.00</td>
+									<td><%="$"+ " "+customer.getCash()%></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -72,6 +75,13 @@
                     <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
+                    <% 	ArrayList<Integer> shares = (ArrayList<Integer>)request.getAttribute("shares");
+                    	ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
+                    	ArrayList<String> funds = (ArrayList<String>)request.getAttribute("funds");
+                    	if(funds!=null && funds.size()!=0){
+                    %>
+                    
+                    
                     <div class="col-md-12">
                         <table class="table">
                             <thead>
@@ -79,29 +89,30 @@
                                     <th>#</th>
                                     <th>Fund Name</th>
                                     <th>Shares</th>
-                                    <th>Value</th>
+                                    <th>Current Prices</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <% 
+                            	for(int i=0; i<funds.size();i++){ 
+                            %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Google</td>
-                                    <td>1000.001</td>
-                                    <td>15213.000</td>
+                                    <td><%=i%></td>
+                                    <td><%=funds.get(i)%></td>
+                                    <td><%=shares.get(i)%></td>
+                                    <td><%=prices.get(i)%></td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Yahoo</td>
-                                    <td>235.837</td>
-                                    <td>15640.000</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    
-                                    <td>LinkedIn</td>
-                                    <td>8871.134</td>
-                                    <td>15615.000</td>
-                                </tr>
+                             <%
+                             	}
+                            }else{
+                            %>
+                          
+                            You own no funds, Cilck here to buy one.
+                                                  
+                            <%}
+                    	%>
+                            
+                            
                             </tbody>
                         </table>
                     </div>
@@ -109,7 +120,8 @@
                 </div>
             </div>
         </div>
-
+        
+    <jsp:include page="template-footer.jsp" />
     </div>
 
     <!-- JavaScript -->
@@ -123,6 +135,7 @@
         $("#wrapper").toggleClass("active");
     });
     </script>
+
 </body>
 
 </html>

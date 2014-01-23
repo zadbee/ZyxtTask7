@@ -11,13 +11,10 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("hist_id")
 public class FundPriceHistory {
-//	public static final List<String> EXTENSIONS = Collections.unmodifiableList(Arrays.asList( new String[] {
-//			".jpg", ".gif", ".JPG"
-//	} ));
-	private int hist_id = -1;
-	private int fund_id          = -1;
-	private Date price_date		   = null; 
-	private long price     = 0L;
+	private int hist_id 		= -1;
+	private int fund_id     	= -1;
+	private Date price_date		= null; 
+	private long price     		= 0L;
 	
 	public int getHist_id() { return hist_id; }
 	public void setHist_id(int id) { hist_id = id; }

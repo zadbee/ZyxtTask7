@@ -73,10 +73,10 @@ if (session.getAttribute("customer") == null) {
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="#">ZYXT Mutual Fund</a>
+
+                <li><a href="cus-view-account.jsp">View Account</a>
                 </li>
                 <li><a href="cus_changePwd.do">Change Password</a>
-                </li>
-                <li><a href="viewportfolio.do">View Account</a>
                 </li>
                 <li><a href="cus_buyFund.do">Buy Fund</a>
                 </li>
@@ -84,9 +84,9 @@ if (session.getAttribute("customer") == null) {
                 </li>
                 <li><a href="requestcheck.do">Request Check</a>
                 </li>
-                <li><a href="cusviewhistory.do">Transaction History</a>
+                <li><a href="cus_viewhistory.do">Transaction History</a>
                 </li>
-                <li><a href="search-fund-cus.jsp">Research Fund</a>
+                <li><a href="cus_search-fund.jsp">Research Fund</a>
                 </li>
             </ul>
         </div>

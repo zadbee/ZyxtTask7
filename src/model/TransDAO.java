@@ -15,6 +15,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 	FundHistDAO histDAO;
 	public TransDAO(ConnectionPool pool, String tableName, CustomerDAO cdao, FundHistDAO hdao) throws DAOException {
 		super(Transaction.class, tableName, pool);
+
 		customerDAO = cdao;
 		histDAO = hdao;
 	}

@@ -2,17 +2,12 @@ package databeans;
 
 import org.genericdao.PrimaryKey;
 
-//import java.util.Arrays;
-//import java.util.Collections;
-//import java.util.List;
-
-
 @PrimaryKey("position_id")
 
 public class Position {
 	private int 	position_id = -1;
 	private int    	customer_id = -1;
-	private String 	fund_id 	= null; 
+	private int 	fund_id 	= -1; 
 	private int 	shares     	= -1;
 	
 	public int getCustomer_id() {
@@ -21,10 +16,10 @@ public class Position {
 	public void setCustomer_id(int customer_id) {
 		this.customer_id = customer_id;
 	}
-	public String getFund_id() {
+	public int getFund_id() {
 		return fund_id;
 	}
-	public void setFund_id(String fund_id) {
+	public void setFund_id(int fund_id) {
 		this.fund_id = fund_id;
 	}
 	public int getShares() {
