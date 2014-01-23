@@ -20,43 +20,45 @@
 </head>
 <body>
 
-<div id="container">
-    <jsp:include page="template-top-emp.jsp" />
-        
-        <div class="content">
-            <h2> Create Fund </h2>
+<div id="wrapper">
+    <jsp:include page="template-top-emp.jsp" />     
+        <div class="page-content-wrapper">
+        	<div class="content-header">
+                <h1>
+                    <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+                   
+                </h1>
+            </div>
             
-            <jsp:include page="error-list.jsp" />
-<%
-String fundName = "";
-String fundSymbol = "";
-if(request.getParameter("fundName")!=null){
-    fundName = request.getParameter("fundName");
-}
-if(request.getParameter("fundSymbol")!=null){
-    fundSymbol = request.getParameter("fundSymbol");
-}
-%>
-			<form method="post" action="createfund.do">
-				<table>
-					<tr>
-						<td> Fund Name: </td>
-						<td><input type="text" name="fundName" value="<%=fundName %>"/></td>
-					</tr>
-					<tr>
-						<td> Ticker: </td>
-						<td><input type="text" name="fundSymbol" value="<%=fundSymbol %>"/></td>
-					</tr>
-					<tr>  
-						<td colspan="2" align="center">
-							<input type="submit" name="button" value="Create Fund"/>
-						</td>
-					</tr>
-				</table>
-			</form>
-        </div>
-        <jsp:include page="template-footer.jsp" />
-    </div>
-</div>
+            <div class="page-content inset">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Create Fund</li>
+                </ol>            
+	            <jsp:include page="error-list.jsp" />
+	            
+	            <div class="row">
+		            <div class="col-md-12">
+					<form method="post" action="create-fund-emp.do">
+						<table>
+							<tr>
+								<td> Fund Name </td>
+								<td><input type="text" name="fundName" class="form-control" placeholder="Fund Name" value="${fund.name}"></td>
+							</tr>
+							<tr>
+								<td> Ticker </td>
+								<td><input type="text" name="fundSymbol" class="form-control" placeholder="Ticker" value="${fund.symbol}"></td>
+							</tr>
+							<tr>  
+								<td colspan="2" align="center">
+									<button type="submit" name="button" class="btn btn-default" value="submit">Create Fund</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+					</div>
+				</div>
+        	</div>
+		</div>
 </body>
 </html>

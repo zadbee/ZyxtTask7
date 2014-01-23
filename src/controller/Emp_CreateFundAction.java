@@ -26,11 +26,12 @@ public class Emp_CreateFundAction extends Action {
         fundDAO = model.getFundDAO();
     }
     
-    public String getName() { return "createfund.do"; }
+    public String getName() { return "create-fund-emp.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
+        System.out.println("Fund creating...");
         
         try {         
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
@@ -41,9 +42,11 @@ public class Emp_CreateFundAction extends Action {
             Emp_CreateFundForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
             
+            System.out.println("Where...");
             if (!form.isPresent()) {
                 return "create-fund-emp.jsp";
             }
+            System.out.println("Have form...");
 
             // Any validation errors?
             errors.addAll(form.getValidationErrors());
@@ -53,27 +56,21 @@ public class Emp_CreateFundAction extends Action {
             
             // Create new fund
             Fund fund = fundDAO.read(form.getFundName(), form.getFundSymbol());
-            if (fund!=null) {
+            if (fund != null) {
                 errors.add(fund.getName() + "["+fund.getSymbol()+"] already exists!");
                 return "create-fund-emp.jsp";
             }
+            
 			// Attach (this copy of) the user bean to the session
-
             fund = new Fund();
             fund.setName(form.getFundName());
             fund.setSymbol(form.getFundSymbol());
-            
-            
-            if(fundDAO.read(fund.getName())!=null) {
-                errors.add("Conflict! The Fund Name or the Fund Ticker has benn used");
-                return "create-fund-emp.jsp";
-            }
-			HttpSession session = request.getSession();
-			session.setAttribute("fund", fund);
+            fundDAO.createAutoIncrement(fund);
+            System.out.println("Fund created.");
 			
             request.setAttribute("fund", fund);
             errors.add("Fund has been created");
-            return "feedback-create-fund.jsp";
+            return "create-fund-emp.jsp";
         } catch (FormBeanException e) {
             errors.add(e.getMessage());
             return "error.jsp";
