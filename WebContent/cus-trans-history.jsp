@@ -1,5 +1,6 @@
 <%@page import="databeans.Customer"%>
 <%@page import="databeans.Fund"%>
+<%@page import="databeans.Transaction"%>
 <%@page import="java.util.*" %>
 <%@page import="utility.Format" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -43,7 +44,7 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Buy Fund</li>
+                    <li class="active">Transaction History</li>
                 </ol>
 <%
 Customer customer = (Customer) session.getAttribute("customer");
@@ -54,63 +55,18 @@ if(customer == null) {
 %>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">Buy Fund</p>
+                        <p class="lead">Your Transaction History</p>
                     </div>
                     <jsp:include page="error-list.jsp" />
-                    
-                    <form method="post" action="cus_buyFund.do">
-	                    <div class="col-md-5">
-	                        <div class="input-group">
-	                            <span class="input-group-addon">#</span>
-	                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
-	                        </div>
-	                    </div>
-	                    <div class="col-md-12">
-	                        <p class="lead"> </p>
-	                    </div>
-	                    <div class="col-md-5">
-	                        <div class="input-group">
-	                            <span class="input-group-addon">$</span>
-	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
-	                                </div>
-	                    </div>          
-	                    <div class="col-md-12">
-	                        <p class="lead"> </p>
-	                    </div>
-	                    <div class="col-md-2">
-	                        <p class="lead"> </p>
-	                    </div>
-	                    <div class="col-md-4">
-	                        <div class="btn-group">
-	                            <button type="submit" class="btn btn-default" name="button">Buy Now</button>
-	                        </div>
-	                    </div>
-                    </form>
+
                     
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead">Your Current Balance</p>
-                        <button type="button" class="btn btn-default">
-                            <span><%= "$" + " " + customer.getCash()/100.0 %></span>
-                        </button>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead">All Fund List</p>
-                    </div>
-                    <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
-                    	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
-                    	if(allFunds!=null && allFunds.size()!=0){
+
+                    <% 	Transaction[] trans = (Transaction[])request.getSession().getAttribute("trans");
+                    	String[] funds = (String[])request.getSession().getAttribute("funds");
+                    	if(trans!=null && trans.length!=0){
                     %>
                     
                     
@@ -118,25 +74,47 @@ if(customer == null) {
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Fund ID</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
                                     <th>Fund Name</th>
-                                    <th>Fund Symbol</th>
-                                    <th>Current Prices</th>
+                                    <th>Shares</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+  
                                 </tr>
                             </thead>
                             <tbody>
                             <% 
-                            	for(int i=0; i<allFunds.size();i++){ 
+                            	for(int i=0; i<trans.length;i++){ 
                             %>
                                 <tr>
-                                    <td><%=allFunds.get(i).getFund_id()%></td>
-                                    <td><%=allFunds.get(i).getName()%></td>
-                                    <td><%=allFunds.get(i).getSymbol()%></td>
-                                    <%if(allFundPrices.get(i)==-1) {%>
-                                    <td><%="Not Initialized" %></td>
+		                            <%if(trans[i].getExecute_date()!=null) {%>
+                                    <td><%=trans[i].getExecute_date()%></td>
                                     <%}else{ %>
-                                    <td><%=allFundPrices.get(i)/100.0 %></td>
+                                    <td>N/A</td>
                                     <%} %>
+                                    
+                                    <td><%=trans[i].getTransaction_type()%></td>
+                                    
+                                    <%if(funds[i]!=null){%>
+                                    <td><%=funds[i]%></td>
+                                    <%}else{%>
+                                    <td>N/A</td>
+                                    <%} %>
+                                    
+                                    <%if(trans[i].getShares()!=0){%>
+                                    <td><%=trans[i].getShares()%></td>
+                                    <%}else{%>
+                                    <td>N/A</td>
+                                    <%} %>
+                                    
+                                    <%if(trans[i].getAmount()!=0){%>
+                                    <td><%=trans[i].getAmount()%></td>
+                                    <%}else{%>
+                                    <td>N/A</td>
+                                    <%} %>
+                                    
+                                    <td><%=trans[i].getStatus() %></td>                                 
                                 </tr>
                              <%
                              	}
@@ -147,7 +125,7 @@ if(customer == null) {
               		</div>
               		
 	                  <div class="col-md-12">
-	                   No funds, Ask for help!
+	                  No transaction records found. Make your first transaction today! 
 	                  </div>   
                              
                             <%}

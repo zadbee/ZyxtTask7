@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import databeans.Customer;
+import databeans.Fund;
 import databeans.Position;
 import model.CustomerDAO;
 import model.FundDAO;
@@ -33,33 +34,46 @@ public class Cus_ViewAccountAction extends Action {
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
 		try {
-		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");          
+		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");   
+
             if(customer == null) {
                 return "cus-login.jsp";
             }
+
             customer = customerDAO.readByName(customer.getUsername());
-            Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+
             
-            ArrayList<Integer> shares = new ArrayList<Integer>();
-            ArrayList<String> funds = new ArrayList<String>();
+            Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+<<<<<<< HEAD
+
+
+            if(pos != null){
+            	
+=======
+            
+>>>>>>> d83c9487715b4da90d3455e91a23e9cb7412e342
+            ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
             for(Position x:pos){
-            	shares.add(x.getShares());
-            	funds.add(fundDAO.read(x.getFund_id()).getName());
-            	prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
+            	funds.add(fundDAO.read(x.getFund_id()));
+            	if(fundHistDAO.getPrice(x.getFund_id())==null)
+            		prices.add(-1L);
+            	else
+            		prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
             }
             
-			request.setAttribute("shares",shares);
 			request.setAttribute("funds",funds);
 			request.setAttribute("prices",prices);
-			
-	        return "cus_viewAccount.do";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	return "error.jsp";
-      }
+			request.setAttribute("pos",pos);
+          
+	        return "cus-view-account.jsp";
+	  } catch (NullPointerException e) {	      	
+	      	return "cus-view-account.jsp";
+	  }catch (Exception e) {
+			errors.add(e.toString());
+			return "cus-view-account.jsp";
+      } 
 	}
 }

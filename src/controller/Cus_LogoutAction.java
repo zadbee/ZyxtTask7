@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerDAO;
 import model.Model;
 
 public class Cus_LogoutAction extends Action {
-	private CustomerDAO customerDAO;
 	
-    public Cus_LogoutAction(Model model) { customerDAO = model.getCustomerDAO(); }
+    public Cus_LogoutAction(Model model) {}
 	@Override
 	public String getName() {
 		return "cus-logout.do";

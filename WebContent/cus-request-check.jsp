@@ -56,7 +56,7 @@
 	                        Long cash = (Long) request.getAttribute("cash");
 	                        if (cash!=null)
 	                     %>
-  						  <h3 class="panel-title">Available balance :<%=nf.format(cash) %> </h3>
+  						  <h3 class="panel-title">Available balance :<%=nf.format(cash/100.0)%> </h3>
   						</div>
                         <td>    
                         
@@ -87,10 +87,10 @@
                     </tr>
                 </table>
             </form>
-				<jsp:include page="template-footer.jsp" />
             </div>
         </div>
-
+        
+        <jsp:include page="template-footer.jsp" />
     </div>
 
 	<!-- JavaScript -->

@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 
-import controller.*;
 import databeans.*;
 import model.*;
 
@@ -29,12 +27,14 @@ public class Controller extends HttpServlet {
         Action.add(new Cus_ChangePwdAction(model));
         Action.add(new Cus_LogoutAction(model));
         Action.add(new Cus_RequestCheckAction(model));
+        Action.add(new Cus_BuyFundAction(model));
+        Action.add(new Cus_SellFundAction(model));
+        Action.add(new Cus_ViewAccountAction(model));
+        Action.add(new Cus_RegistrationAction(model));
+        Action.add(new Cus_TransHistoryAction(model));
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
         Action.add(new Emp_ChangePwdAction(model));
-        Action.add(new Cus_BuyFundAction(model));
-        Action.add(new Cus_SellFundAction(model));
-        Action.add(new Cus_RegistrationAction(model));
         Action.add(new Emp_RegistrationAction(model));
         Action.add(new Emp_CreateFundAction(model));
         Action.add(new Emp_TransitionDayAction(model));
@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
 				Customer user = new Customer();
 				user.setAddr_line1("Pitts");
 				user.setAddr_line2("Pitts");
-				user.setCash(100);
+				user.setCash(100000000);
 				user.setCity("Pittsburgh");
 				user.setFirstname("John");
 				user.setLastname("Smith");
@@ -90,9 +90,7 @@ public class Controller extends HttpServlet {
      * @return the next page (the view)
      */
     private String performTheAction(HttpServletRequest request) {
-        HttpSession session     = request.getSession(true);
-        String      servletPath = request.getServletPath();
-        
+        String      servletPath = request.getServletPath();     
         String      action = getActionName(servletPath);
         //String 		identity = (String) session.getAttribute("identity");
         

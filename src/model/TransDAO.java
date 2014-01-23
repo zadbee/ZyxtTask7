@@ -8,17 +8,21 @@ import org.genericdao.RollbackException;
 
 import databeans.Customer;
 import databeans.FundPriceHistory;
+import databeans.Position;
 import databeans.Transaction;
 
 public class TransDAO extends GenericDAO<Transaction> {
 	CustomerDAO customerDAO;
 	FundHistDAO histDAO;
-	public TransDAO(ConnectionPool pool, String tableName, CustomerDAO cdao, FundHistDAO hdao) throws DAOException {
+	PosDAO posDAO;
+	public TransDAO(ConnectionPool pool, String tableName, CustomerDAO cdao, FundHistDAO hdao, PosDAO pdao) throws DAOException {
 		super(Transaction.class, tableName, pool);
-
 		customerDAO = cdao;
 		histDAO = hdao;
+		posDAO = pdao;
 	}
+	
+	
 	
 	public void clearPending() throws RollbackException {
 		// Only handle pending BUYs and SELLs
@@ -28,18 +32,29 @@ public class TransDAO extends GenericDAO<Transaction> {
 		System.out.println("Handling all pending transactions.");
 		for (Transaction t : pending) {
 			if (t.getTransaction_type().equals("SELL")) {
-				System.out.println("Handling sale of " + t.getFund_id());
 				Customer user = customerDAO.read(t.getCustomer_id());
 				if (user == null)
 					continue;
 				FundPriceHistory price = histDAO.getPrice(t.getFund_id());
 				if (price == null)
 					continue;
-				System.out.println(price.getPrice() + ", " + t.getShares());
+				
+				// Update the cash amount.
 				long sellAmount = Math.round(price.getPrice() * (t.getShares() / 1000.0));
-				System.out.println("Cash increased by " + sellAmount);
 				user.setCash(user.getCash() + sellAmount);
 				customerDAO.update(user);
+			} else {
+				FundPriceHistory price = histDAO.getPrice(t.getFund_id());
+				if (price == null)
+					continue;
+				
+				// Update the position table.
+				Position pos = posDAO.getShares(t.getCustomer_id(), t.getFund_id());
+				if (pos == null)
+					continue;
+				long sellShares = Math.round(t.getAmount() / price.getPrice());
+				pos.setShares(pos.getShares() + sellShares);
+				posDAO.update(pos);
 			}
 			t.setStatus("APPROVED");
 			update(t);

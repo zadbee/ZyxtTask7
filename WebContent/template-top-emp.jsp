@@ -17,6 +17,7 @@
 
     <!-- Add custom CSS here -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/landing-page.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 </head>

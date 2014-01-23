@@ -1,5 +1,7 @@
 <%@page import="databeans.Customer"%>
 <%@page import= "java.util.ArrayList" %>
+<%@page import= "databeans.Position" %>
+<%@page import= "databeans.Fund" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +43,7 @@
                     <li><a href="#">Home</a></li>
                     <li class="active">View Account</li>
                 </ol>
-                
+                <jsp:include page="error-list.jsp" />
                 <div class="row">
                     <div class="col-md-12">
                         <p class="lead">Personal Profile</p>
@@ -75,9 +77,9 @@
                     <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
-                    <% 	ArrayList<Integer> shares = (ArrayList<Integer>)request.getAttribute("shares");
-                    	ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
-                    	ArrayList<String> funds = (ArrayList<String>)request.getAttribute("funds");
+                    <%  ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
+                    	ArrayList<Fund> funds = (ArrayList<Fund>)request.getAttribute("funds");
+                    	Position[] pos = (Position[])request.getAttribute("pos");
                     	if(funds!=null && funds.size()!=0){
                     %>
                     
@@ -86,10 +88,11 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Fund ID</th>
                                     <th>Fund Name</th>
+                                    <th>Fund Symbol</th>
                                     <th>Shares</th>
-                                    <th>Current Prices</th>
+                                    <th>Latest Prices</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,18 +100,25 @@
                             	for(int i=0; i<funds.size();i++){ 
                             %>
                                 <tr>
-                                    <td><%=i%></td>
-                                    <td><%=funds.get(i)%></td>
-                                    <td><%=shares.get(i)%></td>
+                                    <td><%=pos[i].getFund_id()%></td>
+                                    <td><%=funds.get(i).getName()%></td>
+                                    <td><%=funds.get(i).getSymbol()%></td>
+                                    <td><%=pos[i].getShares()%></td>
+                                    <%if(prices.get(i)!=-1){%>
                                     <td><%=prices.get(i)%></td>
+                                    <%}else{ %>
+                                    <td><%="Not Initialized"%></td>
+                                    <%} %>
                                 </tr>
                              <%
                              	}
                             }else{
                             %>
-                          
-                            You own no funds, Cilck here to buy one.
-                                                  
+                            
+                           <div class="col-md-12">
+                            You own no funds, Buy some now!
+                           </div>   
+                             
                             <%}
                     	%>
                             
@@ -120,8 +130,6 @@
                 </div>
             </div>
         </div>
-        
-    <jsp:include page="template-footer.jsp" />
     </div>
 
     <!-- JavaScript -->
