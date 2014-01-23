@@ -64,13 +64,8 @@ public class Cus_SellFundAction extends Action{
             if (updatedCus == null)
             	return "cus-login.jsp";
             
-            Position pos = positionDAO.getShares(customer.getCustomer_id(), fundId);
-            if (pos == null) {
-            	errors.add("Fund " + fundId + " does not exist.");
-            	return "cus-sell-fund.jsp";
-            }
-            
-            if (shares > pos.getShares()) {
+            Position pos = positionDAO.getShares(customer.getCustomer_id(), fundId);            
+            if (pos == null || shares > pos.getShares()) {
             	errors.add("You do not have enough share of fund " + fundId);
             	return "cus-sell-fund.jsp";
             }

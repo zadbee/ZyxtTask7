@@ -2,7 +2,7 @@ package utility;
 
 public class AmountCheck {
 	private static final long MAX = 1000000000;
-	private static final long MIN = 0;
+	private static final long MIN = 1;
 	
 	public static long checkValueString(String s) {
 		float fn = 0;
@@ -35,9 +35,9 @@ public class AmountCheck {
 		if (ec == -1)
 			return new String("\"" + s + "\" is not a number.");
 		if (ec == -2)
-			return new String(s + " is out of the range of cash value: 0 - 1000000000");
+			return new String(s + " is out of the range of cash value: 0.01 - 10000000.00");
 		if (ec == -3)
-			return new String(s + " is out of the range of shares: 0 - 1000000000");
+			return new String(s + " is out of the range of shares: 0.001 - 1000000.000");
 		return "Error code out of range.";
 	}
 }

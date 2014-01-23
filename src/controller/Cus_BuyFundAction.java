@@ -46,11 +46,12 @@ public class Cus_BuyFundAction extends Action {
 		
 		try {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");          
-            if(customer == null) {
+            if(customer == null)
                 return "cus-login.jsp";
-            }
             
             customer = customerDAO.read(customer.getCustomer_id());
+            if(customer == null)
+                return "cus-login.jsp";
             //request.getSession(false).setAttribute("customer", customer);
 		    Cus_BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
@@ -97,7 +98,7 @@ public class Cus_BuyFundAction extends Action {
 			t.setStatus("PENDING");
 			t.setAmount(amount);
 			transactionDAO.createAutoIncrement(t);
-								
+				
 			customer.setCash(available - amount);
 			customerDAO.update(customer);
 			request.getSession().setAttribute("customer",customer);
