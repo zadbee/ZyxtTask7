@@ -41,6 +41,10 @@ public class Cus_RequestCheckAction extends Action {
             request.setAttribute("form",form);
             Customer customer = (Customer) request.getSession().getAttribute("customer");
             request.setAttribute("cash", customer.getCash());
+            if(customer == null) {
+                return "login-cus.jsp";
+            }
+
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
 			}
@@ -48,10 +52,7 @@ public class Cus_RequestCheckAction extends Action {
             if (errors.size() != 0) {
                 return "cus-request-check.jsp";
             }
-            if(customer == null) {
-                return "login-cus.jsp";
-            }
-
+            
             //customer = customerDAO.lookup(customer.getCustomer_id());
             //request.getSession(false).setAttribute("customer", customer);
             
