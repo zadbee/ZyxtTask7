@@ -100,6 +100,7 @@ public class Cus_BuyFundAction extends Action {
 				
 			customer.setCash(available - amount);
 			customerDAO.update(customer);
+
 			request.getSession().setAttribute("customer",customer);
 			
 			request.setAttribute("message", 
