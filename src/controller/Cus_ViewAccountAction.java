@@ -45,14 +45,7 @@ public class Cus_ViewAccountAction extends Action {
 
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
-<<<<<<< HEAD
 
-
-            if(pos != null){
-            	
-=======
-            
->>>>>>> d83c9487715b4da90d3455e91a23e9cb7412e342
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
