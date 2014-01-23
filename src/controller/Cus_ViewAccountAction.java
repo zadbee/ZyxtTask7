@@ -45,10 +45,14 @@ public class Cus_ViewAccountAction extends Action {
 
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+<<<<<<< HEAD
 
 
             if(pos != null){
             	
+=======
+            
+>>>>>>> d83c9487715b4da90d3455e91a23e9cb7412e342
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
@@ -59,22 +63,17 @@ public class Cus_ViewAccountAction extends Action {
             	else
             		prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
             }
-
             
 			request.setAttribute("funds",funds);
 			request.setAttribute("prices",prices);
 			request.setAttribute("pos",pos);
-            }
-
-            
+          
 	        return "cus-view-account.jsp";
-	  } catch (NullPointerException e) {
-	      	
+	  } catch (NullPointerException e) {	      	
 	      	return "cus-view-account.jsp";
-	      } 
-		catch (Exception e) {
-      	errors.add(e.toString());
-      	return "cus-view-account.jsp";
+	  }catch (Exception e) {
+			errors.add(e.toString());
+			return "cus-view-account.jsp";
       } 
 	}
 }
