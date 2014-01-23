@@ -43,12 +43,17 @@
 				<jsp:include page="error-list.jsp" />
 
 				
-				<div class="col-md-5">
+				<div class="col-md-12">
+				 
                         <div class="input-group">
-                            <span class="input-group-addon">Search</span>
-                            <input type="text" name="fundid" class="form-control" placeholder="Search by Fund_ID, Fund_Name or Fund_Symbol" value="">
+                        
+      <input type="text" name="fundid" class="form-control" placeholder="Search by Fund_ID, Fund_Name or Fund_Symbol" value="">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+  </div>
                         </div>
-                    </div>
+                   
 				<br />
 				
 					<tbody>
@@ -64,12 +69,13 @@
 					</tbody>
 
 				</table>
+				</div>
 				 <div class="row">
                   
                 <div class="block-a highlight">
                 
                  <div class="col-md-12">
-
+<div class="col-md-12">
 <div class="alert alert-info"><h4>Fund Overview</h4></div>
 
 <h5>Team-managed, diversified large-cap growth</h5>
@@ -85,8 +91,9 @@
 
 </div>
                 </div>
+                </div>
                     
-                   
+                    <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="alert alert-info"><h4>Performance </h4></div>
                     </div>
@@ -141,7 +148,8 @@
                             </tbody>
                         </table>
                     </div>
-                    
+                    </div>
+                    </div>
           <div class="col-md-12">  
           <div class="alert alert-info"><h4>Portfolio Analysis</h4></div>
           <h4>Top Holdings</h4>
@@ -162,6 +170,7 @@
 	
 			</div>
 			<jsp:include page="template-footer.jsp" />
+		</div>
 		</div>
 </body>
 </html>
