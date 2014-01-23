@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
 
-import utility.PricePair;
 import model.*;
 import databeans.*;
 import formbeans.*;
@@ -32,43 +31,41 @@ public class Emp_TransitionDayAction extends Action {
 	public String perform(HttpServletRequest request) {
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
-		ArrayList<PricePair> prices = new ArrayList<PricePair>();
+		ArrayList<FundPriceHistory> prices = new ArrayList<FundPriceHistory>();
 		request.setAttribute("prices", prices);
 		
 		// Get the updated price and update it.
 		Fund[] funds = null;
 		try {
 			funds = fundDAO.match();
+			
+			if (funds == null || funds.length == 0) {
+				errors.add("There is not any funds.");
+				return "emp-transitionday.jsp";
+			}
+			
+			// Initialize the fund information for displaying first.
+			// Can also fresh the price if some other employee sets the new price.
+			prices.addAll(histDAO.getAll());
+			
+			transForm = new Emp_TransitionDayForm(request);
+			
+			if (!transForm.isPresent())
+				return "emp-transitionday.jsp";
+			
+			errors.addAll(transForm.getValidationErrors());
+			if (errors.size() > 0)
+				return "emp-transitionday.jsp";
+			
+			// Update all prices.
+			histDAO.updateAll(transForm.prices);
+			
+			// Handle all pending transactions. 
+			transDAO.clearPending();
 		} catch (RollbackException e) {
-			e.printStackTrace();
-		}
-		
-		if (funds == null || funds.length == 0) {
-			errors.add("There is not any funds.");
-			return "emp-transitionday.jsp";
-		}
-		
-		// Initialize the fund information for displaying first.
-		// Can also fresh the price if some other employee sets the new price.
-		for (Fund f : funds)
-			prices.add(new PricePair(f.getFund_id()));
-		
-		transForm = new Emp_TransitionDayForm(request);
-		
-		if (!transForm.isPresent())
-			return "emp-transitionday.jsp";
-		
-		errors.addAll(transForm.getValidationErrors());
-		if (errors.size() > 0)
-			return "emp-transitionday.jsp";
-		
-		// Update all prices.
-		histDAO.updateAll(transForm.prices);
-		
-		// Handle all pending transactions. 
-		transDAO.clearPending();
-		
-		return null;
+			errors.add(e.getMessage());
+		}		
+		return "emp-transitionday.jsp";
 	}
 
 }

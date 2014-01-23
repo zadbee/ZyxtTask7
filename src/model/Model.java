@@ -28,7 +28,7 @@ public class Model {
 			fundDAO = new FundDAO(pool, "Fund");
 			employeeDAO = new EmployeeDAO(pool,"Employee");
 			fundHistDAO = new FundHistDAO(pool, "FundHisoty");
-			transDAO = new TransDAO(pool,"Transaction");
+			transDAO = new TransDAO(pool,"Transaction", customerDAO, fundHistDAO);
 			posDAO = new PosDAO(pool,"Position");
 			
 		} catch (DAOException e) {

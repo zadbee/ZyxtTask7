@@ -20,7 +20,6 @@ public class FundPriceHistory {
 	private long price     = 0L;
 	
 	public int getHist_id() { return hist_id; }
-	public void setHist_id(int id) { hist_id = id; }
 	public int getFund_id() {
 		return fund_id;
 	}
