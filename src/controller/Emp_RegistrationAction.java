@@ -10,7 +10,6 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Employee;
-import formbeans.Cus_RegistrationForm;
 import formbeans.Emp_RegistrationForm;
 import model.Model;
 

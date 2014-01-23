@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 
-import controller.*;
 import databeans.*;
 import model.*;
 
@@ -91,9 +89,7 @@ public class Controller extends HttpServlet {
      * @return the next page (the view)
      */
     private String performTheAction(HttpServletRequest request) {
-        HttpSession session     = request.getSession(true);
-        String      servletPath = request.getServletPath();
-        
+        String      servletPath = request.getServletPath();     
         String      action = getActionName(servletPath);
         //String 		identity = (String) session.getAttribute("identity");
         
