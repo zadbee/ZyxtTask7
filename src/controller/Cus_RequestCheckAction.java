@@ -65,7 +65,9 @@ public class Cus_RequestCheckAction extends Action {
             }
             
 			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
-			
+	        customer = customerDAO.read(customer.getCustomer_id());
+
+			request.getSession().setAttribute("customer", customer);
 			 
 			//double balance = customerDAO.getCash(customer.getCustomer_id());
 
@@ -92,7 +94,7 @@ public class Cus_RequestCheckAction extends Action {
 
             	
             
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()-withdrawAmount)+".");
+            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()+"."));
 			return "success.jsp";
             
         } catch (Exception e) {
