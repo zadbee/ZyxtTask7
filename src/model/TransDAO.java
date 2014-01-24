@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Arrays;
+import java.util.Date;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
@@ -20,6 +23,16 @@ public class TransDAO extends GenericDAO<Transaction> {
 		customerDAO = cdao;
 		histDAO = hdao;
 		posDAO = pdao;
+	}
+	
+	public Date lastTradingDay(int cus_id) throws RollbackException{ 	
+		Transaction[] trans = match(MatchArg.equals("customer_id", cus_id));
+		Date[] dates = new Date[trans.length];
+		for(int i=0; i<trans.length;i++){
+			dates[i] = trans[i].getExecute_date();
+		}
+		Arrays.sort(dates);
+		return dates[trans.length-1];
 	}
 	
 	
@@ -50,11 +63,19 @@ public class TransDAO extends GenericDAO<Transaction> {
 				
 				// Update the position table.
 				Position pos = posDAO.getShares(t.getCustomer_id(), t.getFund_id());
-				if (pos == null)
-					continue;
-				long sellShares = Math.round(t.getAmount() / price.getPrice());
-				pos.setShares(pos.getShares() + sellShares);
-				posDAO.update(pos);
+				long buyShares = Math.round(t.getAmount() / price.getPrice());
+				if (pos == null) {
+					pos = new Position();
+					pos.setCustomer_id(t.getCustomer_id());
+					pos.setFund_id(t.getFund_id());
+					pos.setShares(buyShares);
+					posDAO.createAutoIncrement(pos);
+				}
+				else {
+					pos.setShares(pos.getShares() + buyShares);
+					posDAO.update(pos);
+				}
+				t.setShares(buyShares);		
 			}
 			//t.setStatus("APPROVED");
 			update(t);

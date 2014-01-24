@@ -94,8 +94,11 @@ public class Cus_BuyFundAction extends Action {
 			t.setFund_id(fund.getFund_id());
 			t.setExecute_date(new Date());
 			t.setTransaction_type("BUY");
+<<<<<<< HEAD
 			t.setStatus("PENDING");
 
+=======
+>>>>>>> df8d09715041d28764823235fc34151d42aedcaf
 			t.setAmount(amount);
 			t.setStatus("PENDING");
 			transactionDAO.createAutoIncrement(t);
@@ -104,9 +107,9 @@ public class Cus_BuyFundAction extends Action {
 			customerDAO.update(customer);
 
 			request.getSession().setAttribute("customer",customer);
-			
+
 			request.setAttribute("message", 
-					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getFund_id() + ".");
+					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getSymbol() + ".");
 	        return "cus-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());

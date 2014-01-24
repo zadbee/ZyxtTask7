@@ -1,5 +1,6 @@
 <%@page import="databeans.Customer"%>
 <%@page import="databeans.Fund"%>
+<%@page import="databeans.Position"%>
 <%@page import="java.util.*" %>
 <%@page import="utility.Format" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -50,6 +51,7 @@
                     <div class="col-md-12">
                         <p class="lead">Sell Fund</p>
                     </div>
+                    <jsp:include page="error-list.jsp" />
                     <div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">#</span>
@@ -86,22 +88,25 @@
                     <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
+                                        
                     <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Fund ID</th>
                                     <th>Fund Name</th>
+                                    <th>Current Price</th>
                                     <th>Shares</th>
-                                    <th>Bought Price</th>
-                                    <th>Bought Date</th>
-                                    
+                                    <th>
                                 </tr>
                             </thead>
                             <tbody>
+                           
+                                                     
                             </tbody>
                         </table>
                     </div>
+                    
                     
                 </div>
             </div>

@@ -92,7 +92,7 @@ public class Controller extends HttpServlet {
     private String performTheAction(HttpServletRequest request) {
         String      servletPath = request.getServletPath();     
         String      action = getActionName(servletPath);
-        //String 		identity = (String) session.getAttribute("identity");
+        String 		identity = (String) session.getAttribute("identity");
         
         // User is not logged in or at the root of the app.
         if (action.equals("welcome")){

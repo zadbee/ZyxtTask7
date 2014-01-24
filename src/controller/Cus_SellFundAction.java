@@ -15,6 +15,8 @@ import org.mybeans.form.FormBeanFactory;
 
 import utility.AmountCheck;
 import databeans.Customer;
+import databeans.Fund;
+import databeans.FundPriceHistory;
 import databeans.Position;
 import databeans.Transaction;
 import formbeans.Cus_SellFundForm;
@@ -37,15 +39,24 @@ public class Cus_SellFundAction extends Action{
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
-		try {
-		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");            
-            if(customer == null) {
-                return "cus-login.jsp";
-            }
-            
+		Customer customer = (Customer) request.getSession(false).getAttribute("customer");  
+		
+        if(customer == null)
+            return "cus-login.jsp";
+        
+        ArrayList<FundPriceHistory> prices = new ArrayList<FundPriceHistory>();
+		request.setAttribute("prices", prices);
+		ArrayList<String> names = new ArrayList<String>();
+		request.setAttribute("names", names);
+		//ArrayList<Double> shares = new ArrayList<Double>();
+		
+		// Initialize the fund information for displaying first.
+		// Can also fresh the price if some other employee sets the new price.
+		try { 
             Cus_SellFundForm form = formBeanFactory.create(request);
-            
+            if (!form.isPresent())
+            	return "cus-sell-fund.jsp";
+            	
             errors.addAll(form.getValidationErrors());
             if (errors.size() > 0)
             	return "cus-sell-fund.jsp";
@@ -82,7 +93,7 @@ public class Cus_SellFundAction extends Action{
 	        return "cus-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
-      	return "cus_sellFund.do";
+      	return "cus-sell-fund.jsp";
       }
 	}
 

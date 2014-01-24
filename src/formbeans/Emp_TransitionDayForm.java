@@ -36,10 +36,17 @@ public class Emp_TransitionDayForm {
 				long np = AmountCheck.checkValueString(s);
 				if (np < 0)
 					errors.add(AmountCheck.getErrorByCode(sprices.get(i), np));
-				prices.get(i).setPrice(np);
 			}
 		}	
 		
+		if (errors.size() > 0)
+			return errors;
+		
+		for (int i = 0; i < sprices.size(); i++) {
+			String s = sprices.get(i);
+			long np = AmountCheck.checkValueString(s);
+			prices.get(i).setPrice(np);
+		}
 		return errors;
 	}
 }

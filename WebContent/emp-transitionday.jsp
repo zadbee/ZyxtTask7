@@ -55,15 +55,17 @@
 	                            <thead>
 	                                <tr>
 	                                    <th>Fund ID</th>
+	                                    <th>Name</th>
 	                                    <th>Current Price</th>
 	                                    <th>Last Update</th>
 	                                    <th>New Price</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <c:forEach var="fund" items="${prices}">
+	                                <c:forEach var="fund" items="${prices}" varStatus="Status">
 	                                	<tr>
 	                                		<td>${fund.fund_id}</td>
+	                                		<td>${names[Status.index]}</td>
 	                                		<td>
 	                                		<c:choose>
 	                                		<c:when test="${fund.price > 0}">
