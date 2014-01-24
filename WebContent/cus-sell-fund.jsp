@@ -89,8 +89,8 @@
 	                            <thead>
 	                                <tr>
 	                                    <th>Fund ID</th>
-	                                    <th>Name</th>
-	                                    <th>Symbol</th>            
+	                                    <th>Fund Name</th>
+	                                    <th>Fund Symbol</th>            
 	                                    <th>Shares</th>
 	                                    <th>Latest Price</th>
 	                                </tr>

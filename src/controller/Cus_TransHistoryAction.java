@@ -48,12 +48,12 @@ public class Cus_TransHistoryAction extends Action{
             for(int i=0; i<funds.length; i++){
             	funds[i] = fundDAO.read(trans[i].getFund_id());
             }
-            
+
             request.setAttribute("trans", trans);
             request.setAttribute("funds", funds);
-            
+
 	        return "cus-trans-history.jsp";
-	  } catch (NullPointerException e) {	      	
+	  } catch (NullPointerException e) {
 	      	return "cus-trans-history.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());

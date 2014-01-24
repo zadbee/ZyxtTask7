@@ -27,12 +27,16 @@ public class TransDAO extends GenericDAO<Transaction> {
 	
 	public Date lastTradingDay(int cus_id) throws RollbackException{ 	
 		Transaction[] trans = match(MatchArg.equals("customer_id", cus_id));
-		Date[] dates = new Date[trans.length];
-		for(int i=0; i<trans.length;i++){
-			dates[i] = trans[i].getExecute_date();
+		Date[] dates ;
+		if(trans!=null && trans.length!=0){
+			dates = new Date[trans.length];
+			for(int i=0; i<trans.length;i++){
+				dates[i] = trans[i].getExecute_date();
+			}
+			Arrays.sort(dates);
+			return dates[trans.length-1];
 		}
-		Arrays.sort(dates);
-		return dates[trans.length-1];
+		return null;
 	}
 	
 	
