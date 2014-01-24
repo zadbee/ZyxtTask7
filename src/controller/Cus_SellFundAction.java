@@ -6,19 +6,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import model.CustomerDAO;
-import model.Model;
-import model.PosDAO;
-import model.TransDAO;
-
 import org.mybeans.form.FormBeanFactory;
 
 import utility.AmountCheck;
-import databeans.Customer;
-import databeans.Fund;
-import databeans.FundPriceHistory;
-import databeans.Position;
-import databeans.Transaction;
+import databeans.*;
+import model.*;
 import formbeans.Cus_SellFundForm;
 
 public class Cus_SellFundAction extends Action{
@@ -28,10 +20,14 @@ public class Cus_SellFundAction extends Action{
 	private TransDAO transactionDAO;
 	private PosDAO positionDAO;
 	private CustomerDAO customerDAO;
+	private FundDAO fundDAO;
+	private FundHistDAO histDAO;
 	public Cus_SellFundAction(Model model) {
 		transactionDAO = model.getTransDAO();
 		positionDAO = model.getPosDAO();
 		customerDAO = model.getCustomerDAO();
+		fundDAO = model.getFundDAO();
+		histDAO = model.getFundHistDAO();
 	}
 	public String getName() {
 		return "cus_sellFund.do";
@@ -48,11 +44,32 @@ public class Cus_SellFundAction extends Action{
 		request.setAttribute("prices", prices);
 		ArrayList<String> names = new ArrayList<String>();
 		request.setAttribute("names", names);
-		//ArrayList<Double> shares = new ArrayList<Double>();
+		ArrayList<Double> nShares = new ArrayList<Double>();
 		
 		// Initialize the fund information for displaying first.
 		// Can also fresh the price if some other employee sets the new price.
 		try { 
+			// Initialize attributes.
+			Position[] lpos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+
+            if(lpos != null){
+	            ArrayList<Fund> funds = new ArrayList<Fund>();
+	            ArrayList<Long> lprices = new ArrayList<Long>();
+	            
+	            for(Position x : lpos){
+	            	funds.add(fundDAO.read(x.getFund_id()));
+	            	if(histDAO.getPrice(x.getFund_id())==null)
+	            		lprices.add(-1L);
+	            	else
+	            		lprices.add(histDAO.getPrice(x.getFund_id()).getPrice());
+	            }
+	
+	            
+				request.setAttribute("funds", funds);
+				request.setAttribute("prices", lprices);
+				request.setAttribute("pos", lpos);
+            }            			
+			
             Cus_SellFundForm form = formBeanFactory.create(request);
             if (!form.isPresent())
             	return "cus-sell-fund.jsp";

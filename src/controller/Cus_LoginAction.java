@@ -58,7 +58,7 @@ public class Cus_LoginAction extends Action {
 	        // Look up the user        
 	        Customer cus = customerDAO.readByName(form.getUsername());
 	        if (cus == null) {
-	            errors.add("User" + form.getUsername() + "not found");
+	            errors.add("User " + form.getUsername() + " not found.");
 	            return "cus-login.jsp";
 	        }
 	        
