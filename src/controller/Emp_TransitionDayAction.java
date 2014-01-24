@@ -35,7 +35,9 @@ public class Emp_TransitionDayAction extends Action {
 		ArrayList<FundPriceHistory> prices = new ArrayList<FundPriceHistory>();
 		request.setAttribute("prices", prices);
 		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> symbols = new ArrayList<String>();
 		request.setAttribute("names", names);
+		request.setAttribute("symbols", symbols );
 		
 		// Get the updated price and update it.
 		Fund[] funds = null;
@@ -59,6 +61,8 @@ public class Emp_TransitionDayAction extends Action {
 				} else
 					prices.add(histDAO.getPrice(f.getFund_id()));
 				names.add(fundDAO.read(f.getFund_id()).getName());
+				symbols.add(fundDAO.read(f.getFund_id()).getSymbol());
+				
 			}
 			
 			transForm = new Emp_TransitionDayForm(request);

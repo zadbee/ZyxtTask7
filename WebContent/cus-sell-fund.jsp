@@ -46,33 +46,34 @@
                         <p class="lead">Sell Fund</p>
                     </div>
                     <jsp:include page="error-list.jsp" />
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" placeholder="Fund Name">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" placeholder="Shares (No more than you have)">
-                                </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-2">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default" name="button">Sell Now</button>
-                        </div>
-                    </div>
+                    <form method="post" action="cus_sellFund.do" class="form-horizontal">
+	                    <div class="col-md-5">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">#</span>
+	                            <input type="text" class="form-control" name="fundSymbol" placeholder="Fund Symbol">
+	                        </div>
+	                    </div>
+		                <div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-5">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">N</span>
+	                            <input type="text" class="form-control" name="shares"  placeholder="Shares (No more than you have)">
+	                         </div>
+	                    </div>
+						<div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                   	<div class="col-md-2">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="btn-group">
+	                            <button type="submit" class="btn btn-default" name="button" value="submit">Sell Now</button>
+	                        </div>
+                    	</div>
+                    </form>
                     <div class="col-md-4">
                         <p class="lead"></p>
                     </div>
@@ -88,8 +89,8 @@
 	                            <thead>
 	                                <tr>
 	                                    <th>Fund ID</th>
-	                                    <th>Name</th>
-	                                    <th>Symbol</th>            
+	                                    <th>Fund Name</th>
+	                                    <th>Fund Symbol</th>            
 	                                    <th>Shares</th>
 	                                    <th>Latest Price</th>
 	                                </tr>

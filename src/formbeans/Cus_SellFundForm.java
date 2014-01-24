@@ -8,30 +8,21 @@ import org.mybeans.form.FormBean;
 import utility.AmountCheck;
 
 public class Cus_SellFundForm extends FormBean{
-	private String fundName;
+	private String fundSymbol;
 	private String shares;
-	private String fundId;
 	
 	
 	public void setShares(String shares) {
-		this.shares = shares;
+		this.shares = shares.trim();
 	}
 
 
-	public String getFundName() {
-		return fundName;
-	}
-
-	public String getFundId() {
-	    return fundId;
+	public String getFundSymbol() {
+		return fundSymbol;
 	}
 	
-	public void setFundId(String id) {
-	    this.fundId = id;
-	}
-	
-	public void setFundName(String fundName) {
-		this.fundName = fundName;
+	public void setFundSymbol(String fundName) {
+		this.fundSymbol = fundName.trim();
 	}
 	public String getShares() {
 		return shares;
@@ -41,17 +32,17 @@ public class Cus_SellFundForm extends FormBean{
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		
-		if (fundId == null || fundId.length() == 0) {
-			errors.add("Fund is required.");
+		if (fundSymbol == null || fundSymbol.length() == 0) {
+			errors.add("Fund symbol is required.");
 		}
 		
 		if (shares == null || shares.length() == 0) {
 			errors.add("Amount is required");
+		} else {
+			long ec = AmountCheck.checkShareString(shares);
+			if (ec < 0)
+				errors.add(AmountCheck.getErrorByCode(shares, ec));
 		}
-		
-		long ec = AmountCheck.checkShareString(shares);
-		if (ec < 0)
-			errors.add(AmountCheck.getErrorByCode(shares, ec));
 		
 		return errors;
 	}

@@ -40,7 +40,7 @@ public class Cus_ViewAccountAction extends Action {
 		request.setAttribute("errors", errors);
 		try {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");   
-
+		    
             if(customer == null) {
                 return "cus-login.jsp";
             }
@@ -48,16 +48,15 @@ public class Cus_ViewAccountAction extends Action {
             customer = customerDAO.readByName(customer.getUsername());
             Date lastDate = transactionDAO.lastTradingDay(customer.getCustomer_id());
             request.setAttribute("lastDate",lastDate);
-
+          
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
-<<<<<<< HEAD
-            
-			
-=======
->>>>>>> 0c6475e3ccf7b66520816a7654b0e41f467c41f7
+
 
             if(pos != null){
+
+            
+            if(pos != null && pos.length!=0){
 	            ArrayList<Fund> funds = new ArrayList<Fund>();
 	            ArrayList<Long> prices = new ArrayList<Long>();
 	            
@@ -80,6 +79,7 @@ public class Cus_ViewAccountAction extends Action {
 	      	return "cus-view-account.jsp";
 	  }catch (Exception e) {
 			errors.add(e.toString());
+			
 			return "cus-view-account.jsp";
       } 
 	}

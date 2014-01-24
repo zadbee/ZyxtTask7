@@ -73,7 +73,8 @@ public class Cus_RequestCheckAction extends Action {
             transaction.setAmount(withdrawAmount);
             transaction.setCustomer_id(customer.getCustomer_id());
             transaction.setExecute_date(new Date());
-            transaction.setTransaction_type("WITHDRAW");   
+            transaction.setTransaction_type("WITHDRAW"); 
+            transaction.setStatus("PENDING");
 
             transDAO.createAutoIncrement(transaction);
        		//session.setAttribute("user", user);

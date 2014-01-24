@@ -64,8 +64,8 @@ if(customer == null) {
                         <p class="lead"></p>
                     </div>
 
-                    <% 	Transaction[] trans = (Transaction[])request.getSession().getAttribute("trans");
-                    	String[] funds = (String[])request.getSession().getAttribute("funds");
+                    <% 	Transaction[] trans = (Transaction[])request.getAttribute("trans");
+                    	Fund[] funds = (Fund[])request.getAttribute("funds");
                     	if(trans!=null && trans.length!=0){
                     %>
                     
@@ -74,9 +74,11 @@ if(customer == null) {
                         <table class="table">
                             <thead>
                                 <tr>
+                                	<th>#</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                     <th>Fund Name</th>
+                                    <th>Fund Symbol</th>
                                     <th>Shares</th>
                                     <th>Amount</th>
                                     <th>Status</th>
@@ -87,7 +89,9 @@ if(customer == null) {
                             <% 
                             	for(int i=0; i<trans.length;i++){ 
                             %>
-                                <tr>
+                                <tr>                              
+                                	<td><%=i+1 %></td>
+                                	
 		                            <%if(trans[i].getExecute_date()!=null) {%>
                                     <td><%=trans[i].getExecute_date()%></td>
                                     <%}else{ %>
@@ -97,19 +101,25 @@ if(customer == null) {
                                     <td><%=trans[i].getTransaction_type()%></td>
                                     
                                     <%if(funds[i]!=null){%>
-                                    <td><%=funds[i]%></td>
+                                    <td><%=funds[i].getName()%></td>
+                                    <%}else{%>
+                                    <td>N/A</td>
+                                    <%} %>
+                                    
+                                    <%if(funds[i]!=null){%>
+                                    <td><%=funds[i].getSymbol()%></td>
                                     <%}else{%>
                                     <td>N/A</td>
                                     <%} %>
                                     
                                     <%if(trans[i].getShares()!=0){%>
-                                    <td><%=trans[i].getShares()%></td>
+                                    <td><%=trans[i].getShares()/1000.0%></td>
                                     <%}else{%>
                                     <td>N/A</td>
                                     <%} %>
                                     
                                     <%if(trans[i].getAmount()!=0){%>
-                                    <td><%=trans[i].getAmount()%></td>
+                                    <td><%=trans[i].getAmount()/100.0%></td>
                                     <%}else{%>
                                     <td>N/A</td>
                                     <%} %>
@@ -121,12 +131,13 @@ if(customer == null) {
                             }else{
                             %>
                            </tbody>
+                      <div class="col-md-12">
+	                  No transaction records found. Make your first transaction today! 
+	                  </div>  
                         </table>
               		</div>
               		
-	                  <div class="col-md-12">
-	                  No transaction records found. Make your first transaction today! 
-	                  </div>   
+ 
                              
                             <%}
                     	%>

@@ -47,8 +47,8 @@
 								<td><input type="text" name="fundName" class="form-control" placeholder="Fund Name" value="${fund.name}"></td>
 							</tr>
 							<tr>
-								<td> Ticker </td>
-								<td><input type="text" name="fundSymbol" class="form-control" placeholder="Ticker" value="${fund.symbol}"></td>
+								<td> Fund Symbol </td>
+								<td><input type="text" name="fundSymbol" class="form-control" placeholder="Fund Symbol" value="${fund.symbol}"></td>
 							</tr>
 							<tr>  
 								<td colspan="2" align="center">

@@ -14,9 +14,9 @@ public class Employee {
 //	} ));
 
 	private String username		   = null; 
-	private String password     = null;
-	private String firstname = null;
-	private String lastname = null;
+	private String password        = null;
+	private String firstname 	   = null;
+	private String lastname        = null;
 	
     
 
