@@ -49,7 +49,6 @@ public class Cus_ViewAccountAction extends Action {
 
             if(pos != null){
             	
-            
 
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
@@ -66,7 +65,7 @@ public class Cus_ViewAccountAction extends Action {
 			request.setAttribute("prices",prices);
 			request.setAttribute("pos",pos);
             }
-          
+
 	        return "cus-view-account.jsp";
 	  } catch (NullPointerException e) {	      	
 	      	return "cus-view-account.jsp";
