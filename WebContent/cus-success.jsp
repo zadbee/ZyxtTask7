@@ -41,8 +41,7 @@
                     <li><a href="#">Home</a></li>
                     <li class="active">Success</li>
                 </ol>
-                <p>${message }</p>
-				<jsp:include page="template-footer.jsp" />
+                <div style="font-size:Large; color:Blue; "> ${message} </div>
             </div>
         </div>
 
