@@ -63,7 +63,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 				
 				// Update the position table.
 				Position pos = posDAO.getShares(t.getCustomer_id(), t.getFund_id());
-				long buyShares = Math.round(t.getAmount() / price.getPrice());
+				long buyShares = Math.round(t.getAmount() * 1000.0 / price.getPrice());
 				if (pos == null) {
 					pos = new Position();
 					pos.setCustomer_id(t.getCustomer_id());
@@ -77,7 +77,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 				}
 				t.setShares(buyShares);		
 			}
-			//t.setStatus("APPROVED");
+			t.setStatus("APPROVED");
 			update(t);
 		}
 	}
