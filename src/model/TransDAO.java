@@ -69,7 +69,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 				pos.setShares(pos.getShares() + sellShares);
 				posDAO.update(pos);
 			}
-			t.setStatus("APPROVED");
+			//t.setStatus("APPROVED");
 			update(t);
 		}
 	}

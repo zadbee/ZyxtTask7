@@ -79,7 +79,7 @@ if (session.getAttribute("employee") == null) {
                 </li>
                 <li><a href="emp-transitionday.do">Transition Day</a>
                 </li>
-                <li><a href="depositcheck.do">Customer List</a>
+                <li><a href="emp-customerlist.do">Customer List</a>
                 </li>
 <%--
 <%

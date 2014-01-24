@@ -48,9 +48,10 @@ public class Cus_ViewAccountAction extends Action {
             customer = customerDAO.readByName(customer.getUsername());
             Date lastDate = transactionDAO.lastTradingDay(customer.getCustomer_id());
             request.setAttribute("lastDate",lastDate);
-            
+
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
+
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
@@ -65,7 +66,8 @@ public class Cus_ViewAccountAction extends Action {
 			request.setAttribute("funds",funds);
 			request.setAttribute("prices",prices);
 			request.setAttribute("pos",pos);
-          
+            
+
 	        return "cus-view-account.jsp";
 	  } catch (NullPointerException e) {	      	
 	      	return "cus-view-account.jsp";

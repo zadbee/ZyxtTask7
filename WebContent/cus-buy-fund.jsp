@@ -53,13 +53,29 @@ if(customer == null) {
 }
 %>
                 <div class="row">
+                
+                    
+                    
+                    <table>
+                    <tr>
+				<div class="col-md-12" align="center">
+ 					<div class="panel panel-info" >
+  						<div class="panel-heading">
+  						  <h3 class="panel-title">Available Balance: <span><%= "$" + " " + customer.getCash()/100.0 %></span></h3>
+  						</div>
+                        <td>    
+                        
+                        </td>
+                    </tr>
+                    <tr>
+                    
                     <div class="col-md-12">
                         <p class="lead">Buy Fund</p>
                     </div>
                     <jsp:include page="error-list.jsp" />
                     
                     <form method="post" action="cus_buyFund.do">
-	                    <div class="col-md-5">
+	                    <div class="col-md-12">
 	                        <div class="input-group">
 	                            <span class="input-group-addon">#</span>
 	                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
@@ -68,7 +84,7 @@ if(customer == null) {
 	                    <div class="col-md-12">
 	                        <p class="lead"> </p>
 	                    </div>
-	                    <div class="col-md-5">
+	                    <div class="col-md-12">
 	                        <div class="input-group">
 	                            <span class="input-group-addon">$</span>
 	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
@@ -80,7 +96,12 @@ if(customer == null) {
 	                    <div class="col-md-2">
 	                        <p class="lead"> </p>
 	                    </div>
-	                    <div class="col-md-4">
+	                    <div class="col-md-2">
+	                        <p class="lead"> </p>
+	                    </div>
+	                   
+	                    <div class="col-md-12">
+	                     
 	                        <div class="btn-group">
 	                            <button type="submit" class="btn btn-default" name="button">Buy Now</button>
 	                        </div>
@@ -93,12 +114,7 @@ if(customer == null) {
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
-                    <div class="col-md-12">
-                        <p class="lead">Your Current Balance</p>
-                        <button type="button" class="btn btn-default">
-                            <span><%= "$" + " " + customer.getCash()/100.0 %></span>
-                        </button>
-                    </div>
+                    
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
@@ -147,8 +163,7 @@ if(customer == null) {
               		</div>
               		
 	                  <div class="col-md-12">
-	                   No funds, Ask for help!
-	                  </div>   
+	                  No funds, Ask for help!</div>   
                              
                             <%}
                     	%>
