@@ -7,8 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.CustomerDAO;
-import model.FundDAO;
-import model.FundHistDAO;
 import model.Model;
 import model.PosDAO;
 import model.TransDAO;
@@ -30,14 +28,10 @@ public class Cus_SellFundAction extends Action{
 	private TransDAO transactionDAO;
 	private PosDAO positionDAO;
 	private CustomerDAO customerDAO;
-	private FundDAO fundDAO;
-	private FundHistDAO historyDAO;
 	public Cus_SellFundAction(Model model) {
 		transactionDAO = model.getTransDAO();
 		positionDAO = model.getPosDAO();
 		customerDAO = model.getCustomerDAO();
-		fundDAO = model.getFundDAO();
-		historyDAO = model.getFundHistDAO();
 	}
 	public String getName() {
 		return "cus_sellFund.do";
@@ -54,7 +48,7 @@ public class Cus_SellFundAction extends Action{
 		request.setAttribute("prices", prices);
 		ArrayList<String> names = new ArrayList<String>();
 		request.setAttribute("names", names);
-		ArrayList<Double> shares = new ArrayList<Double>();
+		//ArrayList<Double> shares = new ArrayList<Double>();
 		
 		// Initialize the fund information for displaying first.
 		// Can also fresh the price if some other employee sets the new price.

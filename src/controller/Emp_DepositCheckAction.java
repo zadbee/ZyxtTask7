@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Customer;
@@ -15,7 +13,6 @@ import databeans.Employee;
 import databeans.Transaction;
 import formbeans.Emp_DepositCheckForm;
 import model.Model;
-import model.TransDAO;
 import model.CustomerDAO;
 
 
@@ -23,11 +20,9 @@ import model.CustomerDAO;
 public class Emp_DepositCheckAction extends Action {   
     private FormBeanFactory<Emp_DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(Emp_DepositCheckForm.class);
     private CustomerDAO customerDAO;
-    private TransDAO transactionDAO;
     
     public Emp_DepositCheckAction(Model model) {
         customerDAO = model.getCustomerDAO();
-        transactionDAO = model.getTransDAO();
     }
     
     public String getName() { return "depositcheck.do"; }

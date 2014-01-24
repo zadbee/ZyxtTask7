@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,18 +14,21 @@ import model.FundDAO;
 import model.FundHistDAO;
 import model.Model;
 import model.PosDAO;
+import model.TransDAO;
 
 public class Cus_ViewAccountAction extends Action {
 	private CustomerDAO customerDAO;
 	private FundDAO	fundDAO;
 	private FundHistDAO fundHistDAO;
 	private PosDAO positionDAO;
+	private TransDAO transactionDAO;
 	
 	public Cus_ViewAccountAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 		fundDAO = model.getFundDAO();
 		fundHistDAO = model.getFundHistDAO();
-		positionDAO = model.getPosDAO();		
+		positionDAO = model.getPosDAO();
+		transactionDAO = model.getTransDAO();
 	}
 	
 	public String getName() {
@@ -42,6 +46,8 @@ public class Cus_ViewAccountAction extends Action {
             }
 
             customer = customerDAO.readByName(customer.getUsername());
+            Date lastDate = transactionDAO.lastTradingDay(customer.getCustomer_id());
+            request.setAttribute("lastDate",lastDate);
 
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
@@ -62,17 +68,14 @@ public class Cus_ViewAccountAction extends Action {
 				request.setAttribute("funds",funds);
 				request.setAttribute("prices",prices);
 				request.setAttribute("pos",pos);
-            }
+            }            
 
-            
 	        return "cus-view-account.jsp";
-	  } catch (NullPointerException e) {
-	      	
+	  } catch (NullPointerException e) {	      	
 	      	return "cus-view-account.jsp";
-	      } 
-		catch (Exception e) {
-      	errors.add(e.toString());
-      	return "cus-view-account.jsp";
+	  }catch (Exception e) {
+			errors.add(e.toString());
+			return "cus-view-account.jsp";
       } 
 	}
 }

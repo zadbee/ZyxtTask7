@@ -23,7 +23,6 @@ public class Transaction {
 	private String transaction_type = null;
 	private long amount = 0L;
 	private String status = null;
-	
     
 	public int getCustomer_id() {
 		return customer_id;

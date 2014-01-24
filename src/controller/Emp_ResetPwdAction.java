@@ -11,9 +11,7 @@ import model.Model;
 
 import org.mybeans.form.FormBeanFactory;
 
-import databeans.Customer;
 import databeans.Employee;
-import formbeans.Emp_ChangePwdForm;
 import formbeans.Emp_ResetPwdForm;
 
 public class Emp_ResetPwdAction extends Action{
@@ -30,7 +28,6 @@ public class Emp_ResetPwdAction extends Action{
 		return "emp_resetPwd.do";
 	}
 
-	@SuppressWarnings("unused")
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);

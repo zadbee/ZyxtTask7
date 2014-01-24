@@ -5,17 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.genericdao.MatchArg;
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Transaction;
 import formbeans.Cus_RequestCheckForm;
-import formbeans.Emp_DepositCheckForm;
 import model.Model;
 import model.TransDAO;
 import model.CustomerDAO;
@@ -40,13 +36,12 @@ public class Cus_RequestCheckAction extends Action {
         try {
             Cus_RequestCheckForm form = formBeanFactory.create(request);
             request.setAttribute("form",form);
+
             Customer customer = (Customer) request.getSession().getAttribute("customer");
             if (customer == null)
             	return "cus-login.jsp";
+            
             request.setAttribute("cash", customer.getCash());
-            if(customer == null) {
-                return "login-cus.jsp";
-            }
 
             if (!form.isPresent()) {
             	return "cus-request-check.jsp";
@@ -55,9 +50,6 @@ public class Cus_RequestCheckAction extends Action {
             if (errors.size() != 0) {
                 return "cus-request-check.jsp";
             }
-            //customer = customerDAO.lookup(customer.getCustomer_id());
-            //request.getSession(false).setAttribute("customer", customer);
-            
             
             long withdrawAmount = AmountCheck.checkValueString(form.getWithdraw());
 
@@ -94,7 +86,7 @@ public class Cus_RequestCheckAction extends Action {
 
             	
             
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()+"."));
+            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()/100.0+"."));
 			return "cus-success.jsp";
             
         } catch (Exception e) {
