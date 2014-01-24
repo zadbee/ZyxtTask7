@@ -71,7 +71,7 @@
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td><%="$"+ " "+customer.getCash()%></td>
+									<td><%="$"+ " "+customer.getCash() / 100.0%></td>
                                 </tr>
                                 <tr>
                                     <th>Last Trading Day</th>
@@ -114,9 +114,9 @@
                                     <td><%=pos[i].getFund_id()%></td>
                                     <td><%=funds.get(i).getName()%></td>
                                     <td><%=funds.get(i).getSymbol()%></td>
-                                    <td><%=pos[i].getShares()%></td>
+                                    <td><%=pos[i].getShares() / 1000.0%></td>
                                     <%if(prices.get(i)!=-1){%>
-                                    <td><%=prices.get(i)%></td>
+                                    <td><%=prices.get(i) / 100.0%></td>
                                     <%}else{ %>
                                     <td><%="Not Initialized"%></td>
                                     <%} %>

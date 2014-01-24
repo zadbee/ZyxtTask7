@@ -1,10 +1,4 @@
-<%@page import="databeans.Customer"%>
-<%@page import="databeans.Fund"%>
-<%@page import="databeans.Position"%>
-<%@page import="java.util.*" %>
-<%@page import="utility.Format" %>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -90,22 +84,30 @@
                     </div>
                                         
                     <div class="col-md-12">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Fund ID</th>
-                                    <th>Fund Name</th>
-                                    <th>Current Price</th>
-                                    <th>Shares</th>
-                                    <th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                           
-                                                     
-                            </tbody>
-                        </table>
+	                        <table class="table">
+	                            <thead>
+	                                <tr>
+	                                    <th>Fund ID</th>
+	                                    <th>Name</th>
+	                                    <th>Symbol</th>            
+	                                    <th>Shares</th>
+	                                    <th>Latest Price</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <c:forEach var="fund" items="${funds}" varStatus="Status">
+	                                	<tr>
+	                                		<td>${fund.fund_id}</td>
+	                                		<td>${fund.name}</td>
+	                                		<td>${fund.symbol}</td>
+	                                		<td>${pos[Status.index].shares / 1000.0}</td>
+	                                		<td>${prices[Status.index] / 100.0}</td>
+	                                	</tr>
+	                                </c:forEach>
+	                            </tbody>
+	                        </table>
                     </div>
+                    <!-- List of Funds -->
                     
                     
                 </div>

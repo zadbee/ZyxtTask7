@@ -94,11 +94,6 @@ public class Cus_BuyFundAction extends Action {
 			t.setFund_id(fund.getFund_id());
 			t.setExecute_date(new Date());
 			t.setTransaction_type("BUY");
-<<<<<<< HEAD
-			t.setStatus("PENDING");
-
-=======
->>>>>>> df8d09715041d28764823235fc34151d42aedcaf
 			t.setAmount(amount);
 			t.setStatus("PENDING");
 			transactionDAO.createAutoIncrement(t);
