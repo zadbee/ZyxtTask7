@@ -22,7 +22,7 @@ public class Transaction {
 	private long shares 		  = 0;
 	private String transaction_type = null;
 	private long amount = 0L;
-	
+	private String status = null;
     
 	public int getCustomer_id() {
 		return customer_id;
@@ -78,6 +78,14 @@ public class Transaction {
 
 	public void setAmount(long amount) {
 		this.amount = amount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	

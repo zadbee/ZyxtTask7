@@ -5,17 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.genericdao.MatchArg;
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Transaction;
 import formbeans.Cus_RequestCheckForm;
-import formbeans.Emp_DepositCheckForm;
 import model.Model;
 import model.TransDAO;
 import model.CustomerDAO;

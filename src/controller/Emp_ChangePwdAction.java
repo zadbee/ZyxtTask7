@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import model.EmployeeDAO;
 import model.Model;
 
-import org.genericdao.GenericDAO;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Employee;
-import formbeans.Cus_ChangePwdForm;
 import formbeans.Emp_ChangePwdForm;
 
 public class Emp_ChangePwdAction extends Action{

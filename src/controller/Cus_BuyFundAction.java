@@ -17,7 +17,6 @@ import org.mybeans.form.FormBeanFactory;
 import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Fund;
-import databeans.FundPriceHistory;
 import databeans.Transaction;
 import formbeans.Cus_BuyFundForm;
 
@@ -95,18 +94,26 @@ public class Cus_BuyFundAction extends Action {
 			t.setFund_id(fund.getFund_id());
 			t.setExecute_date(new Date());
 			t.setTransaction_type("BUY");
+<<<<<<< HEAD
 			//t.setStatus("PENDING");
+=======
+>>>>>>> e659ca801d27f3bb47f566c7dc43d93595a8c3ba
 			t.setAmount(amount);
+			t.setStatus("PENDING");
 			transactionDAO.createAutoIncrement(t);
 				
 			customer.setCash(available - amount);
 			customerDAO.update(customer);
+
 			request.getSession().setAttribute("customer",customer);
 			
 			request.setAttribute("message", 
 					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getFund_id() + ".");
 	        return "cus-success.jsp";
+<<<<<<< HEAD
 
+=======
+>>>>>>> e659ca801d27f3bb47f566c7dc43d93595a8c3ba
 	  } catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-buy-fund.jsp";
