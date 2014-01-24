@@ -34,6 +34,8 @@ public class Emp_TransitionDayAction extends Action {
 		request.setAttribute("errors",errors);
 		ArrayList<FundPriceHistory> prices = new ArrayList<FundPriceHistory>();
 		request.setAttribute("prices", prices);
+		ArrayList<String> names = new ArrayList<String>();
+		request.setAttribute("names", names);
 		
 		// Get the updated price and update it.
 		Fund[] funds = null;
@@ -47,7 +49,6 @@ public class Emp_TransitionDayAction extends Action {
 			
 			// Initialize the fund information for displaying first.
 			// Can also fresh the price if some other employee sets the new price.
-			prices.addAll(histDAO.getAll());
 			for (Fund f : funds) {
 				if (histDAO.getPrice(f.getFund_id()) == null) {
 					FundPriceHistory tmp = new FundPriceHistory();
@@ -55,9 +56,11 @@ public class Emp_TransitionDayAction extends Action {
 					tmp.setPrice_date(new Date());
 					tmp.setPrice(-1);
 					prices.add(tmp);
-				}
+				} else
+					prices.add(histDAO.getPrice(f.getFund_id()));
+				names.add(fundDAO.read(f.getFund_id()).getName());
 			}
-			System.out.println(prices.size());
+			
 			transForm = new Emp_TransitionDayForm(request);
 			
 			if (!transForm.isPresent())

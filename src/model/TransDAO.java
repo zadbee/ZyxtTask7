@@ -48,11 +48,19 @@ public class TransDAO extends GenericDAO<Transaction> {
 				
 				// Update the position table.
 				Position pos = posDAO.getShares(t.getCustomer_id(), t.getFund_id());
-				if (pos == null)
-					continue;
-				long sellShares = Math.round(t.getAmount() / price.getPrice());
-				pos.setShares(pos.getShares() + sellShares);
-				posDAO.update(pos);
+				long buyShares = Math.round(t.getAmount() / price.getPrice());
+				if (pos == null) {
+					pos = new Position();
+					pos.setCustomer_id(t.getCustomer_id());
+					pos.setFund_id(t.getFund_id());
+					pos.setShares(buyShares);
+					posDAO.createAutoIncrement(pos);
+				}
+				else {
+					pos.setShares(pos.getShares() + buyShares);
+					posDAO.update(pos);
+				}
+				t.setShares(buyShares);		
 			}
 			t.setStatus("APPROVED");
 			update(t);

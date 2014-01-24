@@ -45,34 +45,23 @@ public class Cus_ViewAccountAction extends Action {
 
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());
-<<<<<<< HEAD
-<<<<<<< HEAD
-            
-            System.out.println(pos.length);
-=======
-            if(pos != null){
-
->>>>>>> 49ad02e0957863331a54042396153288562fc361
-=======
 
             if(pos != null){
-            	
->>>>>>> ec10c3b3325e143012d901ab30ea6afbf0ea6814
-            ArrayList<Fund> funds = new ArrayList<Fund>();
-            ArrayList<Long> prices = new ArrayList<Long>();
-            
-            for(Position x:pos){
-            	funds.add(fundDAO.read(x.getFund_id()));
-            	if(fundHistDAO.getPrice(x.getFund_id())==null)
-            		prices.add(-1L);
-            	else
-            		prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
-            }
-
-            
-			request.setAttribute("funds",funds);
-			request.setAttribute("prices",prices);
-			request.setAttribute("pos",pos);
+	            ArrayList<Fund> funds = new ArrayList<Fund>();
+	            ArrayList<Long> prices = new ArrayList<Long>();
+	            
+	            for(Position x:pos){
+	            	funds.add(fundDAO.read(x.getFund_id()));
+	            	if(fundHistDAO.getPrice(x.getFund_id())==null)
+	            		prices.add(-1L);
+	            	else
+	            		prices.add(fundHistDAO.getPrice(x.getFund_id()).getPrice());
+	            }
+	
+	            
+				request.setAttribute("funds",funds);
+				request.setAttribute("prices",prices);
+				request.setAttribute("pos",pos);
             }
 
             
