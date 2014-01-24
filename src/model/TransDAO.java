@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Arrays;
+import java.util.Date;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
@@ -20,6 +23,16 @@ public class TransDAO extends GenericDAO<Transaction> {
 		customerDAO = cdao;
 		histDAO = hdao;
 		posDAO = pdao;
+	}
+	
+	public Date lastTradingDay(int cus_id) throws RollbackException{ 	
+		Transaction[] trans = match(MatchArg.equals("customer_id", cus_id));
+		Date[] dates = new Date[trans.length];
+		for(int i=0; i<trans.length;i++){
+			dates[i] = trans[i].getExecute_date();
+		}
+		Arrays.sort(dates);
+		return dates[trans.length-1];
 	}
 	
 	

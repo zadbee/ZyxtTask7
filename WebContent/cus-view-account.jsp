@@ -2,6 +2,7 @@
 <%@page import= "java.util.ArrayList" %>
 <%@page import= "databeans.Position" %>
 <%@page import= "databeans.Fund" %>
+<%@page import= "java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,6 +50,7 @@
                         <p class="lead">Personal Profile</p>
                     </div>
 					<%Customer customer = (Customer) session.getAttribute("customer");
+						Date lastDate = (Date)request.getAttribute("lastDate");
 					if(customer == null) {
 					    out.print("There is no customer information found in session!");
 					    return;
@@ -71,6 +73,15 @@
                                     <th>Cash Balance</th>
 									<td><%="$"+ " "+customer.getCash()%></td>
                                 </tr>
+                                <tr>
+                                    <th>Last Trading Day</th>
+                                    <%if(lastDate != null) {%>
+									<td><%=lastDate%></td>
+									<% }else{%>
+									<td>N/A</td>
+									<%} %>
+                                </tr>                               
+                                
                             </tbody>
                         </table>
                     </div>
