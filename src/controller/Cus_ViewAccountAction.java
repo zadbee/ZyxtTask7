@@ -50,6 +50,7 @@ public class Cus_ViewAccountAction extends Action {
             if(pos != null){
             	
             
+
             ArrayList<Fund> funds = new ArrayList<Fund>();
             ArrayList<Long> prices = new ArrayList<Long>();
             
