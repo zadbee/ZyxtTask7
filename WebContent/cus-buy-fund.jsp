@@ -100,12 +100,11 @@ if(customer == null) {
 	                        <p class="lead"> </p>
 	                    </div>
 	                   
-	                    <div class="col-md-12">
-	                     
-	                        <div class="btn-group">
-	                            <button type="submit" class="btn btn-default" name="button">Buy Now</button>
-	                        </div>
-	                    </div>
+	                   <div class="col-md-12" align="right">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default btn-lg">Buy Now</button>
+                        </div>
+                    </div>
                     </form>
                     
                     <div class="col-md-12">
@@ -159,11 +158,13 @@ if(customer == null) {
                             }else{
                             %>
                            </tbody>
+                        <div class="col-md-12">
+	                  <p>No funds, Ask for help!</p>
+	                  </div>  
                         </table>
               		</div>
               		
-	                  <div class="col-md-12">
-	                  No funds, Ask for help!</div>   
+ 
                              
                             <%}
                     	%>
