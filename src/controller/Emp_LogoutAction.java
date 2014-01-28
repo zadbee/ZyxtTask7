@@ -21,7 +21,7 @@ public class Emp_LogoutAction extends Action {
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 		
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         session.setAttribute("employee", null);
         session.setAttribute("identity", null);
 

@@ -20,7 +20,7 @@ public class Cus_LogoutAction extends Action {
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 		
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         session.setAttribute("customer", null);
         session.setAttribute("identity", null);
 

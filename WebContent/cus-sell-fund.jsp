@@ -1,9 +1,4 @@
-<%@page import="databeans.Customer"%>
-<%@page import="databeans.Fund"%>
-<%@page import="java.util.*" %>
-<%@page import="utility.Format" %>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -50,33 +45,39 @@
                     <div class="col-md-12">
                         <p class="lead">Sell Fund</p>
                     </div>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" placeholder="Fund Name">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" placeholder="Shares (No more than you have)">
-                                </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-2">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-4">
+                    <jsp:include page="error-list.jsp" />
+                    <form method="post" action="cus_sellFund.do" class="form-horizontal">
+	                    <div class="col-md-12">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">#</span>
+	                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
+	                        </div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">$</span>
+	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
+	                                </div>
+	                    </div>          
+	                    <div class="col-md-12">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-2">
+	                        <p class="lead"> </p>
+	                    </div>
+	                    <div class="col-md-2">
+	                        <p class="lead"> </p>
+	                    </div>
+	                   
+	                   <div class="col-md-12" align="right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" name="button">Sell Now</button>
+                            <button type="submit" class="btn btn-default btn-lg">Buy Now</button>
                         </div>
                     </div>
+                    </form>
                     <div class="col-md-4">
                         <p class="lead"></p>
                     </div>
@@ -86,22 +87,33 @@
                     <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
+                                        
                     <div class="col-md-12">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Fund Name</th>
-                                    <th>Shares</th>
-                                    <th>Bought Price</th>
-                                    <th>Bought Date</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+	                        <table class="table">
+	                            <thead>
+	                                <tr>
+	                                    <th>Fund ID</th>
+	                                    <th>Fund Name</th>
+	                                    <th>Fund Symbol</th>            
+	                                    <th>Shares</th>
+	                                    <th>Latest Price</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <c:forEach var="fund" items="${funds}" varStatus="Status">
+	                                	<tr>
+	                                		<td>${fund.fund_id}</td>
+	                                		<td>${fund.name}</td>
+	                                		<td>${fund.symbol}</td>
+	                                		<td>${pos[Status.index].shares / 1000.0}</td>
+	                                		<td>${prices[Status.index] / 100.0}</td>
+	                                	</tr>
+	                                </c:forEach>
+	                            </tbody>
+	                        </table>
                     </div>
+                    <!-- List of Funds -->
+                    
                     
                 </div>
             </div>

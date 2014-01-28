@@ -27,7 +27,7 @@ public class Cus_RequestCheckAction extends Action {
         transDAO = model.getTransDAO();
     }
     
-    public String getName() { return "requestcheck.do"; }
+    public String getName() { return "cus_requestCheck.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
@@ -72,8 +72,9 @@ public class Cus_RequestCheckAction extends Action {
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
             transaction.setCustomer_id(customer.getCustomer_id());
-            transaction.setExecute_date(new Date());
-            transaction.setTransaction_type("WITHDRAW");   
+            transaction.setExecute_date(null);
+            transaction.setTransaction_type("WITHDRAW"); 
+            transaction.setStatus("PENDING");
 
             transDAO.createAutoIncrement(transaction);
        		//session.setAttribute("user", user);
@@ -86,7 +87,7 @@ public class Cus_RequestCheckAction extends Action {
 
             	
             
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()+"."));
+            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()/100.0+"."));
 			return "cus-success.jsp";
             
         } catch (Exception e) {

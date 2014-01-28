@@ -10,7 +10,7 @@ import org.genericdao.PrimaryKey;
 @PrimaryKey("customer_id")
 public class Customer {
 
-	private int    customer_id     = -1;
+	private int    customer_id     = 0;
 	private String username		   = null; 
 	private String password        = null;
 	private String firstname 	   = null;

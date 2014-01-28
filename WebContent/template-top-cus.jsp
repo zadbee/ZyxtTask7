@@ -82,7 +82,7 @@ if (session.getAttribute("customer") == null) {
                 </li>
                 <li><a href="cus_sellFund.do">Sell Fund</a>
                 </li>
-                <li><a href="requestcheck.do">Request Check</a>
+                <li><a href="cus_requestCheck.do">Request Check</a>
                 </li>
                 <li><a href="cus_transHistory.do">Transaction History</a>
                 </li>

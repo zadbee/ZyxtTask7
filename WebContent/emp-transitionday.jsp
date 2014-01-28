@@ -55,15 +55,19 @@
 	                            <thead>
 	                                <tr>
 	                                    <th>Fund ID</th>
+	                                    <th>Fund Name</th>
+	                                    <th>Fund Symbol</th>
 	                                    <th>Current Price</th>
 	                                    <th>Last Update</th>
 	                                    <th>New Price</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <c:forEach var="fund" items="${prices}">
+	                                <c:forEach var="fund" items="${prices}" varStatus="Status">
 	                                	<tr>
 	                                		<td>${fund.fund_id}</td>
+	                                		<td>${names[Status.index]}</td>
+	                                		<td>${symbols[Status.index]}</td>
 	                                		<td>
 	                                		<c:choose>
 	                                		<c:when test="${fund.price > 0}">
@@ -88,7 +92,7 @@
 	                                	</tr>
 	                                </c:forEach>
 	                                <tr>
-                        				<td colspan="4" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
+                        				<td colspan="6" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
                     				</tr>
 	                            </tbody>
 	                        </table>

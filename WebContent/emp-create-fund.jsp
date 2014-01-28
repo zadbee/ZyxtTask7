@@ -40,21 +40,31 @@
 	            <div class="row">
 		            <div class="col-md-12">
 					<form method="post" action="create-fund-emp.do">
-						<table>
-							<tr>
-								<td> Fund Name </td>
-								<td><input type="text" name="fundName" class="form-control" placeholder="Fund Name" value="${fund.name}"></td>
-							</tr>
-							<tr>
-								<td> Ticker </td>
-								<td><input type="text" name="fundSymbol" class="form-control" placeholder="Ticker" value="${fund.symbol}"></td>
-							</tr>
-							<tr>  
-								<td colspan="2" align="center">
-									<button type="submit" name="button" class="btn btn-default" value="submit">Create Fund</button>
-								</td>
-							</tr>
-						</table>
+					
+					<div class="row">
+					<div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Fund Name:</label>
+    <div class="col-md-9">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="fund name..." value="${fund.name}">
+    </div>
+  </div>
+ <br><br>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Fund Symbol:</label>
+    <div class="col-md-9">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="fund symbol..." value="${fund.symbol}">
+    </div>
+  </div>
+  <br><br>
+   <br><br>
+  <div class="col-md-12" align="right">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default btn-lg">Create Fund</button>
+                        </div>
+                    </div>
+                    </div>
+					
+						
 					</form>
 					</div>
 				</div>

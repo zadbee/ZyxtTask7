@@ -60,7 +60,7 @@ public class Emp_LoginAction extends Action {
 	        // Look up the user
 	        Employee emp = employeeDAO.read(form.getUsername());
 	        if (emp == null) {
-	            errors.add("User" + form.getUsername() + "not found");
+	            errors.add("User " + form.getUsername() + " not found");
 	            return "emp-login.jsp";
 	        }
 

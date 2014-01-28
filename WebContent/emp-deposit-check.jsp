@@ -37,7 +37,7 @@ if(customer == null){
     return;
 }
 %>
-			<form method="post" action="depositcheck.do">
+			<form method="post" action="emp_depositCheck.do">
 				<table>
 					<tr>
 						<td> UserName: </td>

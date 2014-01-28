@@ -25,7 +25,7 @@ public class Emp_DepositCheckAction extends Action {
         customerDAO = model.getCustomerDAO();
     }
     
-    public String getName() { return "depositcheck.do"; }
+    public String getName() { return "emp_depositCheck.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
@@ -63,10 +63,7 @@ public class Emp_DepositCheckAction extends Action {
             transaction.setCustomer_id(customer.getCustomer_id());
             transaction.setExecute_date(new Date());
             transaction.setTransaction_type("DEPOSIT");
-//            transaction.setFund_id(0);
-//            transaction.setShares(0);
-//            transactionDAO.create(transaction);
-//            TransDAO.createAutoIncrement(transaction);
+            transaction.setStatus("PENDING");
             
             // Attach (this copy of) the customer object to the session
             customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-amount);

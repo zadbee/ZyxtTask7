@@ -43,7 +43,7 @@
                     <li class="active">Request Check</li>
                 </ol>
                 <jsp:include page="error-list.jsp" />
-                <form method="post" action="requestcheck.do">
+                <form method="post" action="cus_requestCheck.do">
                 <table>
                     <tr>
 				<div class="col-md-12" align="center">
@@ -56,7 +56,7 @@
 	                        Long cash = (Long) request.getAttribute("cash");
 	                        if (cash!=null)
 	                     %>
-  						  <h3 class="panel-title">Available balance :<%=nf.format(cash/100.0)%> </h3>
+  						  <h3 class="panel-title">Available Balance :<%=nf.format(cash/100.0)%> </h3>
   						</div>
                         <td>    
                         

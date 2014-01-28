@@ -2,6 +2,7 @@
 <%@page import= "java.util.ArrayList" %>
 <%@page import= "databeans.Position" %>
 <%@page import= "databeans.Fund" %>
+<%@page import= "java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,6 +50,7 @@
                         <p class="lead">Personal Profile</p>
                     </div>
 					<%Customer customer = (Customer) session.getAttribute("customer");
+						Date lastDate = (Date)request.getAttribute("lastDate");
 					if(customer == null) {
 					    out.print("There is no customer information found in session!");
 					    return;
@@ -69,8 +71,17 @@
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td><%="$"+ " "+customer.getCash()%></td>
+									<td><%="$"+ " "+customer.getCash() / 100.0%></td>
                                 </tr>
+                                <tr>
+                                    <th>Last Trading Day</th>
+                                    <%if(lastDate != null) {%>
+									<td><%=lastDate%></td>
+									<% }else{%>
+									<td>N/A</td>
+									<%} %>
+                                </tr>                               
+                                
                             </tbody>
                         </table>
                     </div>
@@ -103,9 +114,9 @@
                                     <td><%=pos[i].getFund_id()%></td>
                                     <td><%=funds.get(i).getName()%></td>
                                     <td><%=funds.get(i).getSymbol()%></td>
-                                    <td><%=pos[i].getShares()%></td>
+                                    <td><%=pos[i].getShares() / 1000.0%></td>
                                     <%if(prices.get(i)!=-1){%>
-                                    <td><%=prices.get(i)%></td>
+                                    <td><%=prices.get(i) / 100.0%></td>
                                     <%}else{ %>
                                     <td><%="Not Initialized"%></td>
                                     <%} %>

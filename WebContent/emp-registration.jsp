@@ -22,7 +22,7 @@
 
 <body>
      <div id="wrapper">
-         <jsp:include page="template-top-cus.jsp" />
+         <jsp:include page="template-top-emp.jsp" />
      
         <!-- Page content -->
         <div id="page-content-wrapper">
@@ -41,18 +41,50 @@
                 </ol>
                 	<form class="form-signin" role="form" method="post" action="emp-registration.do">
        				<h2 class="form-signin-heading">Employee Registration Details</h2>
-       				<input name="firstname" type="text" class="form-control" placeholder="First Username" required autofocus>
-       				<input name="lastname" type="text" class="form-control" placeholder="Last Username">
-       				<input name="username" type="text" class="form-control" placeholder="Customer Username">
-       				<input name="password" type="password" class="form-control" placeholder="Password" required>
-					<br/>
-       				<button name="button" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+       				 <div class="row">
+    
+			<div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">First Name:</label>
+    <div class="col-md-9">
+      <input name="firstname" type="text" class="form-control" id="inputPassword3" placeholder="first name...">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Last Name:</label>
+    <div class="col-md-9">
+      <input name="lastname" type="text" class="form-control" id="inputPassword3" placeholder="last name...">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">User Name:</label>
+    <div class="col-md-9">
+      <input name="username" type="text" class="form-control" id="inputPassword3" placeholder="user name...">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password:</label>
+    <div class="col-md-9">
+      <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="password...">
+    </div>
+  </div>
+  
+  <br><br>
+  <div class="col-md-12" align="right">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default btn-lg">Register</button>
+                        </div>
+                    </div>
+       				
        				</form>
-                    <jsp:include page="template-footer.jsp" />
+                   
             </div>
         </div>
 
     </div>
+     <jsp:include page="template-footer.jsp" />
 
 	<!-- JavaScript -->
 	
