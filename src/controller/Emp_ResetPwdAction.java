@@ -11,6 +11,7 @@ import model.Model;
 
 import org.mybeans.form.FormBeanFactory;
 
+import databeans.Customer;
 import databeans.Employee;
 import formbeans.Emp_ResetPwdForm;
 
@@ -33,12 +34,14 @@ public class Emp_ResetPwdAction extends Action{
 		request.setAttribute("errors", errors);
 
 		try {
+			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
 
             if(employee == null) {
                 return "employee-login.do";
             }
-            
+            Customer customer = (Customer) request.getAttribute("customer");
+            System.out.println(customer);
 			Emp_ResetPwdForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			String newPwd = null;

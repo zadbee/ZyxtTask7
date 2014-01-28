@@ -54,7 +54,7 @@ if(customer !=null) {
 					<div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">New</span>
-                            <input type="text" name="userName" class="form-control" readonly placeholder="" value="<%--=customer.getUsername--%>">
+                            <input type="text" name="userName" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
                         </div>
                     </div>
 					<div class="col-md-12">

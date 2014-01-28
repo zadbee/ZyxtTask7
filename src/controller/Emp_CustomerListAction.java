@@ -39,6 +39,15 @@ public class Emp_CustomerListAction extends Action {
         	String button = null;
         	int button_id = -1;
         	for (Customer customer : customers) {
+				button = request.getParameter("reset_custPwd_"+customer.getCustomer_id());
+				if (button != null){
+					request.setAttribute("customer", customer);
+					System.out.println("Here---------------------- 0");
+					return "emp_resetPwd.do";
+				}
+			}
+        	
+        	for (Customer customer : customers) {
 				button = request.getParameter("manage_cust_"+customer.getCustomer_id());
 				if (button != null){
 					button_id = customer.getCustomer_id();
