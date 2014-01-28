@@ -32,33 +32,32 @@ public class Emp_RegistrationAction extends Action {
 		request.setAttribute("errors",errors);
 		
         try {
-        	System.out.println("************* 1");
 	    	Emp_RegistrationForm form = formBeanFactory.create(request);
+			Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+	        if(employee==null){
+	        	return "emp-login.jsp";
+	        }
 	        // request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
-	        if (!form.isPresent()) {
-	        	System.out.println("here_--_____-----_--__");
+	        
+	    	if (!form.isPresent()) {
 	            return "emp-registration.jsp";
 	        }
-
+	        
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	        	System.out.println("************************ error");
 	            return "emp-registration.do";
 	        }
 	        
-	        System.out.println("******************* after validation");
-	        Employee employee = new Employee();
 	        employee.setFirstname(form.getFirstName());
 	        employee.setLastname(form.getLastName());
 	        employee.setUsername(form.getUsername());
 	        employee.setPassword(form.getPassword());
 	        
 	        employeeDAO.create(employee);
-	        System.out.println("********************* before return");
 	        return "emp-create-fund.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

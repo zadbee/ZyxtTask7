@@ -43,7 +43,7 @@
                     <li class="active">Request Check</li>
                 </ol>
                 <jsp:include page="error-list.jsp" />
-                <form method="post" action="requestcheck.do">
+                <form method="post" action="cus_requestCheck.do">
                 <table>
                     <tr>
 				<div class="col-md-12" align="center">

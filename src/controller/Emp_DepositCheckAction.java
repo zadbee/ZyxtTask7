@@ -25,7 +25,7 @@ public class Emp_DepositCheckAction extends Action {
         customerDAO = model.getCustomerDAO();
     }
     
-    public String getName() { return "depositcheck.do"; }
+    public String getName() { return "emp_depositCheck.do"; }
     
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();

@@ -32,7 +32,7 @@ public class Emp_CreateFundAction extends Action {
         try {         
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
             if(employee == null) {
-                return "employee-login.do";
+                return "emp-login.do";
             }
             
             Emp_CreateFundForm form = formBeanFactory.create(request);
