@@ -45,19 +45,19 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">New Password:</label>
     <div class="col-md-9">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="new Password...">
+      <input type="password" name="newPassword" class="form-control" id="inputPassword3" placeholder="new Password...">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Re-enter New:</label>
     <div class="col-md-9">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="new Password...">
+      <input type="password" name="confirmPassword" class="form-control" id="inputPassword3" placeholder="new Password...">
     </div>
   </div>
   <br><br>
   <div class="col-md-12" align="right">
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-default btn-lg">Submit Change</button>
+                            <button type="submit" name="button" value="submit" class="btn btn-default btn-lg">Submit Change</button>
                         </div>
                     </div>
 
