@@ -30,25 +30,42 @@ public class Emp_CustomerListAction extends Action {
 		request.setAttribute("errors",errors);
 
         try {
-        	System.out.println("********here");
-        	String button = request.getParameter("manage_cust_1");
-        	System.out.println("^^^^^^^^^^"+button);
-        	if ("manage".equals(request.getParameter("manage_cust_1")))
-        		System.out.println(";;;;;;;;;;;;;;;;;;; Alo ki ithe");		
+//        	System.out.println("********here");
+//        	String button = request.getParameter("manage_cust_1");
+//        	System.out.println("^^^^^^^^^^"+button);
+//        	if ("manage".equals(request.getParameter("manage_cust_1")))
+//        		System.out.println(";;;;;;;;;;;;;;;;;;; Alo ki ithe");	
+        	Customer[] customers = customerDAO.match();
+        	String button = null;
+        	int button_id = -1;
+        	for (Customer customer : customers) {
+				button = request.getParameter("manage_cust_"+customer.getCustomer_id());
+				if (button != null){
+					button_id = customer.getCustomer_id();
+					break;
+				}
+			}
+        	System.out.println("The button that was clicked was "+ button_id);
         	Employee employee = (Employee) request.getSession(false).getAttribute("employee");
         	if (employee == null) {
         		System.out.println("*********login kar ki");
 				return "emp-login.do";
 			}
         	
-        	Customer[] customers = customerDAO.match();
+//        	Customer[] customers = customerDAO.match();
         	for (Customer customer : customers) {
 				System.out.println("---"+customer);
 			}
         	System.out.println("***********"+employee.toString());
-        	
-        	request.setAttribute("customers", customers);
-        	return "emp-customerlist.jsp";
+        	if (button_id == -1){
+	        	request.setAttribute("customers", customers);
+	        	return "emp-customerlist.jsp";
+        	} else {
+        		customers = customerDAO.match(MatchArg.equals("customer_id", button_id));
+        		System.out.println(customers[0]);
+        		request.setAttribute("customer", customers[0]);
+        		return "emp-manage-customer.jsp";
+        	}
         }catch (Exception e){
         	
         }

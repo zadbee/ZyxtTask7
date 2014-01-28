@@ -46,33 +46,34 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">List of Customers</p>
+                        <p class="lead">Customer Account Details</p>
+                        	<table class="table">
+                        	<tbody>
+                               	<tr>
+                               		<td>Customer Id </td>
+                               		<td>${customer.customer_id}</td>
+                               	</tr>
+                               	<tr>
+                               		<td>Customer Name </td>
+                               		<td>${customer.firstname}  ${customer.lastname }</td>
+                               	</tr>
+                               	<tr>
+                               		<td>Customer Username </td>
+									<td>${customer.username}</td>	
+								</tr>
+								<tr> 
+									<td>Customer's Balance </td>
+									<td>${customer.cash}</td>
+								</tr>
+							</tbody>
+							</table>  
+							<td colspan="4"><input type="submit" name="reset_custPwd_${customer.customer_id}" value="Reset Password"/></td>
+							<td colspan="4"><input type="submit" name="transHistory_cust_${customer.customer_id}" value="View Transaction History"/></td>
+							<td colspan="4"><input type="submit" name="depositCheck_cust_${cust.customer_id}" value="Deposit Check"/></td>
                     </div>
 					
 					<div class="col-md-12">
-						<form method="post" action="emp-customerlist.do">
-	                        <table class="table">
-	                            <thead>
-	                                <tr>
-	                                    <th>Customer ID</th>
-	                                    <th>Customer First Name</th>
-	                                    <th>Customer Last Name</th>
-	                                    <th>Username</th>
-	                                </tr>
-	                            </thead>
-	                            <tbody>
-	                                <c:forEach var="cust" items="${customers}">
-	                                	<tr>
-	                                		<td>${cust.customer_id}</td>
-	                                		<td>${cust.firstname}</td>
-											<td>${cust.lastname}</td>
-											<td>${cust.username}</td>	 
-											<td colspan="4"><input type="submit" name="manage_cust_${cust.customer_id}" value="Manage"/></td>                               		
-	                                	</tr>
-	                                </c:forEach>
-	                            </tbody>
-	                        </table>
-                        </form>
+						
                     </div>
                     <!-- List of Funds -->
             
