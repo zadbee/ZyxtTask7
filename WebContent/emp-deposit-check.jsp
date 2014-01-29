@@ -23,7 +23,6 @@
 
 <div id="container">
     <jsp:include page="template-top-emp.jsp" />
-    <jsp:include page="template-top-emp-customer-list.jsp" />
  
         
         <div class="content">

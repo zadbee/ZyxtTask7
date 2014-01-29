@@ -46,7 +46,6 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                    	<form method="post" action="emp-customerlist.do">
                         <p class="lead">Customer Account Details</p>
                         	<table class="table">
                         	<tbody>
@@ -67,11 +66,11 @@
 									<td>${customer.cash}</td>
 								</tr>
 							</tbody>
-							</table>  
-							<input type="submit" name="reset_custPwd_${customer.customer_id}" value="Reset Password"/>
-							<input type="submit" name="transHistory_cust_${customer.customer_id}" value="View Transaction History"/>
-							<input type="submit" name="depositCheck_cust_${cust.customer_id}" value="Deposit Check"/>
-							</form>
+							</table> 
+							<form method="post" action="emp_resetPwd.do">
+							<button type="submit" class="btn btn-default btn-xs" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
+							<form method="post" action="emp_depositCheck.do">
+							<button type="submit" class="btn btn-default btn-xs" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
                     </div>
 					
 					<div class="col-md-12">

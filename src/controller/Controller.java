@@ -40,6 +40,7 @@ public class Controller extends HttpServlet {
         Action.add(new Emp_TransitionDayAction(model));
         Action.add(new Emp_ResetPwdAction(model));
         Action.add(new Emp_CustomerListAction(model));
+        Action.add(new Emp_DepositCheckAction(model));
         
         Action.add(new HomePageAction());
         try {

@@ -32,6 +32,7 @@ public class Emp_DepositCheckAction extends Action {
         request.setAttribute("errors",errors);
         
         try {
+        	System.out.println("--------------------- In deposit check action");
             Employee employee = (Employee) request.getSession(false).getAttribute("employee");
             if(employee == null) {
                 return "emp-login.do";
