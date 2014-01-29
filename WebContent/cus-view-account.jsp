@@ -4,6 +4,7 @@
 <%@page import= "databeans.Fund" %>
 <%@page import= "java.util.Date" %>
 <%@page import= "java.text.SimpleDateFormat" %>
+<%@page import= "java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,6 +54,8 @@
 					<%Customer customer = (Customer) session.getAttribute("customer");
 						Date lastDate = (Date)request.getAttribute("lastDate");
 						SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+						DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+						DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000");
 					if(customer == null) {
 					    out.print("There is no customer information found in session!");
 					    return;
@@ -73,7 +76,7 @@
                                 </tr>
                                 <tr>
                                     <th>Cash Balance</th>
-									<td><%="$"+ " "+customer.getCash() / 100.0%></td>
+									<td><%="$"+ " "+ dfAmount.format(customer.getCash()/100.0) %></td>
                                 </tr>
                                 <tr>
                                     <th>Last Trading Day</th>
@@ -104,8 +107,9 @@
                                     <th>Fund ID</th>
                                     <th>Fund Name</th>
                                     <th>Fund Symbol</th>
-                                    <th>Shares</th>
-                                    <th>Latest Prices</th>
+                                    <th><div align='right'>Shares</div></th>
+                                    <th><div align='right'>Latest Prices</div></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,9 +120,14 @@
                                     <td><%=pos[i].getFund_id()%></td>
                                     <td><%=funds.get(i).getName()%></td>
                                     <td><%=funds.get(i).getSymbol()%></td>
-                                    <td><%=pos[i].getShares() / 1000.0%></td>
+                                    <td><div align='right'>
+                                    <%=dfShare.format(pos[i].getShares()/1000.0)%>
+                                    </div>
+                                    </td>
                                     <%if(prices.get(i)!=-1){%>
-                                    <td><%=prices.get(i) / 100.0%></td>
+                                    <td ><div align='right'><%=dfAmount.format(prices.get(i) / 100.0)%>
+                                    	</div>
+                                    </td>
                                     <%}else{ %>
                                     <td><%="Not Initialized"%></td>
                                     <%} %>
