@@ -32,7 +32,6 @@ public class Emp_DepositCheckAction extends Action {
         request.setAttribute("errors",errors);
         
         try {
-        	System.out.println("--------------------- In deposit check action");
         	Customer customer = null;
         	Emp_DepositCheckForm form = formBeanFactory.create(request);
 			System.out.println("------------hello-----------------");
@@ -51,6 +50,9 @@ public class Emp_DepositCheckAction extends Action {
             	//customerDAO.updateCash(customer);
             	customer = customerDAO.read(Integer.parseInt(thisButton));
             	Long amount = Long.parseLong(form.getDeposit());
+            	
+            	
+   			 
                 Transaction transaction = new Transaction();
                 transaction.setAmount(amount);
                 transaction.setCustomer_id(customer.getCustomer_id());
@@ -60,7 +62,8 @@ public class Emp_DepositCheckAction extends Action {
                 org.genericdao.Transaction.commit();
                 // Attach (this copy of) the customer object to the session
                 customerDAO.setCash(customer.getCustomer_id(),customer.getCash()+amount);
-            	
+                customer = customerDAO.read(Integer.parseInt(thisButton));
+                request.getSession().setAttribute("customer", customer);
             	request.setAttribute("cash", customer.getCash());
                 
                 

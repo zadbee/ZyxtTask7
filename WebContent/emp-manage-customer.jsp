@@ -67,12 +67,17 @@
 								</tr>
 							</tbody>
 							</table> 
+							
 							<form method="post" action="emp_resetPwd.do">
-							<button type="submit" class="btn btn-default btn-xs" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
+							<div class="col-md-4">
+							<button type="submit" class="btn btn-default btn-lg" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
+							</div>
 							<form method="post" action="emp_depositCheck.do">
-							<button type="submit" class="btn btn-default btn-xs" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
+							<div class="col-md-4">
+							<button type="submit" class="btn btn-default btn-lg" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
+							</div>
 							<form method="post" action="emp_transHistory.do">
-							<button type="submit" class="btn btn-default btn-xs" name="transhistory" value="${customer.customer_id}" >Transaction History</button></form>
+							<button type="submit" class="btn btn-default btn-lg"" name="transhistory" value="${customer.customer_id}" >Transaction History</button></form>
                     </div>
 					
 					<div class="col-md-12">
