@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page import="databeans.Customer"%>
+<%@page import= "java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,10 +40,16 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.jsp">Home</a></li>
-                    <li class="active">Transition Day</li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Customer Account Details</li>
                 </ol>
                 
                 <jsp:include page="error-list.jsp"/>
+                <% 
+                Customer customer = (Customer)request.getAttribute("customer");
+                DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+                %>
+                
                 
                 <div class="row">
                     <div class="col-md-12">
@@ -63,7 +70,7 @@
 								</tr>
 								<tr> 
 									<td>Customer's Balance </td>
-									<td>${customer.cash}</td>
+									<td>$<%=dfAmount.format(customer.getCash()/100.0) %></td>
 								</tr>
 							</tbody>
 							</table> 
