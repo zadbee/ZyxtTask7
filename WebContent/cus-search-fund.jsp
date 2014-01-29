@@ -3,6 +3,7 @@
 <%@page import="databeans.FundPriceHistory"%>
 <%@page import="java.util.*" %>
 <%@page import="utility.Format" %>
+<%@page import= "java.text.DecimalFormat" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -60,6 +61,7 @@ if(customer == null) {
                     </div>
                     <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
                     	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
+                    	DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
                     	if(allFunds!=null && allFunds.size()!=0){
                     %>
                     
@@ -71,8 +73,8 @@ if(customer == null) {
                                     <th>Fund ID</th>
                                     <th>Fund Name</th>
                                     <th>Fund Symbol</th>
-                                    <th>Current Prices</th>
-                                    <th>Performance</th>
+                                    <th><div align='right'>Current Prices</div></th>
+                                    <th><div align='right'>Performance</div></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,19 +86,22 @@ if(customer == null) {
                                     <td><%=allFunds.get(i).getFund_id()%></td>
                                     <td><%=allFunds.get(i).getName()%></td>
                                     <td><%=allFunds.get(i).getSymbol()%></td>
+                                    
                                     <%if(allFundPrices.get(i)==-1) {%>
-                                    <td><%="Not Initialized" %></td>
+                                    <td><div align='right'><%="Not Initialized" %></div></td>
                                     <%}else{ %>
-                                    <td><%=allFundPrices.get(i)/100.0 %></td>
+                                    <td><div align='right'><%= dfAmount.format(allFundPrices.get(i)/100.0)%></div></td>
                                     <%} %>
+                                    
                                     <%if(allFundPrices.get(i)==-1) {%>
-                                    <td><%="Not Avaiable" %></td>
+                                    <td><div align='right'><%="Not Avaiable" %></div></td>
                                     <%}else{ %>
-                                    <td>
+                                    <td><div align='right'>
                                     	<form method="post" action="cus_getFundDetails.do">
                                     	<button type="submit" class="btn btn-default btn-xs" name="fund_id" value="<%=allFunds.get(i).getFund_id()%>">
                                     	View Now</button>
                                     	</form>
+                                    	</div>
                                     </td>
                                     <%} %>
                                 </tr>
