@@ -10,6 +10,7 @@ import model.CustomerDAO;
 import model.Model;
 
 import org.genericdao.MatchArg;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Customer;
@@ -35,16 +36,30 @@ public class Emp_ResetPwdAction extends Action{
 		request.setAttribute("errors", errors);
 
 		try {
+			Customer customer = null;
+			Emp_ResetPwdForm form = formBeanFactory.create(request);
 			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
-
+		    System.out.println("^^^^^^^^^");
             if(employee == null) {
-                return "employee-login.do";
+                return "emp-login.do";
             }
+            System.out.println("^^^^^^^^^");
             String button = request.getParameter("reset-pwd");
-            Customer[] customer = customerDAO.match(MatchArg.equals("customer_id", button));
-            
-			Emp_ResetPwdForm form = formBeanFactory.create(request);
+            String thisButton = request.getParameter("button");
+            if (thisButton != null){
+            	Transaction.begin();
+            	customer = customerDAO.read(Integer.parseInt(thisButton));
+            	customer.setPassword(form.getUserName());
+            	customerDAO.update(customer);
+            	Transaction.commit();
+            	request.setAttribute("message","Password changed for "+customer.getFirstname());
+    			return "emp-pwdreset-success.jsp";
+            }
+            if (button != null)
+            	customer = customerDAO.read(Integer.parseInt(button));
+            System.out.println("^^^^^^^^^");
+			
 			request.setAttribute("form", form);
 			String newPwd = null;
 			String username;
@@ -53,10 +68,11 @@ public class Emp_ResetPwdAction extends Action{
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
 				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-				request.setAttribute("customer", customer[0]);
+				request.setAttribute("customer", customer);
 				request.setAttribute("employee", employee);
 				return "emp-reset-customer-pwd.jsp";
 			}
+			System.out.println("^^^^^^^^^");
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
@@ -78,12 +94,13 @@ public class Emp_ResetPwdAction extends Action{
 				errors.add("No such user!");
 			else
 				errors.add("The password has been reset to " + newPwd);
-			request.setAttribute("customer", customer[0]);
+			request.setAttribute("customer", customer);
 			request.setAttribute("employee", employee);
 			System.out.println("###########################");
 	        return "emp-reset-customer-pwd.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
+      	e.printStackTrace();
       	return "emp-reset-customer-pwd.jsp";
       }
 	}
