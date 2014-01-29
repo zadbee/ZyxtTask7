@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.GenericDAO;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Customer;
+import databeans.Employee;
 import formbeans.Cus_RegistrationForm;
 import model.CustomerDAO;
 import model.Model;
@@ -16,6 +18,8 @@ import model.Model;
 public class Cus_RegistrationAction extends Action {
 	private FormBeanFactory<Cus_RegistrationForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RegistrationForm.class);
 	private CustomerDAO customerDAO;
+	private GenericDAO<Employee> employeeDAO;
+
 	
 	public Cus_RegistrationAction(Model model) {
 		System.out.println("----------------------- here1");
@@ -38,6 +42,10 @@ public class Cus_RegistrationAction extends Action {
 		
         try {
 	    	Cus_RegistrationForm form = formBeanFactory.create(request);
+			Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+			if(employee==null){
+	        	return "emp-login.jsp";
+	        }
 	        // request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be

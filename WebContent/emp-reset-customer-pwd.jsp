@@ -49,12 +49,12 @@ if(customer !=null) {
                 <form method="post" action="emp_resetPwd.do">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">Customer User Name</p>
+                        <p class="lead">Customer ${customer.firstname}  ${customer.lastname} </p>
                     </div>
 					<div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">New</span>
-                            <input type="text" name="userName" class="form-control" readonly placeholder="" value="<%--=customer.getUsername--%>">
+                            <input type="text" name="userName" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
                         </div>
                     </div>
 					<div class="col-md-12">
@@ -62,7 +62,7 @@ if(customer !=null) {
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group">
-                            <button type="submit" name="button" class="btn btn-default" value="submit">Reset Password</button>
+                            <button type="submit" name="button" class="btn btn-default" value="${customer.customer_id}">Reset Password</button>
                         </div>
                     </div>
                     <div class="col-md-12">
