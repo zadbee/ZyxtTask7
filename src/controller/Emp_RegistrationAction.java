@@ -51,13 +51,13 @@ public class Emp_RegistrationAction extends Action {
 	        if (errors.size() != 0) {
 	            return "emp-registration.do";
 	        }
+	        Employee newEmployee = new Employee();
+	        newEmployee.setFirstname(form.getFirstName());
+	        newEmployee.setLastname(form.getLastName());
+	        newEmployee.setUsername(form.getUsername());
+	        newEmployee.setPassword(form.getPassword());
 	        
-	        employee.setFirstname(form.getFirstName());
-	        employee.setLastname(form.getLastName());
-	        employee.setUsername(form.getUsername());
-	        employee.setPassword(form.getPassword());
-	        
-	        employeeDAO.create(employee);
+	        employeeDAO.create(newEmployee);
 	        return "emp-create-fund.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
