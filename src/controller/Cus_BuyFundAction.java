@@ -101,7 +101,11 @@ public class Cus_BuyFundAction extends Action {
 			request.setAttribute("message", 
 					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
-	  } catch (Exception e) {
+	  } catch (NullPointerException e) {
+	      	errors.add("    The fund is not available");
+	      	return "cus-buy-fund.jsp";
+	      }
+		catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-buy-fund.jsp";
       }
