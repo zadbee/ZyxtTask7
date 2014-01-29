@@ -34,7 +34,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Carnegie Financial Services</a>
+                <a class="navbar-brand" href="index.jsp">Carnegie Financial Services</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,7 +78,28 @@
 
     </div>
     <!-- /.intro-header -->
-
+    <footer>
+        <div class="container" align='center'>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="emp-customerlist.do">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Team Zyxt 2014. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page import="databeans.Customer"%>
+<%@page import= "java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,11 +39,17 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="emp-customerlist.jsp">Home</a></li>
-                    <li class="active">Transition Day</li>
+                    <li><a href="emp-customerlist.do">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Customer Account Details</li>
                 </ol>
                 
                 <jsp:include page="error-list.jsp"/>
+                <% 
+                Customer customer = (Customer)request.getAttribute("customer");
+                DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+                %>
+                
                 
                 <div class="row">
                     <div class="col-md-12">
@@ -63,14 +70,21 @@
 								</tr>
 								<tr> 
 									<td>Customer's Balance </td>
-									<td>${customer.cash}</td>
+									<td>$<%=dfAmount.format(customer.getCash()/100.0) %></td>
 								</tr>
 							</tbody>
 							</table> 
+							
 							<form method="post" action="emp_resetPwd.do">
-							<button type="submit" class="btn btn-default btn-xs" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
+							<div class="col-md-4">
+							<button type="submit" class="btn btn-default btn-lg" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
+							</div>
 							<form method="post" action="emp_depositCheck.do">
-							<button type="submit" class="btn btn-default btn-xs" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
+							<div class="col-md-4">
+							<button type="submit" class="btn btn-default btn-lg" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
+							</div>
+							<form method="post" action="emp_transHistory.do">
+							<button type="submit" class="btn btn-default btn-lg"" name="transhistory" value="${customer.customer_id}" >Transaction History</button></form>
                     </div>
 					
 					<div class="col-md-12">

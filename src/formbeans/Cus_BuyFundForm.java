@@ -12,13 +12,13 @@ public class Cus_BuyFundForm extends FormBean{
 		return fundSymbol;
 	}
 	public void setFundSymbol(String fundSymbol) {
-		this.fundSymbol = fundSymbol;
+		this.fundSymbol = trimAndConvert(fundSymbol,"<>\";*");
 	}
 	public String getAmount() {
 		return amount;
 	}
 	public void setAmount(String amount) {
-		this.amount = amount;
+		this.amount = trimAndConvert(amount,"<>\";*");
 	}
 	
 	public List<String> getValidationErrors() {
@@ -32,6 +32,8 @@ public class Cus_BuyFundForm extends FormBean{
 			errors.add("Amount is required");
 		}
 		
+		if (fundSymbol.matches(".*[<>\";*].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
+		if (amount.matches(".*[<>\";*].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		long ec = AmountCheck.checkValueString(amount);
 		if (ec < 0)
 			errors.add(AmountCheck.getErrorByCode(amount, ec));

@@ -38,8 +38,10 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Success</li>
+                    <li><a href="emp-customerlist.do">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Account Details</li>
+                    <li class="active">Reset Password</li>
                 </ol>
                 <div style="font-size:Large; color:Blue; "> ${message} </div>
             </div>

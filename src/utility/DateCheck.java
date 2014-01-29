@@ -25,9 +25,9 @@ public class DateCheck {
 	}
 	
 	public static Date getDate(int year, int month, int day) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     	try {
-			return df.parse(year + "-" + month + "-" + day);
+			return df.parse(month + "/" + day + "/" + year);
 		} catch (Exception e) {
 			return new Date();
 		}
@@ -39,7 +39,7 @@ public class DateCheck {
 		
 		int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		if (month != 2) {
-			if (day < 1 || day > days[month])
+			if (day < 1 || day > days[month - 1])
 				return false;
 			return true;
 		} else if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))

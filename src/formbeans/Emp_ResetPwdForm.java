@@ -13,13 +13,14 @@ public class Emp_ResetPwdForm extends FormBean{
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = trimAndConvert(userName,"<>\";*");
 	}
 	public List<String> getValidationErrors() {
         List<String> errors = new ArrayList<String>();
         if(userName == null || userName.length() == 0){
         	errors.add("No such user!");
         }
+        if (userName.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
         return errors;
     }
 }

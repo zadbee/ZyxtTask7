@@ -12,7 +12,7 @@ public class Cus_RequestCheckForm extends FormBean {
 	
 	public String getWithdraw()   { return withdraw;   }
 	
-	public void setWithdraw(String s)   { withdraw  = s.trim();                   }
+	public void setWithdraw(String s)   { withdraw  = trimAndConvert(s,"<>\";*");}
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class Cus_RequestCheckForm extends FormBean {
 		// missing validation for cash 
 		// withdraw must be valid number
 		// no need to consider overflow here
-		
+		if (withdraw.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		long ec = AmountCheck.checkShareString(withdraw);
 		if (ec < 0)
 			errors.add(AmountCheck.getErrorByCode(withdraw, ec));

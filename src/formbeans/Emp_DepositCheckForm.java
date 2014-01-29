@@ -15,7 +15,7 @@ public class Emp_DepositCheckForm extends FormBean {
 	public String getDeposit()   { return deposit;   }
 	
 	public void setUserName(String s)  { userName  = trimAndConvert(s,"<>\"");  }
-	public void setDeposit(String s)   { deposit  = s.trim();                   }
+	public void setDeposit(String s)   { deposit  = trimAndConvert(s,"<>\"");   }
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -28,6 +28,8 @@ public class Emp_DepositCheckForm extends FormBean {
 			errors.add("Deposit amount is required");
 		}
 
+		if (userName.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
+		if (deposit.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		long ec = AmountCheck.checkShareString(deposit);
 		if (ec < 0)
 			errors.add(AmountCheck.getErrorByCode(deposit, ec));

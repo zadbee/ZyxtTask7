@@ -30,11 +30,7 @@ public class Emp_CustomerListAction extends Action {
 		request.setAttribute("errors",errors);
 
         try {
-//        	System.out.println("********here");
-//        	String button = request.getParameter("manage_cust_1");
-//        	System.out.println("^^^^^^^^^^"+button);
-//        	if ("manage".equals(request.getParameter("manage_cust_1")))
-//        		System.out.println(";;;;;;;;;;;;;;;;;;; Alo ki ithe");	
+	
         	Customer[] customers = customerDAO.match();
         	String button = null;
         	int button_id = -1;
@@ -42,7 +38,6 @@ public class Emp_CustomerListAction extends Action {
 				button = request.getParameter("reset_custPwd_"+customer.getCustomer_id());
 				if (button != null){
 					request.setAttribute("customer", customer);
-					System.out.println("Here---------------------- 0");
 					return "emp_resetPwd.do";
 				}
 			}
@@ -57,15 +52,9 @@ public class Emp_CustomerListAction extends Action {
         	System.out.println("The button that was clicked was "+ button_id);
         	Employee employee = (Employee) request.getSession(false).getAttribute("employee");
         	if (employee == null) {
-        		System.out.println("*********login kar ki");
 				return "emp-login.do";
 			}
         	
-//        	Customer[] customers = customerDAO.match();
-        	for (Customer customer : customers) {
-				System.out.println("---"+customer);
-			}
-        	System.out.println("***********"+employee.toString());
         	if (button_id == -1){
 	        	request.setAttribute("customers", customers);
 	        	return "emp-customerlist.jsp";

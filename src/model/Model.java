@@ -14,6 +14,7 @@ public class Model {
 	private FundHistDAO			fundHistDAO;
 	private TransDAO			transDAO;
 	private PosDAO				posDAO;
+	private TransDateDAO		dateDAO;
 	
 	
 
@@ -31,6 +32,7 @@ public class Model {
 			fundHistDAO = new FundHistDAO(pool, "FundHistory");
 			posDAO = new PosDAO(pool,"Position");
 			transDAO = new TransDAO(pool,"Transaction", customerDAO, fundHistDAO, posDAO);
+			dateDAO = new TransDateDAO(pool, "TransitionDate");
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,5 +45,6 @@ public class Model {
 	public FundHistDAO getFundHistDAO() { return fundHistDAO; }
 	public TransDAO getTransDAO() { return transDAO; }
 	public PosDAO getPosDAO() { return posDAO; }
+	public TransDateDAO getDateDAO() { return dateDAO; }
 
 }

@@ -13,7 +13,7 @@ public class Cus_SellFundForm extends FormBean{
 	
 	
 	public void setShares(String shares) {
-		this.shares = shares.trim();
+		this.shares = trimAndConvert(shares,"<>\";*");
 	}
 
 
@@ -22,7 +22,7 @@ public class Cus_SellFundForm extends FormBean{
 	}
 	
 	public void setFundSymbol(String fundName) {
-		this.fundSymbol = fundName.trim();
+		this.fundSymbol = trimAndConvert(fundName,"<>\";*");
 	}
 	public String getShares() {
 		return shares;
@@ -43,6 +43,8 @@ public class Cus_SellFundForm extends FormBean{
 			if (ec < 0)
 				errors.add(AmountCheck.getErrorByCode(shares, ec));
 		}
+		if (fundSymbol.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
+		if (shares.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		
 		return errors;
 	}

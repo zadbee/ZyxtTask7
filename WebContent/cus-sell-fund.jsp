@@ -1,4 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import= "java.text.DecimalFormat" %>
+<%@page import="databeans.Position"%>
+<%@page import="databeans.Fund"%>
+<%@page import="java.util.*" %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +78,7 @@
 	                   
 	                   <div class="col-md-12" align="right">
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-default btn-lg">Buy Now</button>
+                            <button type="submit" class="btn btn-default btn-lg">Sell Now</button>
                         </div>
                     </div>
                     </form>
@@ -84,10 +88,19 @@
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
+                    
+                    <!-- List of Funds -->
                     <div class="col-md-12">
-                        <p class="lead">Your Fund List</p>
+                        <p class="lead">Your Funds List</p>
                     </div>
-                                        
+                    <%
+                    Position[] pos = (Position[])request.getAttribute("pos");
+                    ArrayList<Long> prices = (ArrayList<Long>) request.getAttribute("prices");
+                    ArrayList<Fund> funds = (ArrayList<Fund>) request.getAttribute("funds");
+                    DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+					DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000");
+					if(pos!=null && pos.length!=0){
+					%>                   
                     <div class="col-md-12">
 	                        <table class="table">
 	                            <thead>
@@ -95,27 +108,36 @@
 	                                    <th>Fund ID</th>
 	                                    <th>Fund Name</th>
 	                                    <th>Fund Symbol</th>            
-	                                    <th>Shares</th>
-	                                    <th>Latest Price</th>
+	                                    <th><div align='right'>Shares</div></th>
+	                                    <th><div align='right'>Latest Price</div></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <c:forEach var="fund" items="${funds}" varStatus="Status">
-	                                	<tr>
-	                                		<td>${fund.fund_id}</td>
-	                                		<td>${fund.name}</td>
-	                                		<td>${fund.symbol}</td>
-	                                		<td>${pos[Status.index].shares / 1000.0}</td>
-	                                		<td>${prices[Status.index] / 100.0}</td>
-	                                	</tr>
-	                                </c:forEach>
-	                            </tbody>
+                       <%                    		
+                       		for(int i=0; i<pos.length;i++){ 
+                       %>
+                                	<tr>
+                                		<td><%=funds.get(i).getFund_id()%></td>
+                                		<td><%=funds.get(i).getName()%></td>
+                                		<td><%=funds.get(i).getSymbol()%></td>
+                                		<td><div align='right'><%=dfShare.format(pos[i].getShares()/1000.0)%></div></td>
+   										<td><div align='right'><%=dfAmount.format(prices.get(i)/100.0) %></div></td>
+                                	</tr>
+
+						<%
+							}
+                       	}else{
+						%>                      
+						<div class="col-md-12">
+                            You own no funds, Buy some now!
+                        </div>  
+  
+                       <%}
+                    	%> 
+                                </tbody>
 	                        </table>
-                    </div>
-                    <!-- List of Funds -->
-                    
-                    
-                </div>
+                    </div>                  
+            	</div>
             </div>
         </div>
    	</div>

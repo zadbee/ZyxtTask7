@@ -42,7 +42,7 @@ if(customer ==null) {
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="emp-customerlist.jsp">Home</a></li>
+                    <li><a href="emp-customerlist.do">Home</a></li>
                     <li class="active">Reset Customer Password</li>
                 </ol>
                 <form method="post" action="emp_resetPwd.do">

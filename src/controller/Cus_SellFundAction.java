@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,9 +56,7 @@ public class Cus_SellFundAction extends Action{
 	            		lprices.add(-1L);
 	            	else
 	            		lprices.add(histDAO.getPrice(x.getFund_id()).getPrice());
-	            }
-	
-	            
+	            }           
 				request.setAttribute("funds", funds);
 				request.setAttribute("prices", lprices);
 				request.setAttribute("pos", lpos);
@@ -101,7 +98,7 @@ public class Cus_SellFundAction extends Action{
             // Transaction table is updated.
             Transaction trans = new Transaction();
             trans.setCustomer_id(updatedCus.getCustomer_id());
-            trans.setExecute_date(new Date());
+            trans.setExecute_date(null);
             trans.setFund_id(fund.getFund_id());
             trans.setShares(shares);
             trans.setStatus("PENDING");
@@ -111,7 +108,11 @@ public class Cus_SellFundAction extends Action{
             request.setAttribute("message", 
 					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
 	        return "cus-success.jsp";
-	  } catch (Exception e) {
+	  }catch (NullPointerException e) {
+	      	errors.add("    The fund is not available");
+	      	return "cus-sell-fund.jsp";
+	      }
+		catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-sell-fund.jsp";
       }

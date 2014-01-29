@@ -37,7 +37,6 @@ public class Emp_RegistrationAction extends Action {
 	        if(employee==null){
 	        	return "emp-login.jsp";
 	        }
-	        // request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
@@ -49,7 +48,7 @@ public class Emp_RegistrationAction extends Action {
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "emp-registration.do";
+	            return "emp-registration.jsp";
 	        }
 	        Employee newEmployee = new Employee();
 	        newEmployee.setFirstname(form.getFirstName());
@@ -58,15 +57,18 @@ public class Emp_RegistrationAction extends Action {
 	        newEmployee.setPassword(form.getPassword());
 	        
 	        employeeDAO.create(newEmployee);
-	        return "emp-create-fund.jsp";
+//	        return "emp-create-fund.jsp";
+
+	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
+			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
-        	return "create-fund-emp.jsp";
+        	return "emp-registration.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
-        	return "create-fund-emp.jsp";
+        	return "emp-registration.jsp";
         }
 	}
 

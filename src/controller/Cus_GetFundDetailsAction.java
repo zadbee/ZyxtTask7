@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,7 @@ public class Cus_GetFundDetailsAction extends Action{
 			int fund_id = Integer.parseInt(request.getParameter("fund_id"));
 
 			ArrayList<FundPriceHistory> histories = fundHistDAO.getFundHist(fund_id);
+			Collections.sort(histories, new HistComp());
 			request.setAttribute("histories", histories);
 			
 			Fund fund = fundDAO.read(fund_id);
@@ -48,6 +51,16 @@ public class Cus_GetFundDetailsAction extends Action{
 		}catch(Exception e){
 			errors.add(e.toString());
 			return "cus-get-fund-details.jsp";
+		}
+	}
+	
+	public class HistComp implements Comparator<FundPriceHistory> {
+		public int compare(FundPriceHistory o1, FundPriceHistory o2) {
+			if (o1.getPrice_date().after(o2.getPrice_date()))
+				return 1;
+			else if (o1.getPrice_date().before(o2.getPrice_date()))
+				return -1;
+			return 0;
 		}
 	}
 }

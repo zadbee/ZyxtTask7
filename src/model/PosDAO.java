@@ -6,6 +6,7 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import databeans.Position;
 
@@ -14,16 +15,32 @@ public class PosDAO extends GenericDAO<Position>{
 		super(Position.class, tableName, pool);
 	}
 	
-	public Position[] readByCustomerID (int id) throws RollbackException {
-		Position[] tmp = match(MatchArg.equals("customer_id", id));
+	public Position[] readByCustomerID (int id) {
+		Position[] tmp = null;
+		try {
+			tmp = match(MatchArg.equals("customer_id", id));
+		} catch (RollbackException e) {
+			e.printStackTrace();
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+		
 		if (tmp == null || tmp.length == 0)
 			return null;
 		else
 			return tmp;
 	}
 	
-	public Position getShares(int customer_id, int fund_id) throws RollbackException {
-		Position[] tmp = match(MatchArg.and(MatchArg.equals("customer_id", customer_id), MatchArg.equals("fund_id", fund_id)));
+	public Position getShares(int customer_id, int fund_id) {
+		Position[] tmp = null;
+		try {
+			tmp = match(MatchArg.and(MatchArg.equals("customer_id", customer_id), MatchArg.equals("fund_id", fund_id)));
+		} catch (RollbackException e) {
+			e.printStackTrace();
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+		
 		if (tmp == null || tmp.length == 0)
 			return null;
 		else

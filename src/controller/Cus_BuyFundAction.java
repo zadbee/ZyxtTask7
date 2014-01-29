@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,11 +46,7 @@ public class Cus_BuyFundAction extends Action {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");          
             if(customer == null)
                 return "cus-login.jsp";
-            
-//            customer = customerDAO.read(customer.getCustomer_id());
-//            if(customer == null)
-//                return "cus-login.jsp";
-            //request.getSession(false).setAttribute("customer", customer);
+
 		    Cus_BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
@@ -92,7 +87,7 @@ public class Cus_BuyFundAction extends Action {
 			
 			t.setCustomer_id(customer_id);
 			t.setFund_id(fund.getFund_id());
-			t.setExecute_date(new Date());
+			t.setExecute_date(null);
 			t.setTransaction_type("BUY");
 			t.setAmount(amount);
 			t.setStatus("PENDING");
@@ -104,9 +99,13 @@ public class Cus_BuyFundAction extends Action {
 			request.getSession().setAttribute("customer",customer);
 
 			request.setAttribute("message", 
-					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getSymbol() + ".");
+					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
-	  } catch (Exception e) {
+	  } catch (NullPointerException e) {
+	      	errors.add("    The fund is not available");
+	      	return "cus-buy-fund.jsp";
+	      }
+		catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-buy-fund.jsp";
       }

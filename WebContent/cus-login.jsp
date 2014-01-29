@@ -34,7 +34,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Carnegie Financial Services</a>
+                <a class="navbar-brand" href="index.jsp">Carnegie Financial Services</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -80,9 +80,8 @@
 
     </div>
     <!-- /.intro-header -->
-
     <footer>
-        <div class="container">
+        <div class="container" align='center'>
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-inline">
@@ -103,7 +102,6 @@
             </div>
         </div>
     </footer>
-
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>

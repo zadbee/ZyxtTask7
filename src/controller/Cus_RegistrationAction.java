@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.genericdao.GenericDAO;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Employee;
 import formbeans.Cus_RegistrationForm;
@@ -18,17 +18,12 @@ import model.Model;
 public class Cus_RegistrationAction extends Action {
 	private FormBeanFactory<Cus_RegistrationForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RegistrationForm.class);
 	private CustomerDAO customerDAO;
-	private GenericDAO<Employee> employeeDAO;
-
-	
 	public Cus_RegistrationAction(Model model) {
-		System.out.println("----------------------- here1");
 		customerDAO = model.getCustomerDAO();
 	}
 	
 	@Override
 	public String getName() {
-		System.out.println("----------------------- here2");
 		// TODO Auto-generated method stub
 		return "cus-registration.do";
 	}
@@ -36,7 +31,6 @@ public class Cus_RegistrationAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		System.out.println("----------------------- here3");
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 		
@@ -46,8 +40,6 @@ public class Cus_RegistrationAction extends Action {
 			if(employee==null){
 	        	return "emp-login.jsp";
 	        }
-	        // request.setAttribute("form",form);
-
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
@@ -60,19 +52,26 @@ public class Cus_RegistrationAction extends Action {
 	            return "cus-registration.jsp";
 	        }
 	        
+	        if(customerDAO.readByName(form.getUsername()) !=null){
+	        	errors.add("Username exists!");
+	        	return "cus-registration.jsp";
+	        }
+        
 	        Customer customer = new Customer();
-	        customer.setFirstname(form.getFirstName());
-	        customer.setLastname(form.getLastName());
+	        customer.setFirstname(form.getFirstname());
+	        customer.setLastname(form.getLastname());
 	        customer.setUsername(form.getUsername());
 	        customer.setPassword(form.getPassword());
 	        customer.setAddr_line1(form.getAddrline1());
 	        customer.setAddr_line2(form.getAddrline2());
 	        customer.setCity(form.getCity());
 	        customer.setState(form.getState());
-	        customer.setCash(form.getCash());
+	        customer.setCash(AmountCheck.checkValueString(form.getCash()));
+	        customer.setZip(AmountCheck.checkZip(form.getZip()));
 	        
 	        customerDAO.createAutoIncrement(customer);
-	        return "emp-create-fund.jsp";
+	        request.setAttribute("message","Customer "+ customer.getUsername() + " is created.");
+			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
