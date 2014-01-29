@@ -41,7 +41,7 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="cus-view-account.jsp">Home</a></li>
                     <li class="active">View Account</li>
                 </ol>
                 <jsp:include page="error-list.jsp" />
