@@ -86,7 +86,7 @@ if (session.getAttribute("customer") == null) {
                 </li>
                 <li><a href="cus_transHistory.do">Transaction History</a>
                 </li>
-                <li><a href="cus-search-fund.jsp">Research Fund</a>
+                <li><a href="cus_searchFund.do">Research Fund</a>
                 </li>
             </ul>
         </div>

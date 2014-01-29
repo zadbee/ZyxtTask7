@@ -45,13 +45,13 @@
   <div class="form-group">
     <label for="inputPassword3" name = "password" class="col-sm-2 control-label">New Password:</label>
     <div class="col-md-9">
-	<input type="password" name="newPassword" class="form-control" id="inputPassword3" placeholder="new Password...">
+      <input type="password" name="newPassword" class="form-control" id="inputPassword3" placeholder="new password">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Re-enter New:</label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Confirm New Password:</label>
     <div class="col-md-9">
-      <input type="password" name="confirmPassword" class="form-control" id="inputPassword3" placeholder="new Password...">
+      <input type="password" name="confirmPassword" class="form-control" id="inputPassword3" placeholder="new password">
     </div>
   </div>
   <br><br>

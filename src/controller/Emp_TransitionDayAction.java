@@ -61,8 +61,7 @@ public class Emp_TransitionDayAction extends Action {
 				} else
 					prices.add(histDAO.getPrice(f.getFund_id()));
 				names.add(fundDAO.read(f.getFund_id()).getName());
-				symbols.add(fundDAO.read(f.getFund_id()).getSymbol());
-				
+				symbols.add(fundDAO.read(f.getFund_id()).getSymbol());		
 			}
 			
 			transForm = new Emp_TransitionDayForm(request);

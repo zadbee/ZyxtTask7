@@ -30,7 +30,7 @@ public class Emp_CreateFundForm extends FormBean {
 		}
 
 		if (fundSymbol == null || fundSymbol.length() == 0) {
-			errors.add("Fund symbol (ticker) is required");
+			errors.add("Fund symbol is required");
 		}
 		
 		if (!fundName.matches("[0-9a-zA-Z\\s]+")) {
@@ -38,7 +38,7 @@ public class Emp_CreateFundForm extends FormBean {
         }
 		
 		if (!fundSymbol.matches("[0-9a-zA-Z]{4,6}")) {
-            errors.add("Fund Ticker's length must be 4~6.");
+            errors.add("Fund symbol's length must be 4~6.");
         }
 				
 		return errors;
