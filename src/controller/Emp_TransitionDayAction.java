@@ -42,7 +42,7 @@ public class Emp_TransitionDayAction extends Action {
 		request.setAttribute("symbols", symbols );
 		Date lastday = null;
 		
-		if (request.getAttribute("employee") == null)
+		if (request.getSession(false).getAttribute("employee") == null)
 			return "emp-login.jsp";
 		
 		// Get the updated price and update it.

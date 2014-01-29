@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.form.FormBeanFactory;
 
+import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Employee;
 import databeans.Transaction;
@@ -53,9 +54,11 @@ public class Emp_DepositCheckAction extends Action {
             	//org.genericdao.Transaction.begin();
             	//customerDAO.updateCash(customer);
             	customer = customerDAO.read(Integer.parseInt(thisButton));
-            	amount = Long.parseLong(form.getDeposit());
-            	
-            	
+            	amount = AmountCheck.checkValueString(form.getDeposit());
+            	if (amount < 0) {
+            		errors.add(AmountCheck.getErrorByCode(form.getDeposit(), amount));
+            		return "emp-deposit-check.jsp";
+            	}
    			 
                 Transaction transaction = new Transaction();
                 transaction.setAmount(amount);
@@ -66,13 +69,13 @@ public class Emp_DepositCheckAction extends Action {
                 transDAO.createAutoIncrement(transaction);
                 //org.genericdao.Transaction.commit();
                 // Attach (this copy of) the customer object to the session
-                customerDAO.setCash(customer.getCustomer_id(),customer.getCash()+amount);
-                customer = customerDAO.read(Integer.parseInt(thisButton));
+                //customerDAO.setCash(customer.getCustomer_id(),customer.getCash()+amount);
+                //customer = customerDAO.read(Integer.parseInt(thisButton));
                 request.getSession().setAttribute("customer", customer);
             	request.setAttribute("cash", customer.getCash());
                 
                 
-                request.setAttribute("message","Deposit Requested for "+customer.getFirstname() + "Current cash is" + customer.getCash() );
+                request.setAttribute("message","Deposit Requested for "+customer.getFirstname());
     			return "emp-success.jsp";
             }
             

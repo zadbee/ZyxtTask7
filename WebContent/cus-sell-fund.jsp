@@ -63,7 +63,7 @@
 	                    <div class="col-md-12">
 	                        <div class="input-group">
 	                            <span class="input-group-addon">$</span>
-	                            <input type="text" class="form-control" placeholder="Shares (No more than your current shares)" name="shares">
+	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
 	                                </div>
 	                    </div>          
 	                    <div class="col-md-12">
@@ -110,8 +110,10 @@
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-                       <% 
-                       	for(int i=0; i<pos.length;i++){ 
+                       <%
+                       	if(pos!=null && pos.length!=0){
+                       		
+                       		for(int i=0; i<pos.length;i++){ 
                        %>
                                 	<tr>
                                 		<td><%=funds.get(i).getFund_id()%></td>
@@ -121,7 +123,8 @@
    										<td><div align='right'><%=dfAmount.format(prices.get(i)/100.0) %></div></td>
                                 	</tr>
 						<%
-						}
+							}
+                       	}
 						%>
 	                            </tbody>
 	                        </table>

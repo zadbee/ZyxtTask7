@@ -29,7 +29,8 @@ public class Emp_LoginForm extends FormBean {
 
         if (errors.size() > 0) return errors;
 
-        if (username.matches(".*[<>\"].*")) errors.add("E-mail address may not contain angle brackets or quotes");
+        if (username.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
+        if (password.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		
         return errors;
     }

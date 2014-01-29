@@ -24,7 +24,7 @@ public class Cus_RegistrationForm extends FormBean {
 	
 	public String getFirstName()    { return firstname;}
 	public String getLastName()     { return lastname; }
-	public String getAddrline1()   { return addrline1; }
+	public String getAddrline1()    { return addrline1; }
 	public String getAddrline2()	{ return addrline2; }
 	public String getCity()			{ return city; 	   }
 	public String getState()		{ return state;	   }
@@ -33,14 +33,14 @@ public class Cus_RegistrationForm extends FormBean {
 	public String getPassword() 	{ return password; }
 	public long getCash()			{ return cash;	   }
 	
-	public void setUsername(String s)	{ username = trimAndConvert(s,"<>\""); }
-	public void setPassword(String s) 	{ password = trimAndConvert(s,"<>\""); }
-	public void setFirstname(String s)	{ firstname = trimAndConvert(s, "<>\"");}
-	public void setLastname(String s)	{ lastname = trimAndConvert(s, "<>\"");}
-	public void setAddrline1(String s)	{ addrline1 = trimAndConvert(s, "<>\"");}
-	public void setAddrline2(String s)	{ addrline2 = trimAndConvert(s, "<>\"");}
-	public void setCity(String s)	    { city = trimAndConvert(s, "<>\"");}
-	public void setState(String s)		{ state = trimAndConvert(s, "<>\"");}
+	public void setUsername(String s)	{ username = trimAndConvert(s,"<>\";*"); }
+	public void setPassword(String s) 	{ password = trimAndConvert(s,"<>\";*"); }
+	public void setFirstname(String s)	{ firstname = trimAndConvert(s, "<>\";*");}
+	public void setLastname(String s)	{ lastname = trimAndConvert(s, "<>\";*");}
+	public void setAddrline1(String s)	{ addrline1 = trimAndConvert(s, "<>\";*");}
+	public void setAddrline2(String s)	{ addrline2 = trimAndConvert(s, "<>\";*");}
+	public void setCity(String s)	    { city = trimAndConvert(s, "<>\";*");}
+	public void setState(String s)		{ state = trimAndConvert(s, "<>\";*");}
 	public void setZip(int s)			{ zip = s;}
 	public void setCash(long s)			{ cash = s;}
 	

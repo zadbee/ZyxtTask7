@@ -77,6 +77,15 @@ public class TransDAO extends GenericDAO<Transaction> {
 					posDAO.update(pos);
 				}
 				t.setShares(buyShares);		
+			} else if (t.getTransaction_type().equals("DEPOSIT")) {
+				Customer user = customerDAO.read(t.getCustomer_id());
+				if (user == null)
+					continue;
+				
+				// Update the cash amount.
+				long amount = t.getAmount();
+				user.setCash(user.getCash() + amount);
+				customerDAO.update(user);
 			}
 			t.setExecute_date(date);
 			t.setStatus("APPROVED");

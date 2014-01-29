@@ -40,7 +40,9 @@ public class Emp_CreateFundForm extends FormBean {
 		if (!fundSymbol.matches("[0-9a-zA-Z]{4,6}")) {
             errors.add("Fund symbol's length must be 4~6.");
         }
-				
+		
+		if (fundName.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
+		if (fundSymbol.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		return errors;
 	}
 }
