@@ -1,8 +1,9 @@
 <%@page import="databeans.Customer"%>
-<%@page import= "java.util.ArrayList" %>
+<%@page import= "java.util.*" %>
 <%@page import= "databeans.Position" %>
 <%@page import= "databeans.Fund" %>
 <%@page import= "java.util.Date" %>
+<%@page import= "java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,6 +52,7 @@
                     </div>
 					<%Customer customer = (Customer) session.getAttribute("customer");
 						Date lastDate = (Date)request.getAttribute("lastDate");
+						SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 					if(customer == null) {
 					    out.print("There is no customer information found in session!");
 					    return;
@@ -76,7 +78,7 @@
                                 <tr>
                                     <th>Last Trading Day</th>
                                     <%if(lastDate != null) {%>
-									<td><%=lastDate%></td>
+									<td><%=sdf.format(lastDate)%></td>
 									<% }else{%>
 									<td>N/A</td>
 									<%} %>

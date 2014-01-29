@@ -3,6 +3,7 @@
 <%@page import="databeans.Transaction"%>
 <%@page import="java.util.*" %>
 <%@page import="utility.Format" %>
+<%@page import= "java.text.SimpleDateFormat" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -66,6 +67,7 @@ if(customer == null) {
 
                     <% 	Transaction[] trans = (Transaction[])request.getAttribute("trans");
                     	Fund[] funds = (Fund[])request.getAttribute("funds");
+                    	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
                     	if(trans!=null && trans.length!=0){
                     %>
                     
@@ -93,7 +95,7 @@ if(customer == null) {
                                 	<td><%=i+1 %></td>
                                 	
 		                            <%if(trans[i].getExecute_date()!=null) {%>
-                                    <td><%=trans[i].getExecute_date()%></td>
+                                    <td><%=sdf.format(trans[i].getExecute_date())%></td>
                                     <%}else{ %>
                                     <td>N/A</td>
                                     <%} %>
