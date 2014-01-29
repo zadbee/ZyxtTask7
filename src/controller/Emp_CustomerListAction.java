@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.MatchArg;
 
 
 import org.genericdao.MatchArg;
