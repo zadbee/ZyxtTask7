@@ -70,7 +70,7 @@ public class Emp_TransitionDayForm {
 		for (int i = 0; i < sprices.size(); i++) {
 			String s = sprices.get(i);
 			if (s == null || s.length() == 0)
-				errors.add("The price of " + prices.get(i).getFund_id() + " is empty.");
+				errors.add("The price of fund " + prices.get(i).getFund_id() + " is empty.");
 			else {
 				long np = AmountCheck.checkValueString(s);
 				if (np < 0)

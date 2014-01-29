@@ -15,8 +15,15 @@ public class TransDateDAO extends GenericDAO<TransitionDate>{
 		super(TransitionDate.class, tableName, pool);
 	}
 	
-	public Date getLastTransitionDay() throws RollbackException {
-		TransitionDate[] dates = match(MatchArg.max("date"));
+	public Date getLastTransitionDay() {
+		TransitionDate[] dates = null;
+		try {
+			dates = match(MatchArg.max("date"));
+		} catch (RollbackException e) {
+			e.printStackTrace();
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
+		}
 		if (dates == null || dates.length == 0)
 			return null;
 		return dates[0].getDate();

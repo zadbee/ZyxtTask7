@@ -104,7 +104,7 @@ public class Cus_BuyFundAction extends Action {
 			request.getSession().setAttribute("customer",customer);
 
 			request.setAttribute("message", 
-					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getSymbol() + ".");
+					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getClass() + "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());

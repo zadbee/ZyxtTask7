@@ -39,6 +39,7 @@
                     <li><a href="emp-customerlist.jsp">Home</a></li>
                     <li class="active">Customer Registration</li>
                 </ol>
+                <jsp:include page="error-list.jsp" />
                      <form class="form-signin" role="form" method="post" action="cus-registration.do">
      				 <div class="row">
     
@@ -87,7 +88,7 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Zip Code:</label>
     <div class="col-md-9">
-      <input name="zipcode" type="text" class="form-control" id="inputPassword3" placeholder="zipcode...">
+      <input name="zip" type="text" class="form-control" id="inputPassword3" placeholder="zipcode...">
     </div>
   </div>
   <br><br>

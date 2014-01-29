@@ -75,7 +75,7 @@ public class Emp_DepositCheckAction extends Action {
             	request.setAttribute("cash", customer.getCash());
                 
                 
-                request.setAttribute("message","Deposit Requested for "+customer.getFirstname());
+                request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
     			return "emp-success.jsp";
             }
             

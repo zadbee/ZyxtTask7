@@ -66,7 +66,7 @@ public class Emp_CreateFundAction extends Action {
             System.out.println("Fund created.");
 			
             request.setAttribute("fund", fund);
-            request.setAttribute("message","Fund has created");
+            request.setAttribute("message","Fund " + form.getFundName() + "[" + form.getFundSymbol() + "] has been created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
             errors.add(e.getMessage());

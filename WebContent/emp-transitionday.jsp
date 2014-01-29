@@ -90,9 +90,9 @@
 	                            <tbody>
 			                   <%
 			                   if(names != null && names.size()!=0){
-		                       	for(int i=0; i<prices.size();i++){ 
+		                       		for(int i=0; i<prices.size();i++){ 
 		                       %>
-		                           <tr>
+		                           	<tr>
 		                               <td><%=prices.get(i).getFund_id()%></td>
 		                               <td><%=names.get(i)%></td>
 		                               <td><%=symbols.get(i)%></td>
@@ -101,24 +101,22 @@
 		                               <%}else{ %>
 		                               <td><div align='right'><%=dfAmount.format(prices.get(i).getPrice()/100.0) %></div></td>
 		                               <%} %>
-		                               <td><div align='center'><input type="text" name="price_${fund.fund_id}"/></div></td>
-		                           </tr>
+		                               <td><div align='center'><input type="text" name="price_<%=prices.get(i).getFund_id()%>"/></div></td>
+		                           	</tr>
 		                        <%
 		                        	}
-		                       	%>
-		                       		<tr>
-                        				<td colspan="6" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
-                    				</tr>
-                    		   <%
-		                       }else{
+		                       } else {
 		                       %>
+		                      	<tr>
+                        			<td colspan="5" align="center">No funds, create some now!</td>
+                    			</tr>
+		                       <%}
+		                    	%>
+		                    	<tr>
+                        			<td colspan="5" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
+                    			</tr>
 		                      </tbody>
-		                      </table>
-		               <div class="col-md-12">
-		              		<p>No funds. Create some now!</p>
-		               </div>                              
-		                            <%}
-		                    		%>	                            
+		                      </table>	                            
 	                            
 	                                <%-- <c:forEach var="fund" items="${prices}" varStatus="Status">
 	                                	<tr>

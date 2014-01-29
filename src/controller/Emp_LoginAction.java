@@ -73,7 +73,7 @@ public class Emp_LoginAction extends Action {
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
 	        session.setAttribute("employee", emp);
-	        session.setAttribute("identity", "employee");
+	        session.setAttribute("identity", new String("employee"));
 
 	        return "emp-customerlist.do";
         } catch (FormBeanException e) {

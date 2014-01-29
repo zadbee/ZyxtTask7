@@ -8,6 +8,7 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import utility.AmountCheck;
 import databeans.Customer;
 import databeans.Employee;
 import formbeans.Cus_RegistrationForm;
@@ -57,18 +58,20 @@ public class Cus_RegistrationAction extends Action {
 	        }
 	        
 	        Customer customer = new Customer();
-	        customer.setFirstname(form.getFirstName());
-	        customer.setLastname(form.getLastName());
+	        customer.setFirstname(form.getFirstname());
+	        customer.setLastname(form.getLastname());
 	        customer.setUsername(form.getUsername());
 	        customer.setPassword(form.getPassword());
 	        customer.setAddr_line1(form.getAddrline1());
 	        customer.setAddr_line2(form.getAddrline2());
 	        customer.setCity(form.getCity());
 	        customer.setState(form.getState());
-	        customer.setCash(form.getCash());
+	        customer.setCash(AmountCheck.checkValueString(form.getCash()));
+	        customer.setZip(AmountCheck.checkZip(form.getZip()));
 	        
 	        customerDAO.createAutoIncrement(customer);
-	        return "emp-customerlist.jsp";
+	        request.setAttribute("message","Customer "+ employee.getUsername() + " is created.");
+			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

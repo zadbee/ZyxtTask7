@@ -88,6 +88,7 @@ public class Emp_TransitionDayAction extends Action {
 			TransitionDate newDate = new TransitionDate();
 			newDate.setDate(transForm.date);
 			dateDAO.createAutoIncrement(newDate);
+			
 			lastday = dateDAO.getLastTransitionDay();
 			if (lastday != null)
 				System.out.println("Last Transition Day: " + lastday);

@@ -74,14 +74,11 @@ public class Cus_LoginAction extends Action {
 	        // Attach (this copy of) the user bean to the session
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer", cus);
-	        session.setAttribute("identity", "customer");
+	        session.setAttribute("identity", new String("customer"));
 	        return "cus_viewAccount.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "cus-login.jsp";
-        } catch (RollbackException e) {
-        	errors.add(e.getMessage());
-        	return "cus-login.jsp";
-		}
+        } 
 	}
 }

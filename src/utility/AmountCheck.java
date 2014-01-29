@@ -30,6 +30,16 @@ public class AmountCheck {
 		return in;
 	}
 	
+	public static int checkZip(String s) {
+		int zip;
+		try {
+			zip = Integer.valueOf(s);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+		return zip;
+	}
+	
 	
 	public static String getErrorByCode(String s, long ec) {
 		if (ec == -1)

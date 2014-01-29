@@ -87,7 +87,7 @@ public class Cus_RequestCheckAction extends Action {
 
             	
             
-            request.setAttribute("message","Check Requested for "+customer.getFirstname()+". Current cash is "+(customer.getCash()/100.0+"."));
+            request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" check requested for "+customer.getFirstname()+". Current available cash is "+(customer.getCash()/100.0+"."));
 			return "cus-success.jsp";
             
         } catch (Exception e) {

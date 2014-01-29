@@ -49,7 +49,7 @@ public class Emp_RegistrationAction extends Action {
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "emp-registration.do";
+	            return "emp-registration.jsp";
 	        }
 	        
 	        employee.setFirstname(form.getFirstName());
@@ -58,15 +58,16 @@ public class Emp_RegistrationAction extends Action {
 	        employee.setPassword(form.getPassword());
 	        
 	        employeeDAO.create(employee);
-	        return "emp-create-fund.jsp";
+	        request.setAttribute("message","Employee "+ employee.getUsername() + " is created.");
+			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
-        	return "create-fund-emp.jsp";
+        	return "emp-registration.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
-        	return "create-fund-emp.jsp";
+        	return "emp-registration.jsp";
         }
 	}
 
