@@ -71,6 +71,8 @@
 							<button type="submit" class="btn btn-default btn-xs" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
 							<form method="post" action="emp_depositCheck.do">
 							<button type="submit" class="btn btn-default btn-xs" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
+							<form method="post" action="emp_transHistory.do">
+							<button type="submit" class="btn btn-default btn-xs" name="transhistory" value="${customer.customer_id}" >Transaction History</button></form>
                     </div>
 					
 					<div class="col-md-12">

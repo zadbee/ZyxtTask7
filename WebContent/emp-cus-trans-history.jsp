@@ -48,7 +48,7 @@
                     <li class="active">Transaction History</li>
                 </ol>
 <%
-Customer customer = (Customer) session.getAttribute("customer");
+Customer customer = (Customer) request.getAttribute("customer");
 if(customer == null) {
     out.print("There is no customer information found in session!");
     return;
