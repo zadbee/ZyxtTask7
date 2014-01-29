@@ -24,8 +24,6 @@
 <body>
      <div id="wrapper">
          <jsp:include page="template-top-emp.jsp" />
- 
- 
 
         <!-- Page content -->
         <div id="page-content-wrapper">
@@ -44,6 +42,7 @@
                     <li class="active">Account Details</li>
                     <li class="active">Deposit Check</li>
                 </ol>
+                <jsp:include page="error-list.jsp" />
                 <form method="post" action="emp_depositCheck.do">
                 <div class="row">
                     <div class="col-md-12">
@@ -59,6 +58,7 @@
                         <p class="lead"> </p>
                     </div>
                     <div class="col-md-4">
+                    	<input type="hidden" name="cusid" value="${customer.customer_id}"/>
                         <div class="btn-group">
                             <button type="submit" name="button" class="btn btn-default" value="${customer.customer_id}">Deposit Check</button>
                         </div>

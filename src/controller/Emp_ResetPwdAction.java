@@ -39,60 +39,43 @@ public class Emp_ResetPwdAction extends Action{
 			Emp_ResetPwdForm form = formBeanFactory.create(request);
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
 		    
-            if (errors.size() > 0)
-            	return "emp-reset-customer-pwd.jsp";
             if(employee == null) {
                 return "emp-login.do";
             }
-            String button = request.getParameter("reset-pwd");
-            String thisButton = request.getParameter("button");
-            if (thisButton != null){
-            	Transaction.begin();
-            	customer = customerDAO.read(Integer.parseInt(thisButton));
-            	customer.setPassword(form.getPassword());
-            	customerDAO.update(customer);
-            	Transaction.commit();
-            	request.setAttribute("message","Password changed for "+customer.getFirstname());
-    			return "emp-pwdreset-success.jsp";
-            }
-            if (button != null)
-            	customer = customerDAO.read(Integer.parseInt(button));
             
-			request.setAttribute("form", form);
-			String newPwd = null;
-			String username;
-			// If no params were passed, return with no errors so that the form
-			// will be
-			// presented (we assume for the first time).
-			if (!form.isPresent()) {
-				request.setAttribute("customer", customer);
-				request.setAttribute("employee", employee);
+            String id = request.getParameter("cusid");
+            if (id != null) {
+            	customer = customerDAO.read(Integer.parseInt(id));
+            	request.setAttribute("customer", customer);
+            } else {
+            	errors.add("The customer does not exist.");
+            	return "emp-reset-customer-pwd.jsp";
+            }
+            
+            customer = customerDAO.read(Integer.parseInt(id));
+            if (customer == null) {
+            	errors.add("The customer does not exist.");
+            	return "emp-reset-customer-pwd.jsp";
+            }
+            
+            if (!form.isPresent()) {
 				return "emp-reset-customer-pwd.jsp";
 			}
-
-			// Any validation errors?
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() != 0) {
-				System.out.println(errors.toString());
-				return "emp-reset-customer-pwd.jsp";
-			}
-			
-			
-			username = form.getUserName();
-			if(username == null || username.length()==0){
-				errors.add("No such users!");
-			}
-			// Change the password
-			Random random = new Random();
-			newPwd = String.valueOf(random.nextInt(1024)+1);
-			customerDAO.setPassword(username, newPwd);
-			if(newPwd == null || newPwd.length() == 0)
-				errors.add("No such user!");
-			else
-				errors.add("The password has been reset to " + newPwd);
-			request.setAttribute("customer", customer);
-			request.setAttribute("employee", employee);
-	        return "emp-reset-customer-pwd.jsp";
+            
+            // Any validation errors?
+         	errors.addAll(form.getValidationErrors());
+         	if (errors.size() != 0) {
+         		return "emp-reset-customer-pwd.jsp";
+         	}
+            
+            Transaction.begin();
+            customer = customerDAO.read(Integer.parseInt(id));
+            customer.setPassword(form.getPassword());
+            customerDAO.update(customer);
+            Transaction.commit();
+            
+			request.setAttribute("message", "Password reset for user " + customer.getUsername() + ".");
+	        return "emp-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
       	e.printStackTrace();

@@ -43,8 +43,11 @@ if(customer ==null) {
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.do">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Account Details</li>
                     <li class="active">Reset Customer Password</li>
                 </ol>
+                <jsp:include page="error-list.jsp"/>
                 <form method="post" action="emp_resetPwd.do">
                 <div class="row">
                     <div class="col-md-12">
@@ -60,8 +63,9 @@ if(customer ==null) {
                         <p class="lead"> </p>
                     </div>
                     <div class="col-md-4">
+                    	<input type="hidden" name="cusid" value="${customer.customer_id}"/>
                         <div class="btn-group">
-                            <button type="submit" name="button" class="btn btn-default" value="${customer.customer_id}">Reset Password</button>
+                            <button type="submit" name="button" class="btn btn-default" value="${cus.customer_id}">Reset Password</button>
                         </div>
                     </div>
                     <div class="col-md-12">

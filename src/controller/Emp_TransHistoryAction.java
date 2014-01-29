@@ -11,6 +11,7 @@ import databeans.Customer;
 import databeans.Employee;
 import databeans.Fund;
 import databeans.Transaction;
+import formbeans.Emp_ResetPwdForm;
 import model.CustomerDAO;
 import model.FundDAO;
 import model.Model;
@@ -35,19 +36,27 @@ public class Emp_TransHistoryAction extends Action{
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
-		    Employee employee = (Employee) request.getSession(false).getAttribute("employee"); 
-		    Customer customer = null;
-		    //Customer customer = (Customer) request.getSession(false).getAttribute("customer");   
-		    if(employee==null){
-		    	return "emp-login.jsp";
-		    }
-		    String button = request.getParameter("transhistory");
-            //String thisButton = request.getParameter("button");
-
-            if (button != null)
-            	customer = customerDAO.read(Integer.parseInt(button));
-            System.out.println(customer.getCustomer_id());
-
+			Customer customer = null;
+		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+		    
+            if(employee == null) {
+                return "emp-login.do";
+            }
+            
+            String id = request.getParameter("cusid");
+            if (id != null) {
+            	customer = customerDAO.read(Integer.parseInt(id));
+            	request.setAttribute("customer", customer);
+            } else {
+            	errors.add("The customer does not exist.");
+            	return "emp-cus-trans-history.jsp";
+            }
+            
+            customer = customerDAO.read(Integer.parseInt(id));
+            if (customer == null) {
+            	errors.add("The customer does not exist.");
+            	return "emp-cus-trans-history.jsp";
+            }
             
             Transaction[] trans = transactionDAO.match(MatchArg.equals("customer_id", customer.getCustomer_id()));
 
