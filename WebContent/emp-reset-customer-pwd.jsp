@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="databeans.Customer" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,15 +23,13 @@
 
 <body>
      <div id="wrapper">
-         <jsp:include page="template-top-cus.jsp" />
- <%-- 
- 
+         <jsp:include page="template-top-emp.jsp" />
  <%
-Customer customer = (Customer)session.getAttribute("cus");
-if(customer !=null) {
+Customer customer = (Customer)session.getAttribute("customer");
+if(customer ==null) {
 %>
  
- --%>
+
         <!-- Page content -->
         <div id="page-content-wrapper">
             <div class="content-header">
@@ -43,7 +42,7 @@ if(customer !=null) {
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="emp-customerlist.jsp">Home</a></li>
                     <li class="active">Reset Customer Password</li>
                 </ol>
                 <form method="post" action="emp_resetPwd.do">
@@ -70,12 +69,12 @@ if(customer !=null) {
                     </div>
                 </div>
 				</form>
-<%--
+
         
 <%
 }
 %>
- --%>
+
 				<jsp:include page="template-footer.jsp" />
             </div>
         </div>

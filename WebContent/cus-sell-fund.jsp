@@ -1,4 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import= "java.text.DecimalFormat" %>
+<%@page import="databeans.Position"%>
+<%@page import="databeans.Fund"%>
+<%@page import="java.util.*" %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +41,7 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="cus-view-account.jsp">Home</a></li>
                     <li class="active">Sell Fund</li>
                 </ol>
                 
@@ -87,7 +91,13 @@
                     <div class="col-md-12">
                         <p class="lead">Your Fund List</p>
                     </div>
-                                        
+                    <%
+                    Position[] pos = (Position[])request.getAttribute("pos");
+                    ArrayList<Long> prices = (ArrayList<Long>) request.getAttribute("prices");
+                    ArrayList<Fund> funds = (ArrayList<Fund>) request.getAttribute("funds");
+                    DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+					DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000"); 
+					%>                   
                     <div class="col-md-12">
 	                        <table class="table">
 	                            <thead>
@@ -95,20 +105,24 @@
 	                                    <th>Fund ID</th>
 	                                    <th>Fund Name</th>
 	                                    <th>Fund Symbol</th>            
-	                                    <th>Shares</th>
-	                                    <th>Latest Price</th>
+	                                    <th><div align='right'>Shares</div></th>
+	                                    <th><div align='right'>Latest Price</div></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <c:forEach var="fund" items="${funds}" varStatus="Status">
-	                                	<tr>
-	                                		<td>${fund.fund_id}</td>
-	                                		<td>${fund.name}</td>
-	                                		<td>${fund.symbol}</td>
-	                                		<td>${pos[Status.index].shares / 1000.0}</td>
-	                                		<td>${prices[Status.index] / 100.0}</td>
-	                                	</tr>
-	                                </c:forEach>
+                       <% 
+                       	for(int i=0; i<pos.length;i++){ 
+                       %>
+                                	<tr>
+                                		<td><%=funds.get(i).getFund_id()%></td>
+                                		<td><%=funds.get(i).getName()%></td>
+                                		<td><%=funds.get(i).getSymbol()%></td>
+                                		<td><div align='right'><%=dfShare.format(pos[i].getShares()/1000.0)%></div></td>
+   										<td><div align='right'><%=dfAmount.format(prices.get(i)/100.0) %></div></td>
+                                	</tr>
+						<%
+						}
+						%>
 	                            </tbody>
 	                        </table>
                     </div>

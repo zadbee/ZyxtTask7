@@ -36,11 +36,10 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Change Password</li>
+                    <li><a href="emp-customerlist.jsp">Home</a></li>
+                    <li class="active">Employee Registration</li>
                 </ol>
                 	<form class="form-signin" role="form" method="post" action="emp-registration.do">
-       				<h2 class="form-signin-heading">Employee Registration Details</h2>
        				 <div class="row">
     
 			<div class="form-group">

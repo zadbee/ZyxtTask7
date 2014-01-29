@@ -3,6 +3,8 @@
 <%@page import="databeans.Transaction"%>
 <%@page import="java.util.*" %>
 <%@page import="utility.Format" %>
+<%@page import= "java.text.SimpleDateFormat" %>
+<%@page import= "java.text.DecimalFormat" %>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -43,7 +45,7 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="cus-view-account.jsp">Home</a></li>
                     <li class="active">Transaction History</li>
                 </ol>
 <%
@@ -66,6 +68,9 @@ if(customer == null) {
 
                     <% 	Transaction[] trans = (Transaction[])request.getAttribute("trans");
                     	Fund[] funds = (Fund[])request.getAttribute("funds");
+                    	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                        DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
+    					DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000"); 
                     	if(trans!=null && trans.length!=0){
                     %>
                     
@@ -79,9 +84,8 @@ if(customer == null) {
                                     <th>Action</th>
                                     <th>Fund Name</th>
                                     <th>Fund Symbol</th>
-                                    <th>Shares</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
+                                    <th><div align='right'>Shares</div></th>
+                                    <th><div align='right'>Amount</div><th>
   
                                 </tr>
                             </thead>
@@ -93,9 +97,9 @@ if(customer == null) {
                                 	<td><%=i+1 %></td>
                                 	
 		                            <%if(trans[i].getExecute_date()!=null) {%>
-                                    <td><%=trans[i].getExecute_date()%></td>
+                                    <td><%=sdf.format(trans[i].getExecute_date())%></td>
                                     <%}else{ %>
-                                    <td>N/A</td>
+                                    <td>PENDING</td>
                                     <%} %>
                                     
                                     <td><%=trans[i].getTransaction_type()%></td>
@@ -113,28 +117,27 @@ if(customer == null) {
                                     <%} %>
                                     
                                     <%if(trans[i].getShares()!=0){%>
-                                    <td><%=trans[i].getShares()/1000.0%></td>
+                                    <td><div align='right'><%=dfShare.format(trans[i].getShares()/1000.0)%></div></td>
                                     <%}else{%>
-                                    <td>N/A</td>
+                                    <td><div align='right'>N/A</div></td>
                                     <%} %>
                                     
                                     <%if(trans[i].getAmount()!=0){%>
-                                    <td><%=trans[i].getAmount()/100.0%></td>
+                                    <td><div align='right'><%=dfAmount.format(trans[i].getAmount()/100.0)%></div></td>
                                     <%}else{%>
-                                    <td>N/A</td>
-                                    <%} %>
-                                    
-                                    <td><%=trans[i].getStatus() %></td>                                 
+                                    <td><div align='right'>N/A</div></td>
+                                    <%} %>                               
                                 </tr>
                              <%
                              	}
                             }else{
                             %>
                            </tbody>
+ 
+                        </table>
                       <div class="col-md-12">
 	                  No transaction records found. Make your first transaction today! 
-	                  </div>  
-                        </table>
+	                  </div> 
               		</div>
               		
  

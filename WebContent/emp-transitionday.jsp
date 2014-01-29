@@ -35,7 +35,7 @@
             <!-- Keep all page content within the page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="emp-customerlist.jsp">Home</a></li>
                     <li class="active">Transition Day</li>
                 </ol>
                 
