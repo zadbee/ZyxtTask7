@@ -53,7 +53,7 @@ public class Cus_RegistrationAction extends Action {
 	        }
 	        
 	        if(customerDAO.readByName(form.getUsername()) !=null){
-	        	errors.add("Username existed!");
+	        	errors.add("Username exists!");
 	        	return "cus-registration.jsp";
 	        }
         
