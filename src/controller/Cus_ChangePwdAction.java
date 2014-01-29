@@ -42,16 +42,18 @@ public class Cus_ChangePwdAction extends Action {
 			}
 			request.setAttribute("form", form);
 						
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "cus-change-pwd.jsp";
+			}
+
 			customerDAO.setPassword(customer.getCustomer_id(),form.getNewPassword());
 
 			// If no params were passed, return with no errors so that the form
 			// will be presented (we assume for the first time).			
 
 			// Any validation errors?
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() != 0) {
-				return "cus-change-pwd.jsp";
-			}
+			
 			
 			
 			request.setAttribute("message","Password changed for "+customer.getFirstname());

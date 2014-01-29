@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +73,14 @@ public class Cus_RequestCheckAction extends Action {
             transaction.setStatus("PENDING");
 
             transDAO.createAutoIncrement(transaction);
+      
+            DecimalFormat nf = new DecimalFormat("#,##0.00");
+            nf.setMaximumFractionDigits(2);
+           	nf.setMinimumFractionDigits(2);
+       
             	
             
-            request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" check requested for "+customer.getFirstname()+". Current available cash is "+(customer.getCash()/100.0+"."));
+            request.setAttribute("message","$" + nf.format(transaction.getAmount() / 100.0) +" check requested for "+customer.getFirstname()+". Current available cash is "+nf.format(customer.getCash()/100.0)+".");
 			return "cus-success.jsp";
             
         } catch (Exception e) {

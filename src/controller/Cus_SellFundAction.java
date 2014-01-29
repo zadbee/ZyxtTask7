@@ -108,10 +108,10 @@ public class Cus_SellFundAction extends Action{
             request.setAttribute("message", 
 					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
 	        return "cus-success.jsp";
-	  }catch (NullPointerException e) {
+	  }/*catch (NullPointerException e) {
 	      	errors.add("    The fund is not available");
 	      	return "cus-sell-fund.jsp";
-	      }
+	      }*/
 		catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-sell-fund.jsp";
