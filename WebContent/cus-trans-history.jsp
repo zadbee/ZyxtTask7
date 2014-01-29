@@ -107,25 +107,25 @@ if(customer == null) {
                                     <%if(funds[i]!=null){%>
                                     <td><%=funds[i].getName()%></td>
                                     <%}else{%>
-                                    <td>N/A</td>
+                                    <td></td>
                                     <%} %>
                                     
                                     <%if(funds[i]!=null){%>
                                     <td><%=funds[i].getSymbol()%></td>
                                     <%}else{%>
-                                    <td>N/A</td>
+                                    <td></td>
                                     <%} %>
                                     
                                     <%if(trans[i].getShares()!=0){%>
                                     <td><div align='right'><%=dfShare.format(trans[i].getShares()/1000.0)%></div></td>
                                     <%}else{%>
-                                    <td><div align='right'>N/A</div></td>
+                                    <td><div align='right'></div></td>
                                     <%} %>
                                     
                                     <%if(trans[i].getAmount()!=0){%>
                                     <td><div align='right'><%=dfAmount.format(trans[i].getAmount()/100.0)%></div></td>
                                     <%}else{%>
-                                    <td><div align='right'>N/A</div></td>
+                                    <td><div align='right'></div></td>
                                     <%} %>                               
                                 </tr>
                              <%

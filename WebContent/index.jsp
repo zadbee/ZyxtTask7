@@ -80,7 +80,7 @@
     <!-- /.intro-header -->
 
     <footer>
-        <div class="container">
+        <div class="container" align='center'>
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-inline">

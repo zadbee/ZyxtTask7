@@ -88,15 +88,18 @@
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
+                    
+                    <!-- List of Funds -->
                     <div class="col-md-12">
-                        <p class="lead">Your Fund List</p>
+                        <p class="lead">Your Funds List</p>
                     </div>
                     <%
                     Position[] pos = (Position[])request.getAttribute("pos");
                     ArrayList<Long> prices = (ArrayList<Long>) request.getAttribute("prices");
                     ArrayList<Fund> funds = (ArrayList<Fund>) request.getAttribute("funds");
                     DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
-					DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000"); 
+					DecimalFormat dfShare = new DecimalFormat("###,###,###,###,###,###,##0.000");
+					if(pos!=null && pos.length!=0){
 					%>                   
                     <div class="col-md-12">
 	                        <table class="table">
@@ -110,9 +113,7 @@
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-                       <%
-                       	if(pos!=null && pos.length!=0){
-                       		
+                       <%                    		
                        		for(int i=0; i<pos.length;i++){ 
                        %>
                                 	<tr>
@@ -122,17 +123,21 @@
                                 		<td><div align='right'><%=dfShare.format(pos[i].getShares()/1000.0)%></div></td>
    										<td><div align='right'><%=dfAmount.format(prices.get(i)/100.0) %></div></td>
                                 	</tr>
+                                </tbody>
+	                        </table>
 						<%
 							}
-                       	}
-						%>
-	                            </tbody>
-	                        </table>
-                    </div>
-                    <!-- List of Funds -->
-                    
-                    
-                </div>
+                       	}else{
+						%>                      
+						<div class="col-md-12">
+                            You own no funds, Buy some now!
+                        </div>  
+  
+                       <%}
+                    	%> 
+
+                    </div>                  
+            	</div>
             </div>
         </div>
    	</div>

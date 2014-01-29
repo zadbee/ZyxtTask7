@@ -57,7 +57,7 @@ if(customer == null) {
                    <jsp:include page="error-list.jsp" />
 
                     <div class="col-md-12">
-                        <p class="lead">All Fund List</p>
+                        <p class="lead">All Funds List</p>
                     </div>
                     <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
                     	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
@@ -74,7 +74,7 @@ if(customer == null) {
                                     <th>Fund Name</th>
                                     <th>Fund Symbol</th>
                                     <th><div align='right'>Current Prices</div></th>
-                                    <th><div align='right'>Performance</div></th>
+                                    <th><div align='center'>Performance</div></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +96,7 @@ if(customer == null) {
                                     <%if(allFundPrices.get(i)==-1) {%>
                                     <td><div align='right'><%="Not Avaiable" %></div></td>
                                     <%}else{ %>
-                                    <td><div align='right'>
+                                    <td><div align='center'>
                                     	<form method="post" action="cus_getFundDetails.do">
                                     	<button type="submit" class="btn btn-default btn-xs" name="fund_id" value="<%=allFunds.get(i).getFund_id()%>">
                                     	View Now</button>

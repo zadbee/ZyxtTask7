@@ -91,7 +91,7 @@
                         </table>
                     </div>
                     <div class="col-md-12">
-                        <p class="lead">Your Fund List</p>
+                        <p class="lead">Your Funds List</p>
                     </div>
                     <%  ArrayList<Long> prices = (ArrayList<Long>)request.getAttribute("prices");
                     	ArrayList<Fund> funds = (ArrayList<Fund>)request.getAttribute("funds");
@@ -131,24 +131,20 @@
                                     <%}else{ %>
                                     <td><%="Not Initialized"%></td>
                                     <%} %>
-                                </tr>
-                             <%
-                             	}
-                            }else{
-                            %>
-                            
-                           <div class="col-md-12">
+                                	</tr>
+                                </tbody>
+	                        </table>
+						<%
+							}
+                       	}else{
+						%>                      
+						<div class="col-md-12">
                             You own no funds, Buy some now!
-                           </div>   
-                             
-                            <%}
-                    	%>
-                            
-                            
-                            </tbody>
-                        </table>
-                    </div>
-                    
+                        </div>  
+  
+                       <%}
+                    	%> 
+                    </div>                   
                 </div>
             </div>
         </div>

@@ -115,14 +115,15 @@ if(customer == null) {
                    <p class="lead"></p>
                </div>
                <div class="col-md-12">
-                   <p class="lead">All Fund List</p>
+                   <p class="lead">All Funds List</p>
                </div>
-               <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
-               	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
-               	if(allFunds!=null && allFunds.size()!=0){
+               <% 	
+               ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
+               ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
+               if(allFunds!=null && allFunds.size()!=0){
                %>                    
                
-               <div class="col-md-6">
+               <div class="col-md-12">
                    <table class="table">
                        <thead>
                            <tr>
@@ -130,6 +131,7 @@ if(customer == null) {
                                <th>Fund Name</th>
                                <th>Fund Symbol</th>
                                <th><div align='right'>Current Prices</div></th>
+                               <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 
                            </tr>
                        </thead>
@@ -146,6 +148,7 @@ if(customer == null) {
                                <%}else{ %>
                                <td><div align='right'><%=dfAmount.format(allFundPrices.get(i)/100.0) %></div></td>
                                <%} %>
+                               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                            </tr>
                         <%
                         	}

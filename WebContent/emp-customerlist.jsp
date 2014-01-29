@@ -39,7 +39,7 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.jsp">Home</a></li>
-                    <li class="active">Transition Day</li>
+                    <li class="active">Customer List</li>
                 </ol>
                 
                 <jsp:include page="error-list.jsp"/>

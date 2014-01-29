@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.genericdao.GenericDAO;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
@@ -18,9 +17,6 @@ import model.Model;
 public class Cus_RegistrationAction extends Action {
 	private FormBeanFactory<Cus_RegistrationForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RegistrationForm.class);
 	private CustomerDAO customerDAO;
-	private GenericDAO<Employee> employeeDAO;
-
-	
 	public Cus_RegistrationAction(Model model) {
 		System.out.println("----------------------- here1");
 		customerDAO = model.getCustomerDAO();
@@ -72,7 +68,7 @@ public class Cus_RegistrationAction extends Action {
 	        customer.setCash(form.getCash());
 	        
 	        customerDAO.createAutoIncrement(customer);
-	        return "emp-create-fund.jsp";
+	        return "emp-customerlist.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";

@@ -1,4 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import= "java.text.SimpleDateFormat" %>
+<%@page import= "java.text.DecimalFormat" %>
+<%@page import="java.util.*" %>
+<%@page import="databeans.FundPriceHistory"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,20 +45,27 @@
                 
                 <jsp:include page="error-list.jsp"/>
                 
+                <% 
+                Date lastday = (Date)request.getAttribute("lastday"); 
+                ArrayList<FundPriceHistory> prices = (ArrayList<FundPriceHistory>)request.getAttribute("prices"); 
+        		ArrayList<String> names = (ArrayList<String>)request.getAttribute("names");
+        		ArrayList<String> symbols = (ArrayList<String>)request.getAttribute("symbols");
+            	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00"); 
+                
+                %>
+                
                 <div class="row">	
 					<div class="col-md-12">
 						<form method="post" action="emp-transitionday.do">
 							<div class="col-md-12">
 								<div class="col-md-6" align="center">
 									Last Transition Day<br/>
-									<c:choose>
-										<c:when test="${lastday == null}">
-											N/A
-										</c:when>
-										<c:otherwise>
-											${lastday}
-										</c:otherwise>
-									</c:choose>
+									<%if(lastday == null){ %>
+									N/A
+									<%}else{ %>
+									<%=sdf.format(lastday) %>
+									<%} %>
 								</div>
 								<div class="col-md-6" align="center">
 									New Transition Day<br/> 
@@ -63,19 +74,53 @@
     								<input type="text" style="width:20%;" name="iday" placeholder="DD">
 								</div>
 							</div>
-                        	<p class="lead">Funds</p>
+                        	
+                        	<!-- List of Funds -->
+                        	<p class="lead">All Funds List</p>
 	                        <table class="table">
 	                            <thead>
 	                                <tr>
 	                                    <th>Fund ID</th>
 	                                    <th>Fund Name</th>
 	                                    <th>Fund Symbol</th>
-	                                    <th>Current Price</th>
-	                                    <th>New Price</th>
+	                                    <th><div align='right'>Current Price</div></th>
+	                                    <th><div align='center'>New Price</div></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <c:forEach var="fund" items="${prices}" varStatus="Status">
+			                   <%
+			                   if(names != null && names.size()!=0){
+		                       	for(int i=0; i<prices.size();i++){ 
+		                       %>
+		                           <tr>
+		                               <td><%=prices.get(i).getFund_id()%></td>
+		                               <td><%=names.get(i)%></td>
+		                               <td><%=symbols.get(i)%></td>
+		                               <%if(prices.get(i).getPrice()<0) {%>
+		                               <td><div align='right'><%="Not Initialized" %></div></td>
+		                               <%}else{ %>
+		                               <td><div align='right'><%=dfAmount.format(prices.get(i).getPrice()/100.0) %></div></td>
+		                               <%} %>
+		                               <td><div align='center'><input type="text" name="price_${fund.fund_id}"/></div></td>
+		                           </tr>
+		                        <%
+		                        	}
+		                       	%>
+		                       		<tr>
+                        				<td colspan="6" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
+                    				</tr>
+                    		   <%
+		                       }else{
+		                       %>
+		                      </tbody>
+		                      </table>
+		               <div class="col-md-12">
+		              		<p>No funds. Create some now!</p>
+		               </div>                              
+		                            <%}
+		                    		%>	                            
+	                            
+	                                <%-- <c:forEach var="fund" items="${prices}" varStatus="Status">
 	                                	<tr>
 	                                		<td>${fund.fund_id}</td>
 	                                		<td>${names[Status.index]}</td>
@@ -92,16 +137,10 @@
 	                                		</td>
 	                                		<td><input type="text" name="price_${fund.fund_id}"/></td>
 	                                	</tr>
-	                                </c:forEach>
-	                                <tr>
-                        				<td colspan="6" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
-                    				</tr>
-	                            </tbody>
-	                        </table>
+	                                </c:forEach> --%>
+
                         </form>
-                    </div>
-                    <!-- List of Funds -->
-            
+                    </div>           
                 </div>
             </div>
         </div>
