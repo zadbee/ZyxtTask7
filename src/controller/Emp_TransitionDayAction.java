@@ -15,12 +15,14 @@ public class Emp_TransitionDayAction extends Action {
 	FundDAO fundDAO;
 	FundHistDAO histDAO;
 	TransDAO transDAO;
+	TransDateDAO dateDAO;
 	Emp_TransitionDayForm transForm;
 	
 	public Emp_TransitionDayAction(Model model) {
 		fundDAO = model.getFundDAO();
 		histDAO = model.getFundHistDAO();
 		transDAO = model.getTransDAO();
+		dateDAO = model.getDateDAO();
 	}
 	
 	@Override
@@ -38,16 +40,19 @@ public class Emp_TransitionDayAction extends Action {
 		ArrayList<String> symbols = new ArrayList<String>();
 		request.setAttribute("names", names);
 		request.setAttribute("symbols", symbols );
+		Date lastday = null;
+		
+		if (request.getAttribute("employee") == null)
+			return "emp-login.jsp";
 		
 		// Get the updated price and update it.
 		Fund[] funds = null;
 		try {
 			funds = fundDAO.match();
-			
-			if (funds == null || funds.length == 0) {
-				errors.add("There is not any funds.");
-				return "emp-transitionday.jsp";
-			}
+			lastday = dateDAO.getLastTransitionDay();
+			if (lastday != null)
+				System.out.println("Last Transition Day: " + lastday);
+			request.setAttribute("lastday", lastday);
 			
 			// Initialize the fund information for displaying first.
 			// Can also fresh the price if some other employee sets the new price.
@@ -62,7 +67,7 @@ public class Emp_TransitionDayAction extends Action {
 					prices.add(histDAO.getPrice(f.getFund_id()));
 				names.add(fundDAO.read(f.getFund_id()).getName());
 				symbols.add(fundDAO.read(f.getFund_id()).getSymbol());		
-			}
+			}			
 			
 			transForm = new Emp_TransitionDayForm(request);
 			
@@ -74,10 +79,19 @@ public class Emp_TransitionDayAction extends Action {
 				return "emp-transitionday.jsp";
 			
 			// Update all prices.
-			histDAO.updateAll(transForm.prices);
+			histDAO.updateAll(transForm.prices, transForm.date);
 			
 			// Handle all pending transactions. 
-			transDAO.clearPending();
+			transDAO.clearPending(transForm.date);
+			
+			// Add an new transition date.
+			TransitionDate newDate = new TransitionDate();
+			newDate.setDate(transForm.date);
+			dateDAO.createAutoIncrement(newDate);
+			lastday = dateDAO.getLastTransitionDay();
+			if (lastday != null)
+				System.out.println("Last Transition Day: " + lastday);
+			request.setAttribute("lastday", lastday);
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 		}		

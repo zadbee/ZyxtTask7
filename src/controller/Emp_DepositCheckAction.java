@@ -62,7 +62,7 @@ public class Emp_DepositCheckAction extends Action {
             Transaction transaction = new Transaction();
             transaction.setAmount(amount);
             transaction.setCustomer_id(customer.getCustomer_id());
-            transaction.setExecute_date(new Date());
+            transaction.setExecute_date(null);
             transaction.setTransaction_type("DEPOSIT");
             transaction.setStatus("PENDING");
             

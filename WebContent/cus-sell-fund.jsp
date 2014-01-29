@@ -59,7 +59,7 @@
 	                    <div class="col-md-12">
 	                        <div class="input-group">
 	                            <span class="input-group-addon">$</span>
-	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
+	                            <input type="text" class="form-control" placeholder="Shares (No more than your current shares)" name="shares">
 	                                </div>
 	                    </div>          
 	                    <div class="col-md-12">
@@ -74,7 +74,7 @@
 	                   
 	                   <div class="col-md-12" align="right">
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-default btn-lg">Buy Now</button>
+                            <button type="submit" class="btn btn-default btn-lg">Sell Now</button>
                         </div>
                     </div>
                     </form>

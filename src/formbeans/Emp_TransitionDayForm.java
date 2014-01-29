@@ -17,6 +17,7 @@ public class Emp_TransitionDayForm {
 	public String imonth = null;
 	public String iday = null;
 	public Date date = null;
+	public Date lastday = null;
 	
 	private String button = null;
 	
@@ -33,6 +34,8 @@ public class Emp_TransitionDayForm {
 		iyear = request.getParameter("iyear");
 		imonth = request.getParameter("imonth");
 		iday = request.getParameter("iday");
+
+		lastday = (Date) request.getAttribute("lastday");
 	}
 	
 	public List<String> getValidationErrors() {
@@ -45,6 +48,7 @@ public class Emp_TransitionDayForm {
 			month = Integer.parseInt(imonth);
 			day = Integer.parseInt(iday);
 		} catch (NumberFormatException e) {
+			e.printStackTrace();
 			errors.add("The string you input in date columns are not valid numbers");
 		}
 		
@@ -54,8 +58,11 @@ public class Emp_TransitionDayForm {
 		int ec = DateCheck.checkDate(year, month, day);
 		if (ec < 0)
 			errors.add(DateCheck.getErrorByCode(year, month, day, ec));
-		else
+		else {
 			date = DateCheck.getDate(year, month, day);
+			if (lastday != null && date.before(lastday))
+				errors.add("New transition date should be after last transition date.");
+		}
 		
 		if (errors.size() > 0)
 			return errors;
@@ -78,6 +85,7 @@ public class Emp_TransitionDayForm {
 			String s = sprices.get(i);
 			long np = AmountCheck.checkValueString(s);
 			prices.get(i).setPrice(np);
+			prices.get(i).setPrice_date(date);
 		}
 		return errors;
 	}

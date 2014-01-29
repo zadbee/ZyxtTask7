@@ -101,7 +101,7 @@ public class Cus_SellFundAction extends Action{
             // Transaction table is updated.
             Transaction trans = new Transaction();
             trans.setCustomer_id(updatedCus.getCustomer_id());
-            trans.setExecute_date(new Date());
+            trans.setExecute_date(null);
             trans.setFund_id(fund.getFund_id());
             trans.setShares(shares);
             trans.setStatus("PENDING");

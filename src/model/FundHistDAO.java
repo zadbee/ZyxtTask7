@@ -16,8 +16,7 @@ public class FundHistDAO extends GenericDAO<FundPriceHistory>{
 		super(FundPriceHistory.class, tableName, pool);
 	}
 	
-	public void updateAll(ArrayList<FundPriceHistory> prices) throws RollbackException {
-		Date date = new Date();
+	public void updateAll(ArrayList<FundPriceHistory> prices, Date date) throws RollbackException {
 		for (FundPriceHistory f : prices) {
 			f.setPrice_date(date);
 			createAutoIncrement(f);
@@ -45,5 +44,5 @@ public class FundHistDAO extends GenericDAO<FundPriceHistory>{
 		for (FundPriceHistory f : tmp)
 			ret.add(f);
 		return ret;
-	}	
+	}
 }

@@ -39,13 +39,9 @@ public class TransDAO extends GenericDAO<Transaction> {
 		return null;
 	}
 	
-	
-	
-	public void clearPending() throws RollbackException {
+	public void clearPending(Date date) throws RollbackException {
 		// Only handle pending BUYs and SELLs
-		Transaction[] pending = match(MatchArg.and(MatchArg.equals("status", "PENDING"), 
-				MatchArg.notEquals("transaction_type", "DEPOSIT"),
-				MatchArg.notEquals("transaction_type", "WITHDRAW")));
+		Transaction[] pending = match(MatchArg.equals("status", "PENDING"));
 		System.out.println("Handling all pending transactions.");
 		for (Transaction t : pending) {
 			if (t.getTransaction_type().equals("SELL")) {
@@ -58,9 +54,10 @@ public class TransDAO extends GenericDAO<Transaction> {
 				
 				// Update the cash amount.
 				long sellAmount = Math.round(price.getPrice() * (t.getShares() / 1000.0));
+				t.setAmount(sellAmount);
 				user.setCash(user.getCash() + sellAmount);
 				customerDAO.update(user);
-			} else {
+			} else if (t.getTransaction_type().equals("BUY")){
 				FundPriceHistory price = histDAO.getPrice(t.getFund_id());
 				if (price == null)
 					continue;
@@ -81,6 +78,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 				}
 				t.setShares(buyShares);		
 			}
+			t.setExecute_date(date);
 			t.setStatus("APPROVED");
 			update(t);
 		}

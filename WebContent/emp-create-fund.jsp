@@ -45,21 +45,21 @@
 					<div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Fund Name:</label>
     <div class="col-md-9">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="fund name..." value="${fund.name}">
+      <input type="text" class="form-control" name="fundName" placeholder="Fund Name" value="${fund.name}">
     </div>
   </div>
  <br><br>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Fund Symbol:</label>
     <div class="col-md-9">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="fund symbol..." value="${fund.symbol}">
+      <input type="text" class="form-control" name="fundSymbol" placeholder="Fund Symbol (4-6 characters)" value="${fund.symbol}">
     </div>
   </div>
   <br><br>
    <br><br>
   <div class="col-md-12" align="right">
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-default btn-lg">Create Fund</button>
+                            <button type="submit" name="button" class="btn btn-default btn-lg">Create Fund</button>
                         </div>
                     </div>
                     </div>

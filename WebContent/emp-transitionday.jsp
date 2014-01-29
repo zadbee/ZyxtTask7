@@ -47,13 +47,20 @@
 							<div class="col-md-12">
 								<div class="col-md-6" align="center">
 									Last Transition Day<br/>
-									2013-10-10
+									<c:choose>
+										<c:when test="${lastday == null}">
+											N/A
+										</c:when>
+										<c:otherwise>
+											${lastday}
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="col-md-6" align="center">
 									New Transition Day<br/> 
-									<input type="text" style="width:20%;" id="iyear" placeholder="YYYY"> - 
-    								<input type="text" style="width:20%;" id="imonth" placeholder="MM"> - 
-    								<input type="text" style="width:20%;" id="iday" placeholder="DD">
+									<input type="text" style="width:20%;" name="iyear" placeholder="YYYY"> - 
+    								<input type="text" style="width:20%;" name="imonth" placeholder="MM"> - 
+    								<input type="text" style="width:20%;" name="iday" placeholder="DD">
 								</div>
 							</div>
                         	<p class="lead">Funds</p>
