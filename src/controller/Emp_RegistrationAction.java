@@ -51,13 +51,14 @@ public class Emp_RegistrationAction extends Action {
 	            return "emp-registration.jsp";
 	        }
 	        
-	        employee.setFirstname(form.getFirstName());
-	        employee.setLastname(form.getLastName());
-	        employee.setUsername(form.getUsername());
-	        employee.setPassword(form.getPassword());
+	        Employee newEmployee = new Employee();
+	        newEmployee.setFirstname(form.getFirstName());
+	        newEmployee.setLastname(form.getLastName());
+	        newEmployee.setUsername(form.getUsername());
+	        newEmployee.setPassword(form.getPassword());
 	        
-	        employeeDAO.create(employee);
-	        request.setAttribute("message","Employee "+ employee.getUsername() + " is created.");
+	        employeeDAO.create(newEmployee);
+	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

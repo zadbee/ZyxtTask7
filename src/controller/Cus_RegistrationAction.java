@@ -52,6 +52,11 @@ public class Cus_RegistrationAction extends Action {
 	            return "cus-registration.jsp";
 	        }
 	        
+	        if(customerDAO.readByName(form.getUsername()) !=null){
+	        	errors.add("Username existed!");
+	        	return "cus-registration.jsp";
+	        }
+        
 	        Customer customer = new Customer();
 	        customer.setFirstname(form.getFirstname());
 	        customer.setLastname(form.getLastname());
@@ -65,7 +70,7 @@ public class Cus_RegistrationAction extends Action {
 	        customer.setZip(AmountCheck.checkZip(form.getZip()));
 	        
 	        customerDAO.createAutoIncrement(customer);
-	        request.setAttribute("message","Customer "+ employee.getUsername() + " is created.");
+	        request.setAttribute("message","Customer "+ customer.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
