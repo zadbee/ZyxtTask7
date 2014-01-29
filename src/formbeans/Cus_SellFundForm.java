@@ -37,12 +37,15 @@ public class Cus_SellFundForm extends FormBean{
 		}
 		
 		if (shares == null || shares.length() == 0) {
-			errors.add("Amount is required");
+			errors.add("shares is required");
 		} else {
 			long ec = AmountCheck.checkShareString(shares);
 			if (ec < 0)
 				errors.add(AmountCheck.getErrorByCode(shares, ec));
 		}
+		if (errors.size() > 0)
+			return errors;
+		
 		if (fundSymbol.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		if (shares.matches(".*[<>\"].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		

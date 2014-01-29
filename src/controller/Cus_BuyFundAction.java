@@ -83,6 +83,12 @@ public class Cus_BuyFundAction extends Action {
       		
             String symbol = form.getFundSymbol();
             Fund fund = fundDAO.readBySymbol(symbol);
+            if (fund == null) {
+            	errors.add("Fund " + symbol + " does not exist.");
+            	return "cus-buy-fund.jsp";
+            }
+            
+            
 			Transaction t = new Transaction();
 			
 			t.setCustomer_id(customer_id);
@@ -101,11 +107,7 @@ public class Cus_BuyFundAction extends Action {
 			request.setAttribute("message", 
 					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
-	  } catch (NullPointerException e) {
-	      	errors.add("    The fund is not available");
-	      	return "cus-buy-fund.jsp";
-	      }
-		catch (Exception e) {
+	  } catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-buy-fund.jsp";
       }
