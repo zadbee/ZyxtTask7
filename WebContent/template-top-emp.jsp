@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="databeans.Customer" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +14,6 @@
 
     <!-- Add custom CSS here -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-    <link href="css/landing-page.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
@@ -56,13 +52,6 @@
     </nav>
 
     <div id="wrapper">
-<%--<% 
-if (session.getAttribute("employee") == null) {
-%>
-        <li><span class="menu-item"><a href="employee-login.do">Login</a></span></li>
-<%   
-} else {
-%> --%>	
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -81,21 +70,6 @@ if (session.getAttribute("employee") == null) {
                 </li>
                 <li><a href="emp-customerlist.do">Customer List</a>
                 </li>
-<%--
-<%
-Customer customer = (Customer)session.getAttribute("cus");
-	if (customer != null) {
-%>
-       			<li>Actions for <%=customer.getUsername() %></li>
-        		<li><a href="emp_resetPwd.do">Reset Password</a></li>
-        		<li><a href="viewcustomeraccount.do">View Account</a></li>
-        		<li><a href="empviewhistory.do">Transaction History</a></li>
-        		<li><a href="depositcheck.do">Deposit Check</a></li>        
-<%
-    }
-}
-%>
- --%>
 
             </ul>
         </div>

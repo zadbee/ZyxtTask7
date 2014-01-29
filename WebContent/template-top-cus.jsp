@@ -52,21 +52,6 @@
     </nav>
 
     <div id="wrapper">
-<%-- <% 
-if (session.getAttribute("customer") == null) {
-%>
-        <li><span class="menu-item"><a href="customer-login.do">Login</a></span></li>
-<%   
-} else {
-    if(session.getAttribute("fund") != null) {
-%>
-<li><span class="menu-item"><a href="cus_buyFund.do">Buy Fund</a></span></li>
-        <li>&nbsp</li>
-        <li>&nbsp</li>
-<%
-    }
-%>
- --%>
 	
 
         <!-- Sidebar -->
@@ -91,9 +76,7 @@ if (session.getAttribute("customer") == null) {
             </ul>
         </div>
 	</div>
-<%-- <%
-}
-%> --%>	
+
 <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>
