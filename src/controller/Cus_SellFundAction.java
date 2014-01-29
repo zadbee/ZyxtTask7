@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,9 +56,7 @@ public class Cus_SellFundAction extends Action{
 	            		lprices.add(-1L);
 	            	else
 	            		lprices.add(histDAO.getPrice(x.getFund_id()).getPrice());
-	            }
-	
-	            
+	            }           
 				request.setAttribute("funds", funds);
 				request.setAttribute("prices", lprices);
 				request.setAttribute("pos", lpos);

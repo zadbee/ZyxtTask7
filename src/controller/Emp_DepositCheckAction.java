@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,20 +38,15 @@ public class Emp_DepositCheckAction extends Action {
         try {
         	Customer customer = null;
         	Emp_DepositCheckForm form = formBeanFactory.create(request);
-			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
-		    System.out.println("^^^^^^^^^");
             if(employee == null) {
                 return "emp-login.do";
             }
-            System.out.println("^^^^^^^^^");
             String button = request.getParameter("deposit-check");
             String thisButton = request.getParameter("button");
-            System.out.println("the string is "+thisButton);
+
             if (thisButton != null){
-            	System.out.println("------- in this button loop");
-            	//org.genericdao.Transaction.begin();
-            	//customerDAO.updateCash(customer);
+
             	customer = customerDAO.read(Integer.parseInt(thisButton));
             	amount = AmountCheck.checkValueString(form.getDeposit());
             	if (amount < 0) {
@@ -67,10 +61,7 @@ public class Emp_DepositCheckAction extends Action {
                 transaction.setTransaction_type("DEPOSIT");
                 transaction.setStatus("PENDING");
                 transDAO.createAutoIncrement(transaction);
-                //org.genericdao.Transaction.commit();
-                // Attach (this copy of) the customer object to the session
-                //customerDAO.setCash(customer.getCustomer_id(),customer.getCash()+amount);
-                //customer = customerDAO.read(Integer.parseInt(thisButton));
+
                 request.getSession().setAttribute("customer", customer);
             	request.setAttribute("cash", customer.getCash());
                 
@@ -80,7 +71,6 @@ public class Emp_DepositCheckAction extends Action {
             }
             
             if (button != null){
-            	System.out.println("------------ in button loop");
             	customer = customerDAO.read(Integer.parseInt(button));
             	request.setAttribute("customer", customer);
             	System.out.println(customer.toString());
@@ -98,15 +88,6 @@ public class Emp_DepositCheckAction extends Action {
             if (errors.size() != 0) {
                 return "emp-deposit-check.jsp";
             }
-            
-            // Look up the customer
-//            Customer customer = customerDAO.lookup(form.getUserName());
-            
-            //customer.setCash(customer.getCash() + amount);
-            
-            //customerDAO.updateCash(customer);
-             
-			//double balance = customerDAO.getCash(customer.getCustomer_id());
             
         } catch (Exception e) {
             errors.add(e.getMessage());

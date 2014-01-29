@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,13 +60,9 @@ public class Cus_RequestCheckAction extends Action {
 			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
 	        customer = customerDAO.readByName(customer.getUsername());
 			request.getSession().setAttribute("customer", customer);
-			 
-			//double balance = customerDAO.getCash(customer.getCustomer_id());
-
-            
+			             
             
             // Any validation errors?
-
            
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
@@ -77,14 +72,6 @@ public class Cus_RequestCheckAction extends Action {
             transaction.setStatus("PENDING");
 
             transDAO.createAutoIncrement(transaction);
-       		//session.setAttribute("user", user);
-            /*if(!transactionDAO.createForRequestCheck(transaction)) {
-                errors.add("You don't have enough cash");
-                customer = customerDAO.read(customer.getCustomer_id());
-                request.getSession().setAttribute("customer", customer);
-                return "request-check-cus.jsp";
-            }*/
-
             	
             
             request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" check requested for "+customer.getFirstname()+". Current available cash is "+(customer.getCash()/100.0+"."));

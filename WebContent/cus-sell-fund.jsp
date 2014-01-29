@@ -123,8 +123,7 @@
                                 		<td><div align='right'><%=dfShare.format(pos[i].getShares()/1000.0)%></div></td>
    										<td><div align='right'><%=dfAmount.format(prices.get(i)/100.0) %></div></td>
                                 	</tr>
-                                </tbody>
-	                        </table>
+
 						<%
 							}
                        	}else{
@@ -135,7 +134,8 @@
   
                        <%}
                     	%> 
-
+                                </tbody>
+	                        </table>
                     </div>                  
             	</div>
             </div>

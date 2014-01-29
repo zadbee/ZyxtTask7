@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.genericdao.RollbackException;
+
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -41,7 +41,6 @@ public class Cus_LoginAction extends Action {
 
         try {
 	    	Cus_LoginForm form = formBeanFactory.create(request);
-	        // request.setAttribute("form",form);
 	    	 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
@@ -61,8 +60,7 @@ public class Cus_LoginAction extends Action {
 	            errors.add("User " + form.getUsername() + " not found.");
 	            return "cus-login.jsp";
 	        }
-	        
-	       
+	       	       
 	        
 	        // Check the password
 	        if (!cus.getPassword().equals(form.getPassword())) {

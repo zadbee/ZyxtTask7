@@ -24,7 +24,6 @@ public class Cus_LogoutAction extends Action {
         session.setAttribute("customer", null);
         session.setAttribute("identity", null);
 
-		//request.setAttribute("message","You are now logged out!");
         return "homepage.do";
     }
 }

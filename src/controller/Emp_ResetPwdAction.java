@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import model.CustomerDAO;
 import model.Model;
 
-import org.genericdao.MatchArg;
 import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanFactory;
 
@@ -58,7 +57,7 @@ public class Emp_ResetPwdAction extends Action{
             }
             if (button != null)
             	customer = customerDAO.read(Integer.parseInt(button));
-
+            
 			request.setAttribute("form", form);
 			String newPwd = null;
 			String username;
@@ -78,8 +77,9 @@ public class Emp_ResetPwdAction extends Action{
 				return "emp-reset-customer-pwd.jsp";
 			}
 			
-			username = form.getPassword();
-			if(username == null){
+			
+			username = form.getUserName();
+			if(username == null || username.length()==0){
 				errors.add("No such users!");
 			}
 			// Change the password

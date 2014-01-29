@@ -32,7 +32,7 @@
             
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="emp-customerlist.jsp">Home</a></li>
+                    <li><a href="emp-customerlist.do">Home</a></li>
                     <li class="active">Create Fund</li>
                 </ol>            
 	            <jsp:include page="error-list.jsp" />

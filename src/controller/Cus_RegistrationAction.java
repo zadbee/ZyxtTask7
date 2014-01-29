@@ -19,13 +19,11 @@ public class Cus_RegistrationAction extends Action {
 	private FormBeanFactory<Cus_RegistrationForm> formBeanFactory = FormBeanFactory.getInstance(Cus_RegistrationForm.class);
 	private CustomerDAO customerDAO;
 	public Cus_RegistrationAction(Model model) {
-		System.out.println("----------------------- here1");
 		customerDAO = model.getCustomerDAO();
 	}
 	
 	@Override
 	public String getName() {
-		System.out.println("----------------------- here2");
 		// TODO Auto-generated method stub
 		return "cus-registration.do";
 	}
@@ -33,7 +31,6 @@ public class Cus_RegistrationAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		System.out.println("----------------------- here3");
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 		
@@ -43,8 +40,6 @@ public class Cus_RegistrationAction extends Action {
 			if(employee==null){
 	        	return "emp-login.jsp";
 	        }
-	        // request.setAttribute("form",form);
-
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {

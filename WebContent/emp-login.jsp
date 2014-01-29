@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-inline">
-                        <li><a href="#home">Home</a>
+                        <li><a href="emp-customerlist.do">Home</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li><a href="#about">About</a>

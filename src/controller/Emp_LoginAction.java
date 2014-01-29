@@ -43,7 +43,6 @@ public class Emp_LoginAction extends Action {
 		
         try {
 	    	Emp_LoginForm form = formBeanFactory.create(request);
-	        // request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
@@ -78,10 +77,10 @@ public class Emp_LoginAction extends Action {
 	        return "emp-customerlist.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "emp-login.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "emp-login.jsp";
 		}
 	}
 }

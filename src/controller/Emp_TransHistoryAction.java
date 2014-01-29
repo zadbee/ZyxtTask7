@@ -12,20 +12,17 @@ import databeans.Employee;
 import databeans.Fund;
 import databeans.Transaction;
 import model.CustomerDAO;
-import model.EmployeeDAO;
 import model.FundDAO;
 import model.Model;
 import model.TransDAO;
 
 public class Emp_TransHistoryAction extends Action{
 	private TransDAO transactionDAO;
-	private EmployeeDAO employeeDAO;
 	private CustomerDAO customerDAO;
 	private FundDAO fundDAO;
 	
     public Emp_TransHistoryAction(Model model) {
         transactionDAO = model.getTransDAO();
-        employeeDAO = model.getEmployeeDAO();
         customerDAO = model.getCustomerDAO();
         fundDAO = model.getFundDAO();
     }
@@ -45,21 +42,12 @@ public class Emp_TransHistoryAction extends Action{
 		    	return "emp-login.jsp";
 		    }
 		    String button = request.getParameter("transhistory");
-            String thisButton = request.getParameter("button");
+            //String thisButton = request.getParameter("button");
 
-            /*if (thisButton != null){
-            	customer = customerDAO.read(Integer.parseInt(button));
-            }*/
             if (button != null)
             	customer = customerDAO.read(Integer.parseInt(button));
             System.out.println(customer.getCustomer_id());
 
-           
-            /*if(customer == null) {
-                return "emp-login.jsp";
-            }*/
-            
-            //customer = customerDAO.readByName(customer.getUsername());
             
             Transaction[] trans = transactionDAO.match(MatchArg.equals("customer_id", customer.getCustomer_id()));
 
@@ -73,7 +61,6 @@ public class Emp_TransHistoryAction extends Action{
             request.setAttribute("trans", trans);
             request.setAttribute("funds", funds);
             
-
 	        return "emp-cus-trans-history.jsp";
 	  } catch (NullPointerException e) {
 	      	return "emp-cus-trans-history.jsp";
