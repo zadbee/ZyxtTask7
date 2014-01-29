@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,9 +104,11 @@ public class Cus_BuyFundAction extends Action {
 			customerDAO.update(customer);
 
 			request.getSession().setAttribute("customer",customer);
-
+			DecimalFormat nf = new DecimalFormat("#,##0.00");
+            nf.setMaximumFractionDigits(2);
+           	nf.setMinimumFractionDigits(2);
 			request.setAttribute("message", 
-					"You have successfully bought $" + (amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
+					"You have successfully bought $" + nf.format(amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());

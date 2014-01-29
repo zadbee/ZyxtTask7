@@ -39,6 +39,7 @@
                     <li><a href="emp-customerlist.do">Home</a></li>
                     <li class="active">Employee Registration</li>
                 </ol>
+                <jsp:include page="error-list.jsp" />
                 	<form class="form-signin" role="form" method="post" action="emp-registration.do">
        				 <div class="row">
     

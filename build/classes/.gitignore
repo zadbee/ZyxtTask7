@@ -1,4 +1,6 @@
 /controller
+<<<<<<< HEAD
+=======
 /model
 /formbeans
 <<<<<<< HEAD
@@ -7,3 +9,20 @@
 /model
 /databeans
 >>>>>>> 42904177f532cd1d4c0c824c90587c6781594092
+>>>>>>> d30f9e7af8fcad166fe43ec130d5187ce739d7a0
+/controller
+/databeans
+/formbeans
+/model
+/utility
+/controller
+/databeans
+/formbeans
+/model
+/utility
+/controller
+/controller
+/controller
+/controller
+/controller
+/controller
