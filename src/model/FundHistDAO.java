@@ -38,4 +38,12 @@ public class FundHistDAO extends GenericDAO<FundPriceHistory>{
 			return null;
 		return tmp[0];
 	}
+	
+	public ArrayList<FundPriceHistory> getFundHist(int id) throws RollbackException {
+		ArrayList<FundPriceHistory> ret = new ArrayList<FundPriceHistory>();
+		FundPriceHistory[] tmp = match(MatchArg.equals("fund_id", id));
+		for (FundPriceHistory f : tmp)
+			ret.add(f);
+		return ret;
+	}	
 }
