@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import model.CustomerDAO;
 import model.Model;
 
-import org.genericdao.MatchArg;
 import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanFactory;
 
@@ -38,16 +37,13 @@ public class Emp_ResetPwdAction extends Action{
 		try {
 			Customer customer = null;
 			Emp_ResetPwdForm form = formBeanFactory.create(request);
-			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
 		    
             if (errors.size() > 0)
             	return "emp-reset-customer-pwd.jsp";
-		    System.out.println("^^^^^^^^^");
             if(employee == null) {
                 return "emp-login.do";
             }
-            System.out.println("^^^^^^^^^");
             String button = request.getParameter("reset-pwd");
             String thisButton = request.getParameter("button");
             if (thisButton != null){
@@ -61,7 +57,6 @@ public class Emp_ResetPwdAction extends Action{
             }
             if (button != null)
             	customer = customerDAO.read(Integer.parseInt(button));
-            System.out.println("^^^^^^^^^");
 			
 			request.setAttribute("form", form);
 			String newPwd = null;
@@ -70,7 +65,6 @@ public class Emp_ResetPwdAction extends Action{
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 				request.setAttribute("customer", customer);
 				request.setAttribute("employee", employee);
 				return "emp-reset-customer-pwd.jsp";
@@ -86,7 +80,7 @@ public class Emp_ResetPwdAction extends Action{
 			
 
 			username = form.getUserName();
-			if(username == null){
+			if(username == null || username.length()==0){
 				errors.add("No such users!");
 			}
 			// Change the password
@@ -99,7 +93,6 @@ public class Emp_ResetPwdAction extends Action{
 				errors.add("The password has been reset to " + newPwd);
 			request.setAttribute("customer", customer);
 			request.setAttribute("employee", employee);
-			System.out.println("###########################");
 	        return "emp-reset-customer-pwd.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());

@@ -132,8 +132,7 @@
                                     <td><%="Not Initialized"%></td>
                                     <%} %>
                                 	</tr>
-                                </tbody>
-	                        </table>
+
 						<%
 							}
                        	}else{
@@ -144,6 +143,8 @@
   
                        <%}
                     	%> 
+                    	       </tbody>
+	                        </table>
                     </div>                   
                 </div>
             </div>

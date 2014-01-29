@@ -56,7 +56,7 @@
 	                        Long cash = (Long) request.getAttribute("cash");
 	                        if (cash!=null)
 	                     %>
-  						  <h3 class="panel-title">Available Balance :<%=nf.format(cash/100.0)%> </h3>
+  						  <h3 class="panel-title">Available Balance : $ <%=nf.format(cash/100.0)%> </h3>
   						</div>
                         <td>    
                         

@@ -154,13 +154,14 @@ if(customer == null) {
                         	}
                        }else{
                        %>
-                      </tbody>
-                      </table>
+
                <div class="col-md-12">
               		<p>No funds, Ask for help!</p>
                </div>                              
                             <%}
-                    		%>         
+                    		%>     
+                   		</tbody>
+                      </table>    
                 </div>
 			</div>
 		</div>

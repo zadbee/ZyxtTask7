@@ -37,7 +37,6 @@ public class Emp_RegistrationAction extends Action {
 	        if(employee==null){
 	        	return "emp-login.jsp";
 	        }
-	        // request.setAttribute("form",form);
 
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
