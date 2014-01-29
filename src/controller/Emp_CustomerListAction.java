@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.MatchArg;
-<<<<<<< HEAD
-=======
-
-
-import org.genericdao.MatchArg;
->>>>>>> 11ba1a81d8975183b4733cccc897424f017812bf
 
 import databeans.Customer;
 import databeans.Employee;
