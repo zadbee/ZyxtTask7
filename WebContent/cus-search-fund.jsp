@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@page import="databeans.Customer"%>
+<%@page import="databeans.Fund"%>
+<%@page import="databeans.FundPriceHistory"%>
+<%@page import="java.util.*" %>
+<%@page import="utility.Format" %>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,9 +27,10 @@
 </head>
 
 <body>
-     <div id="wrapper">
-         <jsp:include page="template-top-cus.jsp" />
-     
+	<div id="wrapper">
+		<!-- Template -->
+		<jsp:include page="template-top-cus.jsp" />
+	
         <!-- Page content -->
         <div id="page-content-wrapper">
             <div class="content-header">
@@ -36,141 +43,91 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="cus-view-account.jsp">Home</a></li>
                     <li class="active">Research Fund</li>
                 </ol>
+<%
+Customer customer = (Customer) session.getAttribute("customer");
+if(customer == null) {
+    out.print("There is no customer information found in session!");
+    return;
+}
+%>                    
+                   <jsp:include page="error-list.jsp" />
 
-				<jsp:include page="error-list.jsp" />
-
-				
-				<div class="col-md-12">
-				 
-                        <div class="input-group">
-                        
-      <input type="text" name="fundid" class="form-control" placeholder="Search by Fund_ID, Fund_Name or Fund_Symbol" value="">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
-  </div>
-                        </div>
-                   
-				<br />
-				
-					<tbody>
-						<tr>
-							<td colspan="5">
-								<div class="innerb">
-									<table class="tabletwo" id="txtHint">
-
-									</table>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-
-				</table>
-				</div>
-				 <div class="row">
-                  
-                <div class="block-a highlight">
-                
-                 <div class="col-md-12">
-<div class="col-md-12">
-<div class="alert alert-info"><h4>Fund Overview</h4></div>
-
-<h5>Team-managed, diversified large-cap growth</h5>
-
-<ul>
-<li>Diversified large-cap growth portfolio reflecting the best ideas of the Janus research team</li>
-<li>Sector specialists build high conviction portfolios that are combined to form a diversified fund</li>
-<li>Seeks to add value through stock selection and minimize macro risks</li>
-
-
-
-</ul>
-
-</div>
-                </div>
-                </div>
+                    <div class="col-md-12">
+                        <p class="lead">All Fund List</p>
+                    </div>
+                    <% 	ArrayList<Fund> allFunds = (ArrayList<Fund>)request.getSession().getAttribute("allFunds");
+                    	ArrayList<Long> allFundPrices = (ArrayList<Long>)request.getSession().getAttribute("allFundPrices");
+                    	if(allFunds!=null && allFunds.size()!=0){
+                    %>
+                    
                     
                     <div class="col-md-12">
-                    <div class="col-md-12">
-                        <div class="alert alert-info"><h4>Performance </h4></div>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table table-hover">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Fund ID</th>
                                     <th>Fund Name</th>
-                                    <th>1 year</th>
-                                    <th>3 year</th>
-                                    <th>5 year</th>
-                                    <th>10 year</th>
-                                    <th>Since Fund Inception</th>
-                               
-                                    
+                                    <th>Fund Symbol</th>
+                                    <th>Current Prices</th>
+                                    <th>Performance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Google</td>
-                                    <td>34.88%</td>
-                                    <td>14.68%</td>
-                                    <td>21.03%</td>
-                                    <td>8.63%</td>
-                                    <td>10.98%</td>
-                                    
+                            <% 
+                            	for(int i=0; i<allFunds.size();i++){ 
+                            %>
+                           
+                                <tr>                 
+                                    <td><%=allFunds.get(i).getFund_id()%></td>
+                                    <td><%=allFunds.get(i).getName()%></td>
+                                    <td><%=allFunds.get(i).getSymbol()%></td>
+                                    <%if(allFundPrices.get(i)==-1) {%>
+                                    <td><%="Not Initialized" %></td>
+                                    <%}else{ %>
+                                    <td><%=allFundPrices.get(i)/100.0 %></td>
+                                    <%} %>
+                                    <%if(allFundPrices.get(i)==-1) {%>
+                                    <td><%="Not Avaiable" %></td>
+                                    <%}else{ %>
+                                    <td>
+                                    	<form method="post" action="cus_getFundDetails.do">
+                                    	<button type="submit" class="btn btn-default btn-xs" name="fund_id" value="<%=allFunds.get(i).getFund_id()%>">
+                                    	View Now</button>
+                                    	</form>
+                                    </td>
+                                    <%} %>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Yahoo</td>
-                                    <td>27.11%</td>
-                                    <td>12.44%</td>
-                                    <td>19.60%</td>
-                                    <td>7.99%</td>
-                                    <td>10.66%</td>
-                                    
-                                    
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    
-                                    <td>LinkedIn</td>
-                                    <td>33.48%</td>
-                                    <td>16.45%</td>
-                                    <td>20.39%</td>
-                                    <td>7.83%</td>
-                                    <td>8.59%</td>
-                                    
-                                </tr>
-                            </tbody>
+                                
+                             <%
+                             	}
+                            }else{
+                            %>
+                           </tbody>
+	                     <div class="col-md-12">
+		                  <p>No funds, Ask for help!</p>
+		                 </div>  
+		                <%}
+                    	%> 
                         </table>
-                    </div>
-                    </div>
-                    </div>
-          <div class="col-md-12">  
-          <div class="alert alert-info"><h4>Portfolio Analysis</h4></div>
-          <h4>Top Holdings</h4>
-<h6>% of Fund</h6>
+              		</div>        
+              	</div>
+             </div> 
+          </div>      
 
-<!--  getting the document for CMS for PDF Fact sheet link -->
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
 
-
-					
-					
-	 					
-
-	
-	
-					<p>
-     	 				<a id="LINKID_pdf_ViewAllHoldings" href="/advisor_siteobjects/published/6EC6AC4B1B518F0DCC773BDACEFA6454/5ED2CC96761A87DD4A422AE36FD0612B/pdf/DisclosureResearch.pdf" onclick="trackPDF('View All Holdings')" target="_blank" >View All Holdings (PDF)</a>     
-					</p>
-	
-			</div>
-			<jsp:include page="template-footer.jsp" />
-		</div>
-		</div>
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
 </body>
+
 </html>

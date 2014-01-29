@@ -42,7 +42,7 @@
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="cus-view-account.jsp">Home</a></li>
                     <li class="active">Buy Fund</li>
                 </ol>
 <%
@@ -158,7 +158,7 @@ if(customer == null) {
                             }else{
                             %>
                            </tbody>
-                        <div class="col-md-12">
+                    <div class="col-md-12">
 	                  <p>No funds, Ask for help!</p>
 	                  </div>  
                         </table>

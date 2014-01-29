@@ -17,7 +17,6 @@
     <!-- Add custom CSS here -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -30,27 +29,34 @@
         <div id="page-content-wrapper">
             <div class="content-header">
                 <h1>
-                    <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-                   
+                    <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>        
                 </h1>
             </div>
-            <!-- Keep all page content within th
-             e page-content inset div! -->
+            <!-- Keep all page content within the page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="emp-customerlist.jsp">Home</a></li>
                     <li class="active">Transition Day</li>
                 </ol>
                 
                 <jsp:include page="error-list.jsp"/>
                 
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="lead">Funds</p>
-                    </div>
-					
+                <div class="row">	
 					<div class="col-md-12">
 						<form method="post" action="emp-transitionday.do">
+							<div class="col-md-12">
+								<div class="col-md-6" align="center">
+									Last Transition Day<br/>
+									2013-10-10
+								</div>
+								<div class="col-md-6" align="center">
+									New Transition Day<br/> 
+									<input type="text" style="width:20%;" id="iyear" placeholder="YYYY"> - 
+    								<input type="text" style="width:20%;" id="imonth" placeholder="MM"> - 
+    								<input type="text" style="width:20%;" id="iday" placeholder="DD">
+								</div>
+							</div>
+                        	<p class="lead">Funds</p>
 	                        <table class="table">
 	                            <thead>
 	                                <tr>
@@ -58,7 +64,6 @@
 	                                    <th>Fund Name</th>
 	                                    <th>Fund Symbol</th>
 	                                    <th>Current Price</th>
-	                                    <th>Last Update</th>
 	                                    <th>New Price</th>
 	                                </tr>
 	                            </thead>
@@ -74,16 +79,6 @@
 	                                			${fund.price / 100.0}
 	                                		</c:when>
 	                               			<c:otherwise>
-	                               				Not initialized
-	                               			</c:otherwise>
-	                               			</c:choose>
-	                                		</td>
-	                                		<td>
-	                                		<c:choose>
-	                                		<c:when test="${fund.price > 0}">
-	                                			${fund.price_date}
-	                                		</c:when>
-	                                		<c:otherwise>
 	                               				Not initialized
 	                               			</c:otherwise>
 	                               			</c:choose>
@@ -105,7 +100,7 @@
         </div>
 
     </div>
-
+	
     <!-- JavaScript -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.js"></script>

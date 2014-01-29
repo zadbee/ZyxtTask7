@@ -31,7 +31,9 @@ public class Controller extends HttpServlet {
         Action.add(new Cus_SellFundAction(model));
         Action.add(new Cus_ViewAccountAction(model));
         Action.add(new Cus_RegistrationAction(model));
+        Action.add(new Cus_SearchFundAction(model));
         Action.add(new Cus_TransHistoryAction(model));
+        Action.add(new Cus_GetFundDetailsAction(model));
         Action.add(new Emp_LoginAction(model));
         Action.add(new Emp_LogoutAction(model));
         Action.add(new Emp_ChangePwdAction(model));
@@ -94,7 +96,7 @@ public class Controller extends HttpServlet {
     private String performTheAction(HttpServletRequest request) {
         String      servletPath = request.getServletPath();     
         String      action = getActionName(servletPath);
-        String 		identity = (String) request.getSession().getAttribute("identity");
+        //String 		identity = (String) request.getSession().getAttribute("identity");
         
         // User is not logged in or at the root of the app.
         if (action.equals("welcome")){
