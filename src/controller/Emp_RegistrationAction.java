@@ -50,7 +50,6 @@ public class Emp_RegistrationAction extends Action {
 	        if (errors.size() != 0) {
 	            return "emp-registration.jsp";
 	        }
-	        
 	        Employee newEmployee = new Employee();
 	        newEmployee.setFirstname(form.getFirstName());
 	        newEmployee.setLastname(form.getLastName());
@@ -58,6 +57,8 @@ public class Emp_RegistrationAction extends Action {
 	        newEmployee.setPassword(form.getPassword());
 	        
 	        employeeDAO.create(newEmployee);
+//	        return "emp-create-fund.jsp";
+
 	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
