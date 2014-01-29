@@ -38,6 +38,7 @@
                     <li><a href="emp-customerlist.do">Home</a></li>
                     <li class="active">Change Password</li>
                 </ol>
+				<jsp:include page="error-list.jsp" />
                  <form method="post" action="emp_changePwd.do" class="form-horizontal">
                 <div class="row">
     
