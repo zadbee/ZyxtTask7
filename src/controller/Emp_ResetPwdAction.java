@@ -40,6 +40,9 @@ public class Emp_ResetPwdAction extends Action{
 			Emp_ResetPwdForm form = formBeanFactory.create(request);
 			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+		    
+            if (errors.size() > 0)
+            	return "emp-reset-customer-pwd.jsp";
 		    System.out.println("^^^^^^^^^");
             if(employee == null) {
                 return "emp-login.do";
@@ -72,7 +75,7 @@ public class Emp_ResetPwdAction extends Action{
 				request.setAttribute("employee", employee);
 				return "emp-reset-customer-pwd.jsp";
 			}
-			System.out.println("^^^^^^^^^");
+			System.out.println("1");
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());

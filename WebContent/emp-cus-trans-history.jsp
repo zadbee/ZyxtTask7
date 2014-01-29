@@ -46,6 +46,8 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="cus-view-account.jsp">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Account Details</li>
                     <li class="active">Transaction History</li>
                 </ol>
 <%
@@ -57,7 +59,7 @@ if(customer == null) {
 %>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="lead">Your Transaction History</p>
+                        <p class="lead"><%=customer.getFirstname()%> <%=customer.getLastname() %> Transaction History</p>
                     </div>
                     <jsp:include page="error-list.jsp" />
 

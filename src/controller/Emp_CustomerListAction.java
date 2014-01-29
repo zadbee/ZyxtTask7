@@ -30,11 +30,7 @@ public class Emp_CustomerListAction extends Action {
 		request.setAttribute("errors",errors);
 
         try {
-//        	System.out.println("********here");
-//        	String button = request.getParameter("manage_cust_1");
-//        	System.out.println("^^^^^^^^^^"+button);
-//        	if ("manage".equals(request.getParameter("manage_cust_1")))
-//        		System.out.println(";;;;;;;;;;;;;;;;;;; Alo ki ithe");	
+	
         	Customer[] customers = customerDAO.match();
         	String button = null;
         	int button_id = -1;

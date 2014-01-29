@@ -40,6 +40,8 @@
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.jsp">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Account Details</li>
                     <li class="active">Deposit Check</li>
                 </ol>
                 <form method="post" action="emp_depositCheck.do">
