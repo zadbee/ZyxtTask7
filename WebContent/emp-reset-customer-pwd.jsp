@@ -53,7 +53,7 @@ if(customer ==null) {
 					<div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">New</span>
-                            <input type="text" name="userName" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
+                            <input type="text" name="password" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
                         </div>
                     </div>
 					<div class="col-md-12">
@@ -68,13 +68,10 @@ if(customer ==null) {
                         <p class="lead"></p>
                     </div>
                 </div>
-				</form>
-
-        
+				</form>      
 <%
 }
 %>
-
 				<jsp:include page="template-footer.jsp" />
             </div>
         </div>

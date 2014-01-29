@@ -38,22 +38,19 @@ public class Emp_ResetPwdAction extends Action{
 		try {
 			Customer customer = null;
 			Emp_ResetPwdForm form = formBeanFactory.create(request);
-			System.out.println("------------hello-----------------");
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
 		    
             if (errors.size() > 0)
             	return "emp-reset-customer-pwd.jsp";
-		    System.out.println("^^^^^^^^^");
             if(employee == null) {
                 return "emp-login.do";
             }
-            System.out.println("^^^^^^^^^");
             String button = request.getParameter("reset-pwd");
             String thisButton = request.getParameter("button");
             if (thisButton != null){
             	Transaction.begin();
             	customer = customerDAO.read(Integer.parseInt(thisButton));
-            	customer.setPassword(form.getUserName());
+            	customer.setPassword(form.getPassword());
             	customerDAO.update(customer);
             	Transaction.commit();
             	request.setAttribute("message","Password changed for "+customer.getFirstname());
@@ -61,8 +58,7 @@ public class Emp_ResetPwdAction extends Action{
             }
             if (button != null)
             	customer = customerDAO.read(Integer.parseInt(button));
-            System.out.println("^^^^^^^^^");
-			
+
 			request.setAttribute("form", form);
 			String newPwd = null;
 			String username;
@@ -70,12 +66,10 @@ public class Emp_ResetPwdAction extends Action{
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 				request.setAttribute("customer", customer);
 				request.setAttribute("employee", employee);
 				return "emp-reset-customer-pwd.jsp";
 			}
-			System.out.println("1");
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
@@ -84,8 +78,7 @@ public class Emp_ResetPwdAction extends Action{
 				return "emp-reset-customer-pwd.jsp";
 			}
 			
-
-			username = form.getUserName();
+			username = form.getPassword();
 			if(username == null){
 				errors.add("No such users!");
 			}
@@ -99,7 +92,6 @@ public class Emp_ResetPwdAction extends Action{
 				errors.add("The password has been reset to " + newPwd);
 			request.setAttribute("customer", customer);
 			request.setAttribute("employee", employee);
-			System.out.println("###########################");
 	        return "emp-reset-customer-pwd.jsp";
 	  } catch (Exception e) {
       	errors.add(e.toString());
