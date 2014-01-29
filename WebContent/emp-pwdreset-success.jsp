@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="databeans.Customer" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,12 +25,7 @@
 <body>
      <div id="wrapper">
          <jsp:include page="template-top-emp.jsp" />
- <%
-Customer customer = (Customer)session.getAttribute("customer");
-if(customer ==null) {
-%>
- 
-
+     
         <!-- Page content -->
         <div id="page-content-wrapper">
             <div class="content-header">
@@ -42,40 +38,10 @@ if(customer ==null) {
              e page-content inset div! -->
             <div class="page-content inset">
                 <ol class="breadcrumb">
-                    <li><a href="emp-customerlist.jsp">Home</a></li>
-                    <li class="active">Reset Customer Password</li>
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Success</li>
                 </ol>
-                <form method="post" action="emp_resetPwd.do">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="lead">Customer ${customer.firstname}  ${customer.lastname} </p>
-                    </div>
-					<div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">New</span>
-                            <input type="text" name="userName" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
-                        </div>
-                    </div>
-					<div class="col-md-12">
-                        <p class="lead"> </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="btn-group">
-                            <button type="submit" name="button" class="btn btn-default" value="${customer.customer_id}">Reset Password</button>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="lead"></p>
-                    </div>
-                </div>
-				</form>
-
-        
-<%
-}
-%>
-
-				<jsp:include page="template-footer.jsp" />
+                <div style="font-size:Large; color:Blue; "> ${message} </div>
             </div>
         </div>
 
