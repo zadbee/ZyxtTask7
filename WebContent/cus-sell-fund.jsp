@@ -53,7 +53,7 @@
                     <form method="post" action="cus_sellFund.do" class="form-horizontal">
 	                    <div class="col-md-12">
 	                        <div class="input-group">
-	                            <span class="input-group-addon">#</span>
+	                            <span class="input-group-addon">Fund Symbol</span>
 	                            <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
 	                        </div>
 	                    </div>
@@ -62,8 +62,8 @@
 	                    </div>
 	                    <div class="col-md-12">
 	                        <div class="input-group">
-	                            <span class="input-group-addon">$</span>
-	                            <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
+	                            <span class="input-group-addon">Shares</span>
+	                            <input type="text" class="form-control" placeholder="Shares (No more than you own)" name="shares">
 	                                </div>
 	                    </div>          
 	                    <div class="col-md-12">

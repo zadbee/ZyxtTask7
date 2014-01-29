@@ -50,22 +50,27 @@ public class Emp_RegistrationAction extends Action {
 	        if (errors.size() != 0) {
 	            return "emp-registration.jsp";
 	        }
+	        Employee newEmployee = new Employee();
+	        newEmployee.setFirstname(form.getFirstName());
+	        newEmployee.setLastname(form.getLastName());
+	        newEmployee.setUsername(form.getUsername());
+	        newEmployee.setPassword(form.getPassword());
 	        
-	        employee.setFirstname(form.getFirstName());
-	        employee.setLastname(form.getLastName());
-	        employee.setUsername(form.getUsername());
-	        employee.setPassword(form.getPassword());
-	        
-	        employeeDAO.create(employee);
-	        request.setAttribute("message","Employee "+ employee.getUsername() + " is created.");
+	        employeeDAO.create(newEmployee);
+//	        return "emp-create-fund.jsp";
+
+	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
+        	System.out.println("_____________exception is here");
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
         	return "emp-registration.jsp";
         } catch (RollbackException e) {
-        	errors.add(e.getMessage());
+        	System.out.println("_____________exception is here");
+        	errors.add("Username already exists");
         	System.out.println(e.getMessage());
+        	request.setAttribute("errors", errors);
         	return "emp-registration.jsp";
         }
 	}

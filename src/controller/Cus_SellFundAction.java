@@ -31,22 +31,19 @@ public class Cus_SellFundAction extends Action{
 	public String getName() {
 		return "cus_sellFund.do";
 	}
+	
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-		Customer customer = (Customer) request.getSession(false).getAttribute("customer");  
-		
-        if(customer == null)
-            return "cus-login.jsp";
-        System.out.println("here");
-		
-		// Initialize the fund information for displaying first.
-		// Can also fresh the price if some other employee sets the new price.
-		try { 
-			// Initialize attributes.
+		try {
+			Customer customer = (Customer) request.getSession(false).getAttribute("customer"); 
+	        if(customer == null)
+	            return "cus-login.jsp";
+	        
+	        //Bulid the funds list
 			Position[] lpos =  positionDAO.readByCustomerID(customer.getCustomer_id());
 
-            if(lpos != null){
+            if(lpos != null && lpos.length!=0){
 	            ArrayList<Fund> funds = new ArrayList<Fund>();
 	            ArrayList<Long> lprices = new ArrayList<Long>();
 	            
@@ -60,23 +57,34 @@ public class Cus_SellFundAction extends Action{
 				request.setAttribute("funds", funds);
 				request.setAttribute("prices", lprices);
 				request.setAttribute("pos", lpos);
-            }            			
+            }        
+            
+            System.out.println("1");
 			
-            Cus_SellFundForm form = formBeanFactory.create(request);
+            //Get value from input
+	        Cus_SellFundForm form = formBeanFactory.create(request);
+	        request.setAttribute("form", form);
+	        System.out.println("2");
+	        
             if (!form.isPresent())
             	return "cus-sell-fund.jsp";
-            	
-            errors.addAll(form.getValidationErrors());
-            if (errors.size() > 0)
-            	return "cus-sell-fund.jsp";
             
-            String symbol = form.getFundSymbol();
+            System.out.println("3");
+            errors.addAll(form.getValidationErrors());
+            System.out.println("4");
+            if (errors.size() > 0){
+            	 
+            	return "cus-sell-fund.jsp";
+            }
+            String symbol = form.getFundSymbol();  
+            System.out.println("5");
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
             	errors.add("Fund symbol " + symbol + " does not exist.");
             	return "cus-sell-fund.jsp";
             }
             long shares = AmountCheck.checkShareString(form.getShares());
+            
             
             Customer updatedCus = customerDAO.readByName(customer.getUsername());
             if (updatedCus == null)
@@ -107,8 +115,21 @@ public class Cus_SellFundAction extends Action{
 
             request.setAttribute("message", 
 					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
+            
+<<<<<<< HEAD
 	        return "cus-success.jsp";
-	  } catch (Exception e) {
+
+		}catch (NullPointerException e) {
+			e.printStackTrace();
+	      	errors.add(e.toString());
+	      	return "cus-sell-fund.jsp";
+	    }
+		catch (Exception e) {
+=======
+	        return "cus-success.jsp";
+
+	    }catch (Exception e) {
+>>>>>>> fc1679a0d5c066582e3cd20663666baaa3619dd6
       	errors.add(e.toString());
       	return "cus-sell-fund.jsp";
       }

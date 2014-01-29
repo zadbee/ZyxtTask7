@@ -70,7 +70,7 @@ if(customer == null) {
                 <form method="post" action="cus_buyFund.do">
                  <div class="col-md-12">
                      <div class="input-group">
-                         <span class="input-group-addon">#</span>
+                         <span class="input-group-addon">Fund Symbol</span>
                          <input type="text" class="form-control" placeholder="Fund Symbol" name="fundSymbol">
                      </div>
                  </div>
@@ -79,7 +79,7 @@ if(customer == null) {
                  </div>
                  <div class="col-md-12">
                      <div class="input-group">
-                         <span class="input-group-addon">$</span>
+                         <span class="input-group-addon">Amount</span>
                          <input type="text" class="form-control" placeholder="Amount (No more than your balance)" name="amount">
                      </div>
                  </div>          
