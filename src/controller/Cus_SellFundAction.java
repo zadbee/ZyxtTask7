@@ -116,25 +116,12 @@ public class Cus_SellFundAction extends Action{
             request.setAttribute("message", 
 					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             
-<<<<<<< HEAD
 	        return "cus-success.jsp";
 
-		}catch (NullPointerException e) {
-			e.printStackTrace();
-	      	errors.add(e.toString());
-	      	return "cus-sell-fund.jsp";
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	errors.add(e.toString());
+	    	return "cus-sell-fund.jsp";
 	    }
-		catch (Exception e) {
-=======
-	        return "cus-success.jsp";
-
-	    }catch (Exception e) {
->>>>>>> fc1679a0d5c066582e3cd20663666baaa3619dd6
-      	errors.add(e.toString());
-      	return "cus-sell-fund.jsp";
-      }
-	}
-
-	
-	
+	}	
 }

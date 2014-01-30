@@ -50,8 +50,6 @@ public class Emp_TransitionDayAction extends Action {
 		try {
 			funds = fundDAO.match();
 			lastday = dateDAO.getLastTransitionDay();
-			if (lastday != null)
-				System.out.println("Last Transition Day: " + lastday);
 			request.setAttribute("lastday", lastday);
 			
 			// Initialize the fund information for displaying first.
@@ -78,20 +76,11 @@ public class Emp_TransitionDayAction extends Action {
 			if (errors.size() > 0)
 				return "emp-transitionday.jsp";
 			
-			// Update all prices.
-			histDAO.updateAll(transForm.prices, transForm.date);
-			
-			// Handle all pending transactions. 
-			transDAO.clearPending(transForm.date);
-			
-			// Add an new transition date.
-			TransitionDate newDate = new TransitionDate();
-			newDate.setDate(transForm.date);
-			dateDAO.createAutoIncrement(newDate);
+			errors.addAll(transDAO.transitionDay(transForm));
+			if (errors.size() > 0)
+				return "emp-transitionday.jsp";
 			
 			lastday = dateDAO.getLastTransitionDay();
-			if (lastday != null)
-				System.out.println("Last Transition Day: " + lastday);
 			request.setAttribute("lastday", lastday);
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());

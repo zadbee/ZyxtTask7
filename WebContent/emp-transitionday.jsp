@@ -69,9 +69,9 @@
 								</div>
 								<div class="col-md-6" align="center">
 									New Transition Day<br/> 
-									<input type="text" style="width:20%;" name="iyear" placeholder="YYYY"> - 
-    								<input type="text" style="width:20%;" name="imonth" placeholder="MM"> - 
-    								<input type="text" style="width:20%;" name="iday" placeholder="DD">
+    								<input type="text" style="width:20%;" name="imonth" placeholder="MM"> / 
+    								<input type="text" style="width:20%;" name="iday" placeholder="DD"> /
+    								<input type="text" style="width:20%;" name="iyear" placeholder="YYYY">
 								</div>
 							</div>
                         	
