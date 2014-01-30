@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 
@@ -98,6 +99,7 @@ public class Controller extends HttpServlet {
     private String performTheAction(HttpServletRequest request) {
         String      servletPath = request.getServletPath();     
         String      action = getActionName(servletPath);
+        HttpSession session = request.getSession(true);
         //String 		identity = (String) request.getSession().getAttribute("identity");
         
         // User is not logged in or at the root of the app.
