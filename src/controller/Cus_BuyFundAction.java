@@ -72,16 +72,17 @@ public class Cus_BuyFundAction extends Action {
 				return "cus-buy-fund.jsp";
 			}
 			
+			System.out.print("1");
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0)
 				return "cus-buy-fund.jsp";				
-
+			System.out.print("2");
 			long amount = AmountCheck.checkValueString(form.getAmount());
             if(amount > available){
             	errors.add("You don't have enough money!");
             	return "cus-buy-fund.jsp";
             }
-      		
+            System.out.print("3");
             String symbol = form.getFundSymbol();
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {

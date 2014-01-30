@@ -36,6 +36,7 @@ public class Cus_SellFundAction extends Action{
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
+		
 		try {
 			Customer customer = (Customer) request.getSession(false).getAttribute("customer"); 
 	        if(customer == null)
@@ -60,23 +61,20 @@ public class Cus_SellFundAction extends Action{
 				request.setAttribute("pos", lpos);
             }        
             
-            System.out.println("1");
-			
             //Get value from input
 	        Cus_SellFundForm form = formBeanFactory.create(request);
 	        request.setAttribute("form", form);
-	        System.out.println("2");
 	        
             if (!form.isPresent())
             	return "cus-sell-fund.jsp";
             
-            System.out.println("3");
             errors.addAll(form.getValidationErrors());
-            System.out.println("4");
+            
             if (errors.size() > 0){
             	 
             	return "cus-sell-fund.jsp";
             }
+            
             String symbol = form.getFundSymbol();  
             System.out.println("5");
             Fund fund = fundDAO.readBySymbol(symbol);
@@ -113,9 +111,9 @@ public class Cus_SellFundAction extends Action{
             trans.setStatus("PENDING");
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
-            DecimalFormat nf = new DecimalFormat("#,##0.000");
-            nf.setMaximumFractionDigits(2);
-           	nf.setMinimumFractionDigits(2);
+            DecimalFormat nf = new DecimalFormat("###,###,###,###,##0.000");
+            nf.setMaximumFractionDigits(3);
+           	nf.setMinimumFractionDigits(3);
 
             request.setAttribute("message", "You have successfully sold " + nf.format(shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             

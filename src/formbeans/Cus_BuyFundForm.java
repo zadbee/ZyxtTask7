@@ -31,6 +31,8 @@ public class Cus_BuyFundForm extends FormBean{
 		if (amount == null || amount.length() == 0) {
 			errors.add("Amount is required");
 		}
+		if(errors.size()>0)
+			return errors;
 		
 		if (fundSymbol.matches(".*[<>\";*].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
 		if (amount.matches(".*[<>\";*].*")) errors.add("You may not input angle brackets, quotes, semicolons or stars in textfields");
