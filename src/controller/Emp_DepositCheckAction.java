@@ -12,11 +12,10 @@ import databeans.Customer;
 import databeans.Employee;
 import databeans.Transaction;
 import formbeans.Emp_DepositCheckForm;
-import formbeans.Emp_ResetPwdForm;
 import model.Model;
 import model.CustomerDAO;
 import model.TransDAO;
-
+import java.text.DecimalFormat;
 
 
 public class Emp_DepositCheckAction extends Action {   
@@ -35,6 +34,7 @@ public class Emp_DepositCheckAction extends Action {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         Long amount = 0l;
+        DecimalFormat dfAmount = new DecimalFormat("###,###,###,###,###,###,##0.00");
         
         try {
         	Customer customer = null;
@@ -84,7 +84,7 @@ public class Emp_DepositCheckAction extends Action {
             
             System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
 
-            request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
+            request.setAttribute("message","$" + dfAmount.format(transaction.getAmount() / 100.0) +" deposit requested for " + customer.getFirstname() + ".");
     		return "emp-success.jsp";  
         } catch (Exception e) {
         	if (org.genericdao.Transaction.isActive())
