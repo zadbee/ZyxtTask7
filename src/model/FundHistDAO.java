@@ -17,18 +17,10 @@ public class FundHistDAO extends GenericDAO<FundPriceHistory>{
 		super(FundPriceHistory.class, tableName, pool);
 	}
 	
-	public void updateAll(ArrayList<FundPriceHistory> prices, Date date) {
-		try {
-			Transaction.begin();
-			for (FundPriceHistory f : prices) {
-				f.setPrice_date(date);
-				createAutoIncrement(f);
-			}
-			Transaction.commit();
-		} catch (RollbackException e) {
-			e.printStackTrace();
-			if (Transaction.isActive())
-				Transaction.rollback();
+	public void updateAll(ArrayList<FundPriceHistory> prices, Date date) throws RollbackException {
+		for (FundPriceHistory f : prices) {
+			f.setPrice_date(date);
+			createAutoIncrement(f);
 		}
 	}
 	

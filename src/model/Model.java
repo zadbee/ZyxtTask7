@@ -31,8 +31,8 @@ public class Model {
 			employeeDAO = new EmployeeDAO(pool,"Employee");
 			fundHistDAO = new FundHistDAO(pool, "FundHistory");
 			posDAO = new PosDAO(pool,"Position");
-			transDAO = new TransDAO(pool,"Transaction", customerDAO, fundHistDAO, posDAO);
 			dateDAO = new TransDateDAO(pool, "TransitionDate");
+			transDAO = new TransDAO(pool,"Transaction", customerDAO, fundHistDAO, posDAO, dateDAO);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
