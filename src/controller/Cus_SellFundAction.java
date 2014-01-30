@@ -76,7 +76,6 @@ public class Cus_SellFundAction extends Action{
             }
             
             String symbol = form.getFundSymbol();  
-            System.out.println("5");
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
             	errors.add("Fund symbol " + symbol + " does not exist.");
@@ -111,20 +110,22 @@ public class Cus_SellFundAction extends Action{
             trans.setStatus("PENDING");
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
+
             DecimalFormat nf = new DecimalFormat("###,###,###,###,##0.000");
             nf.setMaximumFractionDigits(3);
            	nf.setMinimumFractionDigits(3);
+
+            System.out.println("The customer =>"+customer.getUsername()+" just sold the fund=> "+fund.getName());
 
             request.setAttribute("message", "You have successfully sold " + nf.format(shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             
 	        return "cus-success.jsp";
 
-	    }catch (Exception e) {
-      	errors.add(e.toString());
-      	return "cus-sell-fund.jsp";
-      }
+	    } catch (Exception e) {
+	    	if (org.genericdao.Transaction.isActive())
+	    		org.genericdao.Transaction.rollback();
+	    	errors.add(e.toString());
+	    	return "cus-sell-fund.jsp";
+	    }
 	}
-
-	
-	
 }

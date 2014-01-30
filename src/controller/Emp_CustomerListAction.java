@@ -49,7 +49,6 @@ public class Emp_CustomerListAction extends Action {
 					break;
 				}
 			}
-        	System.out.println("The button that was clicked was "+ button_id);
         	Employee employee = (Employee) request.getSession(false).getAttribute("employee");
         	if (employee == null) {
 				return "emp-login.do";
@@ -60,7 +59,6 @@ public class Emp_CustomerListAction extends Action {
 	        	return "emp-customerlist.jsp";
         	} else {
         		customers = customerDAO.match(MatchArg.equals("customer_id", button_id));
-        		System.out.println(customers[0]);
         		request.setAttribute("customer", customers[0]);
         		return "emp-manage-customer.jsp";
         	}

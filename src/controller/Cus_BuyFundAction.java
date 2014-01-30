@@ -108,6 +108,7 @@ public class Cus_BuyFundAction extends Action {
 			DecimalFormat nf = new DecimalFormat("#,##0.00");
             nf.setMaximumFractionDigits(2);
            	nf.setMinimumFractionDigits(2);
+           	System.out.println("The user=>"+customer.getUsername()+" just bought the fund=>"+fund.getName()+"\n");
 			request.setAttribute("message", 
 					"You have successfully bought $" + nf.format(amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
