@@ -52,9 +52,17 @@ public class Emp_CreateFundAction extends Action {
             // Create new fund
             Fund fund = fundDAO.readByName(form.getFundName());
             if (fund != null) {
-                errors.add(fund.getName() + "["+fund.getSymbol()+"] already exists!");
+                errors.add("Fund Name " + "["+fund.getName()+"] already exists!");
                 return "emp-create-fund.jsp";
             }
+            
+            fund = fundDAO.readBySymbol(form.getFundSymbol());
+            if (fund != null) {
+                errors.add("Fund Symbol " + "["+fund.getSymbol()+"] already exists!");
+                return "emp-create-fund.jsp";
+            }
+            
+            
             
 			// Attach (this copy of) the user bean to the session
             fund = new Fund();

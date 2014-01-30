@@ -113,30 +113,17 @@
 		                       <%}
 		                    	%>
 		                    	<tr>
+		                    		<td colspan="5" align="right">
+			                    	<div class="btn-group">
+	                            		<button type="submit" name="transbutton" class="btn btn-default btn-lg" value="Submit">Submit</button>
+	                        		</div>
+	                        		</td>
+                        		</tr>
+<!-- 		                    <tr>
                         			<td colspan="5" align="center"><input type="submit" name="transbutton" value="Submit"/></td>
-                    			</tr>
+                    			</tr> -->
 		                      </tbody>
 		                      </table>	                            
-	                            
-	                                <%-- <c:forEach var="fund" items="${prices}" varStatus="Status">
-	                                	<tr>
-	                                		<td>${fund.fund_id}</td>
-	                                		<td>${names[Status.index]}</td>
-	                                		<td>${symbols[Status.index]}</td>
-	                                		<td>
-	                                		<c:choose>
-	                                		<c:when test="${fund.price > 0}">
-	                                			${fund.price / 100.0}
-	                                		</c:when>
-	                               			<c:otherwise>
-	                               				Not initialized
-	                               			</c:otherwise>
-	                               			</c:choose>
-	                                		</td>
-	                                		<td><input type="text" name="price_${fund.fund_id}"/></td>
-	                                	</tr>
-	                                </c:forEach> --%>
-
                         </form>
                     </div>           
                 </div>

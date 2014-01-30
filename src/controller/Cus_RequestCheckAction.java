@@ -74,7 +74,7 @@ public class Cus_RequestCheckAction extends Action {
 
             transDAO.createAutoIncrement(transaction);
       
-            DecimalFormat nf = new DecimalFormat("#,##0.00");
+            DecimalFormat nf = new DecimalFormat("###,###,###,###,##0.00");
             nf.setMaximumFractionDigits(2);
            	nf.setMinimumFractionDigits(2);
        

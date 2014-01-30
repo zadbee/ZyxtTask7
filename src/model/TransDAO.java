@@ -120,6 +120,7 @@ public class TransDAO extends GenericDAO<Transaction> {
 			newDate.setDate(form.date);
 			dateDAO.createAutoIncrement(newDate);
 			org.genericdao.Transaction.commit();
+			System.out.println("New transition day: " + form.date);
 		} catch (RollbackException e) {
 			if (org.genericdao.Transaction.isActive())
 				org.genericdao.Transaction.rollback();

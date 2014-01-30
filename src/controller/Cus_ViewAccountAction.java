@@ -39,7 +39,7 @@ public class Cus_ViewAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
-		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");   
+		    Customer customer = (Customer) request.getSession(true).getAttribute("customer");   
 		    
             if(customer == null) {
                 return "cus-login.jsp";
@@ -48,6 +48,7 @@ public class Cus_ViewAccountAction extends Action {
             customer = customerDAO.readByName(customer.getUsername());
             Date lastDate = transactionDAO.lastTradingDay(customer.getCustomer_id());
             request.setAttribute("lastDate",lastDate);
+            request.getSession(true).setAttribute("customer", customer);
           
             
             Position[] pos =  positionDAO.readByCustomerID(customer.getCustomer_id());         
