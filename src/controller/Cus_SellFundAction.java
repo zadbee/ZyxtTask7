@@ -113,17 +113,11 @@ public class Cus_SellFundAction extends Action{
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
 
-            request.setAttribute("message", 
-					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
+            request.setAttribute("message", "You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             
 	        return "cus-success.jsp";
 
-		}catch (NullPointerException e) {
-			e.printStackTrace();
-	      	errors.add(e.toString());
-	      	return "cus-sell-fund.jsp";
-	    }
-		catch (Exception e) {
+	    }catch (Exception e) {
       	errors.add(e.toString());
       	return "cus-sell-fund.jsp";
       }
