@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,8 +113,11 @@ public class Cus_SellFundAction extends Action{
             trans.setStatus("PENDING");
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
+            DecimalFormat nf = new DecimalFormat("#,##0.000");
+            nf.setMaximumFractionDigits(2);
+           	nf.setMinimumFractionDigits(2);
 
-            request.setAttribute("message", "You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
+            request.setAttribute("message", "You have successfully sold " + nf.format(shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             
 	        return "cus-success.jsp";
 
