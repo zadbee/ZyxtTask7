@@ -73,6 +73,7 @@ public class Cus_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("customer", cus);
 	        session.setAttribute("identity", new String("customer"));
+	        System.out.println("The customer -- "+cus.getUsername()+"-- logged in\n");
 	        return "cus_viewAccount.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

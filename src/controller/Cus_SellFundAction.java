@@ -59,25 +59,20 @@ public class Cus_SellFundAction extends Action{
 				request.setAttribute("pos", lpos);
             }        
             
-            System.out.println("1");
 			
             //Get value from input
 	        Cus_SellFundForm form = formBeanFactory.create(request);
 	        request.setAttribute("form", form);
-	        System.out.println("2");
 	        
             if (!form.isPresent())
             	return "cus-sell-fund.jsp";
             
-            System.out.println("3");
             errors.addAll(form.getValidationErrors());
-            System.out.println("4");
             if (errors.size() > 0){
             	 
             	return "cus-sell-fund.jsp";
             }
             String symbol = form.getFundSymbol();  
-            System.out.println("5");
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
             	errors.add("Fund symbol " + symbol + " does not exist.");
@@ -112,7 +107,9 @@ public class Cus_SellFundAction extends Action{
             trans.setStatus("PENDING");
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
-
+            
+            System.out.println("The customer =>"+customer.getUsername()+" just sold the fund=> "+fund.getName());
+            
             request.setAttribute("message", 
 					"You have successfully sold " + (shares / 1000.0) + " shares of fund " + fund.getName() + ".");
             

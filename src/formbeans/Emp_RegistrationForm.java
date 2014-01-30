@@ -24,7 +24,6 @@ public class Emp_RegistrationForm extends FormBean{
 	
 	// Check whether the form is valid. Returns an arraylist of error strings if the form is not valid. 
 	public ArrayList<String> getValidationErrors() {
-		System.out.println("********************** validation");
         ArrayList<String> errors = new ArrayList<String>();
         if (firstname == null || firstname.length() == 0) errors.add("First Name is required");
         if (lastname == null || lastname.length() == 0) errors.add("Last Name is required");

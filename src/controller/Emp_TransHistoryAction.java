@@ -46,7 +46,7 @@ public class Emp_TransHistoryAction extends Action{
 
             if (button != null)
             	customer = customerDAO.read(Integer.parseInt(button));
-            System.out.println(customer.getCustomer_id());
+//            System.out.println(customer.getCustomer_id());
 
             
             Transaction[] trans = transactionDAO.match(MatchArg.equals("customer_id", customer.getCustomer_id()));

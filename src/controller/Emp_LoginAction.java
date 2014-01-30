@@ -73,7 +73,7 @@ public class Emp_LoginAction extends Action {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("employee", emp);
 	        session.setAttribute("identity", new String("employee"));
-
+	        System.out.println("The user --"+emp.getUsername()+" logged in\n");
 	        return "emp-customerlist.do";
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());

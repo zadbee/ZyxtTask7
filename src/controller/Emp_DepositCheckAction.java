@@ -65,7 +65,8 @@ public class Emp_DepositCheckAction extends Action {
                 request.getSession().setAttribute("customer", customer);
             	request.setAttribute("cash", customer.getCash());
                 
-                
+                System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
+            	
                 request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
     			return "emp-success.jsp";
             }
@@ -73,7 +74,6 @@ public class Emp_DepositCheckAction extends Action {
             if (button != null){
             	customer = customerDAO.read(Integer.parseInt(button));
             	request.setAttribute("customer", customer);
-            	System.out.println(customer.toString());
             	return "emp-deposit-check.jsp";
             }
             request.setAttribute("form",form);
