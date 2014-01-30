@@ -41,7 +41,7 @@
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.do">Home</a></li>
                     <li class="active">Customer List</li>
-                    <li class="active">Customer Account Details</li>
+                    <li class="active">Account Details</li>
                 </ol>
                 
                 <jsp:include page="error-list.jsp"/>
@@ -76,15 +76,23 @@
 							</table> 
 							
 							<form method="post" action="emp_resetPwd.do">
-							<div class="col-md-4">
-							<button type="submit" class="btn btn-default btn-lg" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button></form>
-							</div>
+								<div class="col-md-4">
+									<input type="hidden" name="cusid" value="${customer.customer_id}"/>
+									<button type="submit" class="btn btn-default btn-lg" name="reset-pwd" value="${customer.customer_id}" >Reset Password</button>
+								</div>
+							</form>						
 							<form method="post" action="emp_depositCheck.do">
-							<div class="col-md-4">
-							<button type="submit" class="btn btn-default btn-lg" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button></form>
-							</div>
+								<div class="col-md-4">
+									<input type="hidden" name="cusid" value="${customer.customer_id}"/>
+									<button type="submit" class="btn btn-default btn-lg" name="deposit-check" value="${customer.customer_id}" >Deposit Check</button>
+								</div>
+							</form>
 							<form method="post" action="emp_transHistory.do">
-							<button type="submit" class="btn btn-default btn-lg"" name="transhistory" value="${customer.customer_id}" >Transaction History</button></form>
+								<div class="col-md-4">
+									<input type="hidden" name="cusid" value="${customer.customer_id}"/>
+									<button type="submit" class="btn btn-default btn-lg" name="transhistory" value="${customer.customer_id}" >Transaction History</button>
+								</div>
+							</form>
                     </div>
 					
 					<div class="col-md-12">

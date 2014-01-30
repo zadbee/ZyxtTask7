@@ -12,6 +12,7 @@ import databeans.Customer;
 import databeans.Employee;
 import databeans.Transaction;
 import formbeans.Emp_DepositCheckForm;
+import formbeans.Emp_ResetPwdForm;
 import model.Model;
 import model.CustomerDAO;
 import model.TransDAO;
@@ -37,63 +38,60 @@ public class Emp_DepositCheckAction extends Action {
         
         try {
         	Customer customer = null;
-        	Emp_DepositCheckForm form = formBeanFactory.create(request);
+			Emp_DepositCheckForm form = formBeanFactory.create(request);
 		    Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+		    
             if(employee == null) {
                 return "emp-login.do";
             }
-            String button = request.getParameter("deposit-check");
-            String thisButton = request.getParameter("button");
 
-            if (thisButton != null){
-
-            	customer = customerDAO.read(Integer.parseInt(thisButton));
-            	amount = AmountCheck.checkValueString(form.getDeposit());
-            	if (amount < 0) {
-            		errors.add(AmountCheck.getErrorByCode(form.getDeposit(), amount));
-            		return "emp-deposit-check.jsp";
-            	}
-   			 
-                Transaction transaction = new Transaction();
-                transaction.setAmount(amount);
-                transaction.setCustomer_id(customer.getCustomer_id());
-                transaction.setExecute_date(null);
-                transaction.setTransaction_type("DEPOSIT");
-                transaction.setStatus("PENDING");
-                transDAO.createAutoIncrement(transaction);
-
-                request.getSession().setAttribute("customer", customer);
-            	request.setAttribute("cash", customer.getCash());
-                
-                System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
-            	
-                request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
-    			return "emp-success.jsp";
-            }
-            
-            if (button != null){
-            	customer = customerDAO.read(Integer.parseInt(button));
+            String id = request.getParameter("cusid");
+            if (id != null) {
+            	customer = customerDAO.read(Integer.parseInt(id));
             	request.setAttribute("customer", customer);
+            } else {
+            	errors.add("The customer does not exist.");
             	return "emp-deposit-check.jsp";
             }
-            request.setAttribute("form",form);
-
+            
+            customer = customerDAO.read(Integer.parseInt(id));
+            if (customer == null) {
+            	errors.add("The customer does not exist.");
+            	return "emp-deposit-check.jsp";
+            }
             
             if (!form.isPresent()) {
-                return "emp-deposit-check.jsp";
-            }
+				return "emp-deposit-check.jsp";
+			}
             
             // Any validation errors?
-            errors.addAll(form.getValidationErrors());
-            if (errors.size() != 0) {
-                return "emp-deposit-check.jsp";
-            }
+         	errors.addAll(form.getValidationErrors());
+         	if (errors.size() != 0) {
+         		return "emp-deposit-check.jsp";
+         	}      	
+         	
+         	org.genericdao.Transaction.begin();
+            customer = customerDAO.read(Integer.parseInt(id));
+            amount = AmountCheck.checkValueString(form.getDeposit());
+            Transaction transaction = new Transaction();
+            transaction.setAmount(amount);
+            transaction.setCustomer_id(customer.getCustomer_id());
+            transaction.setExecute_date(null);
+            transaction.setTransaction_type("DEPOSIT");
+            transaction.setStatus("PENDING");
+            transDAO.createAutoIncrement(transaction);
+            org.genericdao.Transaction.commit();
             
+            System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
+
+            request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
+    		return "emp-success.jsp";  
         } catch (Exception e) {
+        	if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
             errors.add(e.getMessage());
             e.printStackTrace();
-            return "error.jsp";
+            return "emp-deposit-check.jsp";
         }
-		return null; 
     }
 }

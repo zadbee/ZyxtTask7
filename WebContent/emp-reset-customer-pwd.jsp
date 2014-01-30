@@ -43,8 +43,11 @@ if(customer ==null) {
             <div class="page-content inset">
                 <ol class="breadcrumb">
                     <li><a href="emp-customerlist.do">Home</a></li>
+                    <li class="active">Customer List</li>
+                    <li class="active">Account Details</li>
                     <li class="active">Reset Customer Password</li>
                 </ol>
+                <jsp:include page="error-list.jsp"/>
                 <form method="post" action="emp_resetPwd.do">
                 <div class="row">
                     <div class="col-md-12">
@@ -53,28 +56,26 @@ if(customer ==null) {
 					<div class="col-md-5">
                         <div class="input-group">
                             <span class="input-group-addon">New</span>
-                            <input type="text" name="userName" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
+                            <input type="text" name="password" class="form-control" placeholder="" value="<%--=customer.getUsername--%>">
                         </div>
                     </div>
 					<div class="col-md-12">
                         <p class="lead"> </p>
                     </div>
                     <div class="col-md-4">
+                    	<input type="hidden" name="cusid" value="${customer.customer_id}"/>
                         <div class="btn-group">
-                            <button type="submit" name="button" class="btn btn-default" value="${customer.customer_id}">Reset Password</button>
+                            <button type="submit" name="button" class="btn btn-default" value="${cus.customer_id}">Reset Password</button>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <p class="lead"></p>
                     </div>
                 </div>
-				</form>
-
-        
+				</form>      
 <%
 }
 %>
-
 				<jsp:include page="template-footer.jsp" />
             </div>
         </div>
