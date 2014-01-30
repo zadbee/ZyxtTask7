@@ -57,17 +57,14 @@ public class Emp_RegistrationAction extends Action {
 	        newEmployee.setPassword(form.getPassword());
 	        
 	        employeeDAO.create(newEmployee);
-//	        return "emp-create-fund.jsp";
 
 	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
-        	System.out.println("_____________exception is here");
         	errors.add(e.getMessage());
         	System.out.println(e.getMessage());
         	return "emp-registration.jsp";
         } catch (RollbackException e) {
-        	System.out.println("_____________exception is here");
         	errors.add("Username already exists");
         	System.out.println(e.getMessage());
         	request.setAttribute("errors", errors);

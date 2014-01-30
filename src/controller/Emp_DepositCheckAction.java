@@ -44,7 +44,7 @@ public class Emp_DepositCheckAction extends Action {
             if(employee == null) {
                 return "emp-login.do";
             }
-            
+
             String id = request.getParameter("cusid");
             if (id != null) {
             	customer = customerDAO.read(Integer.parseInt(id));
@@ -81,10 +81,14 @@ public class Emp_DepositCheckAction extends Action {
             transaction.setStatus("PENDING");
             transDAO.createAutoIncrement(transaction);
             org.genericdao.Transaction.commit();
-              
+            
+            System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
+
             request.setAttribute("message","$" + transaction.getAmount() / 100.0 +" deposit requested for " + customer.getFirstname() + ".");
     		return "emp-success.jsp";  
         } catch (Exception e) {
+        	if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
             errors.add(e.getMessage());
             e.printStackTrace();
             return "emp-deposit-check.jsp";

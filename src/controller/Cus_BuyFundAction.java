@@ -72,16 +72,17 @@ public class Cus_BuyFundAction extends Action {
 				return "cus-buy-fund.jsp";
 			}
 			
+			System.out.print("1");
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0)
 				return "cus-buy-fund.jsp";				
-
+			System.out.print("2");
 			long amount = AmountCheck.checkValueString(form.getAmount());
             if(amount > available){
             	errors.add("You don't have enough money!");
             	return "cus-buy-fund.jsp";
             }
-      		
+            System.out.print("3");
             String symbol = form.getFundSymbol();
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
@@ -107,6 +108,7 @@ public class Cus_BuyFundAction extends Action {
 			DecimalFormat nf = new DecimalFormat("#,##0.00");
             nf.setMaximumFractionDigits(2);
            	nf.setMinimumFractionDigits(2);
+           	System.out.println("The user=>"+customer.getUsername()+" just bought the fund=>"+fund.getName()+"\n");
 			request.setAttribute("message", 
 					"You have successfully bought $" + nf.format(amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";

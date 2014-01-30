@@ -48,7 +48,6 @@ public class Emp_CreateFundAction extends Action {
                 return "emp-create-fund.jsp";
             }
             
-            System.out.println("Fund creating...");
             
             // Create new fund
             Fund fund = fundDAO.readByName(form.getFundName());
@@ -61,9 +60,8 @@ public class Emp_CreateFundAction extends Action {
             fund = new Fund();
             fund.setName(form.getFundName());
             fund.setSymbol(form.getFundSymbol());
-            System.out.println("Fund creating...");
             fundDAO.createAutoIncrement(fund);
-            System.out.println("Fund created.");
+            System.out.println("The employee =>"+employee.getUsername()+" created the fund =>"+form.getFundName()+"\n");
 			
             request.setAttribute("fund", fund);
             request.setAttribute("message","Fund " + form.getFundName() + "[" + form.getFundSymbol() + "] has been created.");
