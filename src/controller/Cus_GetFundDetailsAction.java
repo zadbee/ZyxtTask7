@@ -49,6 +49,8 @@ public class Cus_GetFundDetailsAction extends Action{
 			
 			return "cus-get-fund-details.jsp";			
 		}catch(Exception e){
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
 			errors.add(e.toString());
 			return "cus-get-fund-details.jsp";
 		}

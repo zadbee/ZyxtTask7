@@ -72,14 +72,17 @@ public class Emp_ResetPwdAction extends Action{
             customer = customerDAO.read(Integer.parseInt(id));
             customer.setPassword(form.getPassword());
             customerDAO.update(customer);
-            Transaction.commit();
+            if (org.genericdao.Transaction.isActive())
+            	Transaction.commit();
             
 			request.setAttribute("message", "Password reset for user " + customer.getUsername() + ".");
 	        return "emp-success.jsp";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	e.printStackTrace();
-      	return "emp-reset-customer-pwd.jsp";
-      }
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
+			errors.add(e.toString());
+			e.printStackTrace();
+			return "emp-reset-customer-pwd.jsp";
+		}
 	}
 }

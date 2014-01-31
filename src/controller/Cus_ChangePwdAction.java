@@ -48,20 +48,15 @@ public class Cus_ChangePwdAction extends Action {
 			}
 
 			customerDAO.setPassword(customer.getCustomer_id(),form.getNewPassword());
-
-			// If no params were passed, return with no errors so that the form
-			// will be presented (we assume for the first time).			
-
-			// Any validation errors?
-			
-			
 			
 			request.setAttribute("message","Password changed for "+customer.getFirstname());
 			return "cus-success.jsp";
 	       // return "viewportfolio.do";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	return "error-list.jsp";
-      }
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
+			errors.add(e.toString());
+	      	return "error-list.jsp";
+	    }
 	}
 }

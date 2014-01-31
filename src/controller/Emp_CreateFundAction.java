@@ -49,26 +49,31 @@ public class Emp_CreateFundAction extends Action {
             }
             
             
+            org.genericdao.Transaction.begin();
             // Create new fund
             Fund fund = fundDAO.readByName(form.getFundName());
             if (fund != null) {
                 errors.add("Fund Name " + "["+fund.getName()+"] already exists!");
+                if (org.genericdao.Transaction.isActive())
+                	org.genericdao.Transaction.rollback();
                 return "emp-create-fund.jsp";
             }
             
             fund = fundDAO.readBySymbol(form.getFundSymbol());
             if (fund != null) {
                 errors.add("Fund Symbol " + "["+fund.getSymbol()+"] already exists!");
+                if (org.genericdao.Transaction.isActive())
+                	org.genericdao.Transaction.rollback();
                 return "emp-create-fund.jsp";
             }
-            
-            
             
 			// Attach (this copy of) the user bean to the session
             fund = new Fund();
             fund.setName(form.getFundName());
             fund.setSymbol(form.getFundSymbol());
             fundDAO.createAutoIncrement(fund);
+            if (org.genericdao.Transaction.isActive())
+            	org.genericdao.Transaction.commit();
             System.out.println("The employee =>"+employee.getUsername()+" created the fund =>"+form.getFundName()+"\n");
 			
             request.setAttribute("fund", fund);
@@ -78,6 +83,8 @@ public class Emp_CreateFundAction extends Action {
             errors.add(e.getMessage());
             return "emp-create-fund.jsp";
         } catch (RollbackException e) {
+        	if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
         	errors.add(e.getMessage());
             return "emp-create-fund.jsp";
 		}

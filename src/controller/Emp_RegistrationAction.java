@@ -6,16 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.GenericDAO;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.Employee;
 import formbeans.Emp_RegistrationForm;
+import model.EmployeeDAO;
 import model.Model;
 
 public class Emp_RegistrationAction extends Action {
 	private FormBeanFactory<Emp_RegistrationForm> formBeanFactory = FormBeanFactory.getInstance(Emp_RegistrationForm.class);
-	private GenericDAO<Employee> employeeDAO;
+	private EmployeeDAO employeeDAO;
 	
 	public Emp_RegistrationAction(Model model){
 		employeeDAO = model.getEmployeeDAO();
@@ -56,7 +58,16 @@ public class Emp_RegistrationAction extends Action {
 	        newEmployee.setUsername(form.getUsername());
 	        newEmployee.setPassword(form.getPassword());
 	        
+	        Transaction.begin();
+	        if (employeeDAO.readByName(form.getUsername()) != null) {
+	        	errors.add("Username already exists!");
+	        	if (org.genericdao.Transaction.isActive())
+	        		Transaction.rollback();
+	        	return "emp-registration.jsp";
+	        }
 	        employeeDAO.create(newEmployee);
+	        if (org.genericdao.Transaction.isActive())
+	        	Transaction.commit();
 
 	        request.setAttribute("message","Employee "+ newEmployee.getUsername() + " is created.");
 			return "emp-success.jsp";
@@ -65,9 +76,9 @@ public class Emp_RegistrationAction extends Action {
         	System.out.println(e.getMessage());
         	return "emp-registration.jsp";
         } catch (RollbackException e) {
-        	errors.add("Username already exists");
+        	if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
         	System.out.println(e.getMessage());
-        	request.setAttribute("errors", errors);
         	return "emp-registration.jsp";
         }
 	}

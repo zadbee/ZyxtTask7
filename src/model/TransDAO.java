@@ -102,7 +102,9 @@ public class TransDAO extends GenericDAO<Transaction> {
 	public List<String> transitionDay(Emp_TransitionDayForm form) {
 		ArrayList<String> errors = new ArrayList<String>();
 		try {
-			org.genericdao.Transaction.begin();
+			boolean inTransaction = org.genericdao.Transaction.isActive();
+        	org.genericdao.Transaction.begin();
+        	
 			Date lastDate = dateDAO.getLastTransitionDay();
 			if (lastDate != null && lastDate.after(form.date)) {
 				errors.add("New transition date should be after last transition date.");
@@ -119,7 +121,8 @@ public class TransDAO extends GenericDAO<Transaction> {
 			TransitionDate newDate = new TransitionDate();
 			newDate.setDate(form.date);
 			dateDAO.createAutoIncrement(newDate);
-			org.genericdao.Transaction.commit();
+			if (!inTransaction)
+				org.genericdao.Transaction.commit();
 			System.out.println("New transition day: " + form.date);
 		} catch (RollbackException e) {
 			if (org.genericdao.Transaction.isActive())

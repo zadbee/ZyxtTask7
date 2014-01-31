@@ -80,7 +80,8 @@ public class Emp_DepositCheckAction extends Action {
             transaction.setTransaction_type("DEPOSIT");
             transaction.setStatus("PENDING");
             transDAO.createAutoIncrement(transaction);
-            org.genericdao.Transaction.commit();
+            if (org.genericdao.Transaction.isActive())
+            	org.genericdao.Transaction.commit();
             
             System.out.println("The employee =>"+employee.getUsername()+" just deposited a check of =>$"+amount/100+" for customer =>"+customer.getUsername()+"\n");
 

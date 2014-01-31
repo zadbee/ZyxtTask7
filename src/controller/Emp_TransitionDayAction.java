@@ -83,6 +83,8 @@ public class Emp_TransitionDayAction extends Action {
 			lastday = dateDAO.getLastTransitionDay();
 			request.setAttribute("lastday", lastday);
 		} catch (RollbackException e) {
+			if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
 			errors.add(e.getMessage());
 		}		
 		return "emp-transitionday.jsp";

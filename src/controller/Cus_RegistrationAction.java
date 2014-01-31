@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -51,11 +52,6 @@ public class Cus_RegistrationAction extends Action {
 	        if (errors.size() != 0) {
 	            return "cus-registration.jsp";
 	        }
-	        
-	        if(customerDAO.readByName(form.getUsername()) !=null){
-	        	errors.add("Username exists!");
-	        	return "cus-registration.jsp";
-	        }
         
 	        Customer customer = new Customer();
 	        customer.setFirstname(form.getFirstname());
@@ -69,7 +65,17 @@ public class Cus_RegistrationAction extends Action {
 	        customer.setCash(AmountCheck.checkValueString(form.getCash()));
 	        customer.setZip(AmountCheck.checkZip(form.getZip()));
 	        
+	        Transaction.begin();
+	        if(customerDAO.readByName(form.getUsername()) !=null){
+	        	errors.add("Username already exists!");
+	        	if (Transaction.isActive())
+	        		Transaction.rollback();
+	        	return "cus-registration.jsp";
+	        }
 	        customerDAO.createAutoIncrement(customer);
+	        if (Transaction.isActive())
+	        	Transaction.commit();
+	        
 	        request.setAttribute("message","Customer "+ customer.getUsername() + " is created.");
 			return "emp-success.jsp";
         } catch (FormBeanException e) {
@@ -77,6 +83,8 @@ public class Cus_RegistrationAction extends Action {
         	return "error.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
+        	if (Transaction.isActive())
+        		Transaction.rollback();
         	return "error.jsp";
         }
 	}

@@ -52,19 +52,18 @@ public class Cus_RequestCheckAction extends Action {
             }
             
             long withdrawAmount = AmountCheck.checkValueString(form.getWithdraw());
-
+            
+            org.genericdao.Transaction.begin();
+            customer = customerDAO.readByName(customer.getUsername());
             if (withdrawAmount > customer.getCash()) {
+            	if (org.genericdao.Transaction.isActive())
+            		org.genericdao.Transaction.rollback();
                 errors.add("Withdraw amount cannot be greater than your current balance!");
                 return "cus-request-check.jsp";
             }
             
 			customerDAO.setCash(customer.getCustomer_id(),customer.getCash()-withdrawAmount);
-	        customer = customerDAO.readByName(customer.getUsername());
-			request.getSession().setAttribute("customer", customer);
 			             
-            
-            // Any validation errors?
-           
             Transaction transaction = new Transaction();
             transaction.setAmount(withdrawAmount);
             transaction.setCustomer_id(customer.getCustomer_id());
@@ -73,6 +72,11 @@ public class Cus_RequestCheckAction extends Action {
             transaction.setStatus("PENDING");
 
             transDAO.createAutoIncrement(transaction);
+            if (org.genericdao.Transaction.isActive())
+            	org.genericdao.Transaction.commit();
+            
+            customer = customerDAO.readByName(customer.getUsername());
+			request.getSession().setAttribute("customer", customer);
       
             DecimalFormat nf = new DecimalFormat("###,###,###,###,##0.00");
             nf.setMaximumFractionDigits(2);
@@ -84,8 +88,10 @@ public class Cus_RequestCheckAction extends Action {
 			return "cus-success.jsp";
             
         } catch (Exception e) {
+        	if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
             errors.add(e.getMessage());
-            return "error-list.jsp";
+            return "cus-request-check.jsp";
         }
     }
 }
