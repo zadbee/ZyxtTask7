@@ -32,7 +32,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	
 	public void setPassword(int userid, String password) {
         try {
-        	Transaction.begin();
 			Customer dbCustomer = read(userid);
 			
 			if (dbCustomer == null) {
@@ -41,7 +40,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			
 			dbCustomer.setPassword(password);			
 			update(dbCustomer);
-			Transaction.commit();
 		} catch (RollbackException e) {
 			e.printStackTrace();
 			if (Transaction.isActive())
@@ -51,7 +49,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	
 	public void setPassword(String username, String password) {
         try {
-        	Transaction.begin();
 			Customer dbCustomer = read(username);
 			
 			if (dbCustomer == null) {
@@ -61,7 +58,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			dbCustomer.setPassword(password);
 			
 			update(dbCustomer);
-			Transaction.commit();
 		} catch (RollbackException e) {
 			e.printStackTrace();
 			if (Transaction.isActive())
@@ -71,7 +67,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	
 	public void setCash(int userid, Long cash){
         try {
-        	Transaction.begin();
 			Customer dbCustomer = read(userid);
 			
 			if (dbCustomer == null) {
@@ -81,7 +76,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
 			dbCustomer.setCash(cash);
 			
 			update(dbCustomer);
-			Transaction.commit();
 		} catch (RollbackException e) {
 			e.printStackTrace();
 			if (Transaction.isActive())

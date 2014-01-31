@@ -52,6 +52,8 @@ public class Cus_SearchFundAction extends Action{
 			
 			return "cus-search-fund.jsp";
 		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
 	      	errors.add(e.toString());
 	      	return "cus-search-fund.jsp";
 	      }

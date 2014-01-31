@@ -71,11 +71,11 @@ public class Emp_TransHistoryAction extends Action{
             request.setAttribute("funds", funds);
             
 	        return "emp-cus-trans-history.jsp";
-	  } catch (NullPointerException e) {
-	      	return "emp-cus-trans-history.jsp";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	return "emp-cus-trans-history.jsp";
-	  } 
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
+			errors.add(e.toString());
+			return "emp-cus-trans-history.jsp";
+		} 
 	}
 }

@@ -47,12 +47,15 @@ public class Cus_BuyFundAction extends Action {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");          
             if(customer == null)
                 return "cus-login.jsp";
+            customer = customerDAO.read(customer.getCustomer_id());
+            if (customer == null)
+            	return "cus-login.jsp";
+            request.setAttribute("customer", customer);
 
 		    Cus_BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
 			int customer_id = customer.getCustomer_id();
-			long available = customer.getCash();
 			
 			ArrayList<Fund> allFunds = fundDAO.getAll();
 			request.getSession().setAttribute("allFunds",allFunds);
@@ -72,25 +75,37 @@ public class Cus_BuyFundAction extends Action {
 				return "cus-buy-fund.jsp";
 			}
 			
-			System.out.print("1");
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0)
 				return "cus-buy-fund.jsp";				
-			System.out.print("2");
-			long amount = AmountCheck.checkValueString(form.getAmount());
-            if(amount > available){
-            	errors.add("You don't have enough money!");
+            
+
+			org.genericdao.Transaction.begin();
+            long amount = AmountCheck.checkValueString(form.getAmount());
+            customer = customerDAO.read(customer_id);
+            if (customer == null) {
+            	errors.add("Database operation error.");
+            	if (org.genericdao.Transaction.isActive())
+            		org.genericdao.Transaction.rollback();
             	return "cus-buy-fund.jsp";
             }
-            System.out.print("3");
+            
+            long available = customer.getCash();
+            if(amount > available){
+            	errors.add("You don't have enough money!");
+            	if (org.genericdao.Transaction.isActive())
+            		org.genericdao.Transaction.rollback();
+            	return "cus-buy-fund.jsp";
+            }
+
             String symbol = form.getFundSymbol();
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
-            	errors.add("Fund " + symbol + " does not exist.");
+            	errors.add("Fund Symbol [" + symbol + "] does not exist.");
+            	if (org.genericdao.Transaction.isActive())
+            		org.genericdao.Transaction.rollback();
             	return "cus-buy-fund.jsp";
             }
-            
-            
 			Transaction t = new Transaction();
 			
 			t.setCustomer_id(customer_id);
@@ -103,8 +118,10 @@ public class Cus_BuyFundAction extends Action {
 				
 			customer.setCash(available - amount);
 			customerDAO.update(customer);
-
-			request.getSession().setAttribute("customer",customer);
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.commit();
+			
+			request.getSession().setAttribute("customer", customer);
 			DecimalFormat nf = new DecimalFormat("#,##0.00");
             nf.setMaximumFractionDigits(2);
            	nf.setMinimumFractionDigits(2);
@@ -112,9 +129,11 @@ public class Cus_BuyFundAction extends Action {
 			request.setAttribute("message", 
 					"You have successfully bought $" + nf.format(amount / 100.0) + " of fund " + fund.getName()+ "[" + fund.getSymbol() + "].");
 	        return "cus-success.jsp";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	return "cus-buy-fund.jsp";
-      }
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
+			errors.add(e.toString());
+			return "cus-buy-fund.jsp";
+		}
 	}
 }

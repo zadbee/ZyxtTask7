@@ -79,6 +79,8 @@ public class Emp_LoginAction extends Action {
         	errors.add(e.getMessage());
         	return "emp-login.jsp";
         } catch (RollbackException e) {
+        	if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
         	errors.add(e.getMessage());
         	return "emp-login.jsp";
 		}

@@ -31,7 +31,7 @@ public class Emp_TransitionDayAction extends Action {
 	}
 
 	@Override
-	public String perform(HttpServletRequest request) {
+	public String perform(HttpServletRequest request) {		
 		ArrayList<String> errors = new ArrayList<String>();
 		request.setAttribute("errors",errors);
 		ArrayList<FundPriceHistory> prices = new ArrayList<FundPriceHistory>();
@@ -83,6 +83,8 @@ public class Emp_TransitionDayAction extends Action {
 			lastday = dateDAO.getLastTransitionDay();
 			request.setAttribute("lastday", lastday);
 		} catch (RollbackException e) {
+			if (org.genericdao.Transaction.isActive())
+        		org.genericdao.Transaction.rollback();
 			errors.add(e.getMessage());
 		}		
 		return "emp-transitionday.jsp";

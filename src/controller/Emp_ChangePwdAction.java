@@ -60,10 +60,11 @@ public class Emp_ChangePwdAction extends Action{
 			
 			request.setAttribute("message","Password changed for "+employee.getUsername());
 	        return "emp-success.jsp";
-	  } catch (Exception e) {
-      	errors.add(e.toString());
-      	//Unsure
-      	return "login.jsp";
-      }
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
+			errors.add(e.toString());
+			return "emp-change-pwd.jsp";
+		}
 	}
 }

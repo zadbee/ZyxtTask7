@@ -62,10 +62,10 @@ public class Emp_CustomerListAction extends Action {
         		request.setAttribute("customer", customers[0]);
         		return "emp-manage-customer.jsp";
         	}
-        }catch (Exception e){
-        	
+        } catch (Exception e){
+        	if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
+        	return "emp-customerlist.jsp";
         }
-		return null;
 	}
-
 }

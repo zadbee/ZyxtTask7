@@ -78,7 +78,7 @@ public class Cus_SellFundAction extends Action{
             String symbol = form.getFundSymbol();  
             Fund fund = fundDAO.readBySymbol(symbol);
             if (fund == null) {
-            	errors.add("Fund symbol " + symbol + " does not exist.");
+            	errors.add("Fund symbol [" + symbol + "] does not exist.");
             	return "cus-sell-fund.jsp";
             }
             long shares = AmountCheck.checkShareString(form.getShares());
@@ -88,9 +88,12 @@ public class Cus_SellFundAction extends Action{
             if (updatedCus == null)
             	return "cus-login.jsp";
             
+            org.genericdao.Transaction.begin();
             Position pos = positionDAO.getShares(customer.getCustomer_id(), fund.getFund_id());            
             if (pos == null || shares > pos.getShares()) {
-            	errors.add("You do not have enough share of fund " + fund.getName() + ".");
+            	errors.add("You do not have enough share of fund " + fund.getName() + ".");       	
+            	if (org.genericdao.Transaction.isActive())
+            		org.genericdao.Transaction.rollback();
             	return "cus-sell-fund.jsp";
             }
             
@@ -110,6 +113,8 @@ public class Cus_SellFundAction extends Action{
             trans.setStatus("PENDING");
             trans.setTransaction_type("SELL");
             transactionDAO.createAutoIncrement(trans);
+            if (org.genericdao.Transaction.isActive())
+            	org.genericdao.Transaction.commit();
 
             DecimalFormat nf = new DecimalFormat("###,###,###,###,##0.000");
             nf.setMaximumFractionDigits(3);

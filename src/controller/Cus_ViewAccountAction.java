@@ -72,12 +72,11 @@ public class Cus_ViewAccountAction extends Action {
             }            
 
 	        return "cus-view-account.jsp";
-	  } catch (NullPointerException e) {	      	
-	      	return "cus-view-account.jsp";
-	  }catch (Exception e) {
+		} catch (Exception e) {
+			if (org.genericdao.Transaction.isActive())
+				org.genericdao.Transaction.rollback();
 			errors.add(e.toString());
-			
 			return "cus-view-account.jsp";
-      } 
+		} 
 	}
 }
