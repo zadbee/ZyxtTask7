@@ -40,7 +40,10 @@ public class Cus_RequestCheckAction extends Action {
             Customer customer = (Customer) request.getSession().getAttribute("customer");
             if (customer == null)
             	return "cus-login.jsp";
-            
+            customer = customerDAO.read(customer.getCustomer_id());
+            if (customer == null)
+            	return "cus-login.jsp";
+            request.setAttribute("customer", customer);          
             request.setAttribute("cash", customer.getCash());
 
             if (!form.isPresent()) {

@@ -47,6 +47,10 @@ public class Cus_BuyFundAction extends Action {
 		    Customer customer = (Customer) request.getSession(false).getAttribute("customer");          
             if(customer == null)
                 return "cus-login.jsp";
+            customer = customerDAO.read(customer.getCustomer_id());
+            if (customer == null)
+            	return "cus-login.jsp";
+            request.setAttribute("customer", customer);
 
 		    Cus_BuyFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
