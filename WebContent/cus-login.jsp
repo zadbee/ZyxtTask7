@@ -63,10 +63,10 @@
             	</div>
                 <div class="col-lg-4">
                     <div class="intro-message">
-                    <jsp:include page="error-list.jsp" />
                         <form class="form-signin" role="form" method="POST" action="cus-login.do">
         				<h2 class="form-signin-heading">Customer Login</h2>
-        				<input name="username" type="text" class="form-control" placeholder="Username" required autofocus>
+        				<jsp:include page="error-list.jsp" />
+        				<input name="username" type="text" class="form-control" placeholder="Customer Username" required autofocus>
         				<input name="password" type="password" class="form-control" placeholder="Password" required>
 						<br/>
         				<button name="button" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

@@ -34,7 +34,7 @@
 	out.println("financeData = [ ");
 	if (histories!=null) {
 	    for (FundPriceHistory history : histories) {
-	        out.println("["+history.getPrice_date().getTime()+","+ history.getPrice() + "],");   
+	        out.println("["+history.getPrice_date().getTime()+","+ history.getPrice()/100.0 + "],");   
 	    }
 	}
 	out.println("];");
